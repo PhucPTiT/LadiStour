@@ -1,20 +1,21 @@
 .hero-swiper .swiper-pagination-bullet {
-  background: rgba(255, 255, 255, 0.55);
-  opacity: 1;
+    background: rgba(255, 255, 255, 0.55);
+    opacity: 1;
 }
 
 .hero-swiper .swiper-pagination-bullet-active {
-  background: #ffffff;
+    background: #ffffff;
 }
 
 .tour-detail-gallery .swiper-button-next,
 .tour-detail-gallery .swiper-button-prev {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 @media (max-width: 768px) {
-  .tour-detail-gallery .swiper-button-next,
-  .tour-detail-gallery .swiper-button-prev {
-    display: none;
-  }
+
+    .tour-detail-gallery .swiper-button-next,
+    .tour-detail-gallery .swiper-button-prev {
+        display: none;
+    }
 }

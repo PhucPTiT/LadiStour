@@ -1,72 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #151515;
-  --card: #ffffff;
-  --card-foreground: #151515;
-  --popover: #ffffff;
-  --popover-foreground: #151515;
-  --input: #d6d3d1;
-  --border: #e7e5e4;
-  --muted: #f5f5f4;
-  --muted-foreground: #57534e;
-  --primary: #0f7a5c;
-  --primary-foreground: #ffffff;
-  --ring: #14532d;
-  --soft-border: #e7e5e4;
-  --accent-gold: #be8a39;
-  --accent-green: #0f7a5c;
-  --font-sans: var(--font-manrope);
-  --font-heading: var(--font-cormorant);
+    --background: #ffffff;
+    --foreground: #151515;
+    --card: #ffffff;
+    --card-foreground: #151515;
+    --popover: #ffffff;
+    --popover-foreground: #151515;
+    --input: #d6d3d1;
+    --border: #e7e5e4;
+    --muted: #f5f5f4;
+    --muted-foreground: #57534e;
+    --primary: #0f7a5c;
+    --primary-foreground: #ffffff;
+    --ring: #14532d;
+    --soft-border: #e7e5e4;
+    --accent-gold: #be8a39;
+    --accent-green: #0f7a5c;
+    --font-sans: var(--font-manrope);
+    --font-heading: var(--font-cormorant);
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), sans-serif;
 }
 
 .font-heading {
-  font-family: var(--font-heading), serif;
-  letter-spacing: 0.01em;
+    font-family: var(--font-heading), serif;
+    letter-spacing: 0.01em;
 }
 
 .container {
-  width: min(1240px, 100%);
-  margin: 0 auto;
+    width: min(1240px, 100%);
+    margin: 0 auto;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 [data-slot="select-trigger"] {
-  background: rgba(255, 255, 255, 0.98);
-  border-color: #d6d3d1;
+    background: rgba(255, 255, 255, 0.98);
+    border-color: #d6d3d1;
 }
 
 [data-slot="select-content"] {
-  background: #ffffff;
-  border: 1px solid #e7e5e4;
-  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.15);
+    background: #ffffff;
+    border: 1px solid #e7e5e4;
+    box-shadow: 0 22px 40px rgba(15, 23, 42, 0.15);
 }
 
 .lux-shadow {
-  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.06);
 }
 
 .lux-shadow-3d {
-  box-shadow: 0 26px 44px rgba(15, 23, 42, 0.18), 0 10px 18px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 26px 44px rgba(15, 23, 42, 0.18), 0 10px 18px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }

@@ -15,26 +15,26 @@ import { blogPosts } from "@/lib/data/blog";
 import { tours } from "@/lib/data/tours";
 
 export const metadata: Metadata = {
-  title: "Luxury Travel in Southeast Asia",
-  description:
-    "Discover premium tours across Vietnam, Laos, Cambodia, and Thailand with curated itineraries and seamless concierge planning.",
+    title: "Luxury Travel in Southeast Asia",
+    description:
+        "Discover premium tours across Vietnam, Laos, Cambodia, and Thailand with curated itineraries and seamless concierge planning.",
 };
 
 export default function HomePage() {
-  return (
-    <>
-      <HomeGsapEffects />
-      <HeroSlider />
-      <QuickSearch />
-      <DestinationEditorial />
-      <TrendingTours tours={tours.slice(0, 6)} />
-      <TravelVideoSection />
-      <CompanyStorySection />
-      <CtaSection />
-      <Testimonials />
-      <SignatureExperiencesSection />
-      <PricingPackages />
-      <BlogSection posts={blogPosts.slice(0, 3)} />
-    </>
-  );
+    return (
+        <>
+            <HomeGsapEffects />
+            <HeroSlider />
+            <QuickSearch />
+            <DestinationEditorial />
+            <TrendingTours tours={tours.slice(0, 6)} />
+            <TravelVideoSection />
+            <CompanyStorySection />
+            <CtaSection />
+            <Testimonials />
+            <SignatureExperiencesSection />
+            <PricingPackages />
+            <BlogSection posts={blogPosts.slice(0, 3)} />
+        </>
+    );
 }
