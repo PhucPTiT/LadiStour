@@ -1,19 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import {
-    AtSign,
-    Camera,
-    ChevronDown,
-    Mail,
-    Menu,
-    Phone,
-    X,
-} from "lucide-react";
-import Link from "next/link";
+import { ChevronDown, Globe, Mail, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import MegaMenu from "@/components/layout/MegaMenu";
+import { Button } from "@/components/ui/button";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type NavItem = {
     label: string;
@@ -23,29 +18,29 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     {
-        label: "Destinations",
+        label: "Tour Du Lich",
         href: "/tours",
         mega: [
             {
-                title: "Southeast Asia",
+                title: "Diem Den Noi Bat",
                 items: [
                     {
-                        label: "Vietnam Journeys",
+                        label: "Tour Viet Nam",
                         href: "/tours?country=Vietnam",
                     },
-                    { label: "Laos Retreats", href: "/tours?country=Laos" },
+                    { label: "Tour Lao", href: "/tours?country=Laos" },
                     {
-                        label: "Cambodia Heritage",
+                        label: "Tour Campuchia",
                         href: "/tours?country=Cambodia",
                     },
                     {
-                        label: "Thailand Escapes",
+                        label: "Tour Thai Lan",
                         href: "/tours?country=Thailand",
                     },
                 ],
             },
             {
-                title: "Travel Styles",
+                title: "Loai Hinh Tour",
                 items: [
                     { label: "Honeymoon", href: "/tours?typology=Honeymoon" },
                     { label: "Wellness", href: "/tours?typology=Wellness" },
@@ -54,23 +49,27 @@ const navItems: NavItem[] = [
                 ],
             },
             {
-                title: "Quick Access",
+                title: "Truy Cap Nhanh",
                 items: [
-                    { label: "Trending Tours", href: "/#trending-tours" },
-                    { label: "Special Offers", href: "/#pricing-packages" },
-                    { label: "Travel Journal", href: "/blog" },
-                    { label: "Tailor-made Request", href: "/tours" },
+                    { label: "Tim Nhanh Tour", href: "/#quick-search" },
+                    {
+                        label: "Diem Den Noi Bat",
+                        href: "/#featured-destinations",
+                    },
+                    { label: "Tour Noi Bat", href: "/#featured-tours" },
+                    { label: "Kien Thuc Du Lich", href: "/#travel-blog" },
                 ],
             },
         ],
     },
-    { label: "Experiences", href: "/tours?typology=Luxury" },
-    { label: "Cruise", href: "/tours?tag=Signature" },
-    { label: "Shore Excursions", href: "/tours?typology=Family" },
-    { label: "SIC Tours", href: "/tours" },
-    { label: "Our Offers", href: "/#pricing-packages" },
-    { label: "About", href: "/about" },
+    { label: "Diem Den", href: "/#featured-destinations" },
+    { label: "Dich Vu", href: "/#service-highlights" },
+    { label: "Ve Chung Toi", href: "/#company-story" },
+    { label: "Danh Gia", href: "/#testimonials" },
+    { label: "Blog", href: "/blog" },
 ];
+
+const languages = ["vi", "en"] as const;
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -78,6 +77,18 @@ export default function Header() {
     const [openMobileSection, setOpenMobileSection] = useState<string | null>(
         null,
     );
+    const t = useTranslations("header");
+    const locale = useLocale();
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const switchLocale = (nextLocale: (typeof languages)[number]) => {
+        if (nextLocale === locale) {
+            return;
+        }
+
+        router.replace(pathname, { locale: nextLocale });
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -91,31 +102,50 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50">
-            <div className="hidden border-b border-neutral-200 bg-[#0f1720] px-4 py-2 text-sm text-neutral-200 md:block">
-                <div className="container flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        <span className="inline-flex items-center gap-2">
+            <div className="hidden border-b border-white/10 bg-[#5dc585] px-4 py-2 text-sm text-neutral-200 md:block">
+                <div className="container flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-6 text-xs lg:text-sm">
+                        <a
+                            href="tel:+842877772026"
+                            className="inline-flex items-center gap-2 hover:text-white"
+                        >
                             <Phone size={14} /> Hotline: +84 28 7777 2026
-                        </span>
-                        <span className="inline-flex items-center gap-2">
+                        </a>
+                        <a
+                            href="mailto:concierge@stour.asia"
+                            className="inline-flex items-center gap-2 hover:text-white"
+                        >
                             <Mail size={14} /> concierge@stour.asia
-                        </span>
+                        </a>
+                        <Link href="/about" className="hover:text-white">
+                            Lien he va ho tro 24/7
+                        </Link>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <Link
-                            href="#"
-                            aria-label="Social profile"
-                            className="hover:text-white"
-                        >
-                            <AtSign size={14} />
-                        </Link>
-                        <Link
-                            href="#"
-                            aria-label="Photo updates"
-                            className="hover:text-white"
-                        >
-                            <Camera size={14} />
-                        </Link>
+
+                    <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1 text-[11px] tracking-[0.14em] uppercase text-neutral-300">
+                            <Globe size={12} /> {t("language")}
+                        </span>
+                        <div className="flex rounded-full border border-white/20 p-1">
+                            {languages.map((item) => (
+                                <button
+                                    key={item}
+                                    type="button"
+                                    className={cn(
+                                        "rounded-full px-3 py-1 text-[11px] font-semibold transition-colors",
+                                        locale === item
+                                            ? "bg-white text-[#0f1720]"
+                                            : "text-neutral-300 hover:text-white",
+                                    )}
+                                    onClick={() => switchLocale(item)}
+                                    aria-label={t("switchLanguageTo", {
+                                        locale: item.toUpperCase(),
+                                    })}
+                                >
+                                    {item.toUpperCase()}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,20 +163,22 @@ export default function Header() {
                         href="/"
                         className="flex items-center gap-2 text-neutral-900"
                     >
-                        <span className="rounded-full border border-emerald-700/30 bg-emerald-700/10 px-3 py-1 text-xs font-semibold tracking-[0.2em] text-emerald-800 uppercase">
-                            ST
-                        </span>
-                        <span className="font-heading text-xl font-semibold tracking-wide">
-                            STOUR LUXE
-                        </span>
+                        <div className="relative aspect-video min-w-20">
+                            <Image
+                                src="/images/logo.png"
+                                alt="STOUR TRAVEL logo"
+                                className="object-contain"
+                                fill
+                            />
+                        </div>
                     </Link>
 
-                    <nav className="hidden items-center gap-6 lg:flex">
+                    <nav className="hidden items-center gap-5 xl:gap-6 lg:flex">
                         {navItems.map((item) => (
                             <div key={item.label} className="group relative">
                                 <Link
                                     href={item.href}
-                                    className="inline-flex items-center gap-1 text-sm font-medium text-neutral-700 transition-colors duration-300 hover:text-emerald-700"
+                                    className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:text-[#ed1925]!"
                                 >
                                     {item.label}
                                     {item.mega ? (
@@ -159,6 +191,15 @@ export default function Header() {
                             </div>
                         ))}
                     </nav>
+
+                    <div className="hidden lg:block">
+                        <Button
+                            asChild
+                            className="h-11 rounded-full bg-[#be8a39] px-6 text-sm text-white hover:bg-[#a87932]"
+                        >
+                            <Link href="/#booking-cta">{t("bookNow")}</Link>
+                        </Button>
+                    </div>
 
                     <button
                         type="button"
@@ -181,6 +222,29 @@ export default function Header() {
                         className="border-t border-neutral-200 bg-white px-4 py-4 lg:hidden"
                     >
                         <nav className="container space-y-1">
+                            <div className="mb-3 flex items-center justify-between rounded-2xl bg-neutral-100 p-3">
+                                <div className="text-xs text-neutral-500">
+                                    {t("language")}
+                                </div>
+                                <div className="flex gap-1">
+                                    {languages.map((item) => (
+                                        <button
+                                            key={item}
+                                            type="button"
+                                            onClick={() => switchLocale(item)}
+                                            className={cn(
+                                                "rounded-full px-3 py-1 text-xs font-semibold",
+                                                locale === item
+                                                    ? "bg-emerald-700 text-white"
+                                                    : "bg-white text-neutral-600",
+                                            )}
+                                        >
+                                            {item.toUpperCase()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
                             {navItems.map((item) => {
                                 const open = openMobileSection === item.label;
                                 return (
@@ -263,6 +327,32 @@ export default function Header() {
                                     </div>
                                 );
                             })}
+
+                            <div className="mt-4 grid gap-2 rounded-2xl border border-neutral-200 p-3">
+                                <a
+                                    href="tel:+842877772026"
+                                    className="inline-flex items-center gap-2 text-sm text-neutral-700"
+                                >
+                                    <Phone size={14} /> +84 28 7777 2026
+                                </a>
+                                <a
+                                    href="mailto:concierge@stour.asia"
+                                    className="inline-flex items-center gap-2 text-sm text-neutral-700"
+                                >
+                                    <Mail size={14} /> concierge@stour.asia
+                                </a>
+                                <Button
+                                    asChild
+                                    className="mt-1 h-11 rounded-full bg-emerald-700 text-white hover:bg-emerald-800"
+                                >
+                                    <Link
+                                        href="/#booking-cta"
+                                        onClick={() => setMobileOpen(false)}
+                                    >
+                                        {t("bookConsultationNow")}
+                                    </Link>
+                                </Button>
+                            </div>
                         </nav>
                     </motion.div>
                 ) : null}

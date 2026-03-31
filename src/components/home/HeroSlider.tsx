@@ -13,25 +13,31 @@ import { Button } from "@/components/ui/button";
 
 const slides = [
     {
-        title: "Curated Luxury Across Southeast Asia",
+        title: "He Mua He 2026 - Giam Den 25% Tour Dong Nam A",
         subtitle:
-            "Tailor-made journeys through Vietnam, Laos, Cambodia, and Thailand.",
+            "Dat som de giu gia tot, lich dep va uu dai xe dua don san bay mien phi cho nhom tu 4 khach.",
         image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1920&q=80",
-        href: "/tours",
+        href: "/tours?country=Vietnam",
+        label: "Khuyen mai hot",
+        cta: "Xem tour Viet Nam",
     },
     {
-        title: "Refined River and Island Escapes",
+        title: "Combo Bien Dao & Nghi Duong - Dat 3 Tra 2",
         subtitle:
-            "From emerald bays to private coastline hideaways with concierge precision.",
+            "Phu hop cap doi va gia dinh: resort 4-5 sao, lich trinh nhe nhang, da bao gom bua toi ngoai bien.",
         image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1920&q=80",
-        href: "/tours",
+        href: "/tours?typology=Honeymoon",
+        label: "Uu dai theo mua",
+        cta: "Nhan uu dai ngay",
     },
     {
-        title: "Heritage, Wellness, and Signature Experiences",
+        title: "Tour Rieng Theo Nhom - Tu Van Lo Trinh Trong 24h",
         subtitle:
-            "Elevated moments designed for travelers who value depth and comfort.",
+            "De xuat nhanh hanh trinh theo ngan sach va muc tieu chuyen di cua ban: nghi duong, gia dinh, team building.",
         image: "https://images.unsplash.com/photo-1596534766419-6f8fe5f782c1?auto=format&fit=crop&w=1920&q=80",
-        href: "/about",
+        href: "/#booking-cta",
+        label: "Dich vu thiet ke tour",
+        cta: "Dat lich tu van",
     },
 ];
 
@@ -62,16 +68,21 @@ export default function HeroSlider() {
     }, [api]);
 
     return (
-        <section className="relative" data-home-section data-home-static>
+        <section
+            className="relative"
+            id="hero-promotions"
+            data-home-section
+            data-home-static
+        >
             <Carousel
                 setApi={setApi}
                 opts={{ align: "start", loop: true }}
                 className="hero-swiper"
             >
-                <CarouselContent className="-ml-0">
+                <CarouselContent className="ml-0">
                     {slides.map((slide, index) => (
                         <CarouselItem key={slide.title} className="pl-0">
-                            <div className="relative h-[72vh] min-h-[540px] w-full">
+                            <div className="relative h-[72vh] min-h-135 w-full">
                                 <Image
                                     src={slide.image}
                                     alt={`Luxury destination showcase: ${slide.title}`}
@@ -80,11 +91,11 @@ export default function HeroSlider() {
                                     sizes="100vw"
                                     className="object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/35 to-black/10" />
+                                <div className="absolute inset-0 bg-linear-to-r from-black/55 via-black/35 to-black/10" />
                                 <div className="container relative flex h-full items-end px-4 pb-24">
                                     <div className="max-w-3xl text-white">
-                                        <p className="mb-4 text-xs font-semibold tracking-[0.22em] uppercase md:text-sm">
-                                            Luxury Travel Collection
+                                        <p className="mb-4 inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs font-semibold tracking-[0.18em] uppercase backdrop-blur md:text-sm">
+                                            {slide.label}
                                         </p>
                                         <h1 className="font-heading text-4xl leading-tight md:text-6xl">
                                             {slide.title}
@@ -97,7 +108,7 @@ export default function HeroSlider() {
                                             className="mt-8 rounded-full bg-[#be8a39] px-7 py-3 text-sm text-white hover:bg-[#a87932]"
                                         >
                                             <Link href={slide.href}>
-                                                More Info
+                                                {slide.cta}
                                             </Link>
                                         </Button>
                                     </div>

@@ -4,43 +4,42 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const experiencePillars = [
     {
         icon: Compass,
-        title: "Route Intelligence",
-        text: "Smart sequencing and transfer timing keep your itinerary smooth while preserving spacious, unhurried days.",
+        title: "Thiet Ke Lich Trinh Theo Nhu Cau",
+        text: "Tu van 1-1 de xay dung lo trinh theo ngan sach, so ngay va muc tieu chuyen di cua tung nhom khach.",
     },
     {
         icon: Gem,
-        title: "Design-Led Stays",
-        text: "We favor hotels with architectural character, elevated service culture, and a strong sense of place.",
+        title: "Combo Khach San - Di Chuyen - Trai Nghiem",
+        text: "Dong bo toan bo dich vu trong mot goi de ban de dang dat tour va kiem soat chi phi.",
     },
     {
         icon: ShieldCheck,
-        title: "Operational Confidence",
-        text: "Pre-arranged logistics, vetted partners, and active monitoring so your trip feels effortless in real time.",
+        title: "Ho Tro Van Hanh 24/7",
+        text: "Co doi ngu xu ly su co va cap nhat lich trinh theo thoi gian thuc trong suot chuyen di.",
     },
     {
         icon: Sparkles,
-        title: "Private Touches",
-        text: "From milestone dinners to curated local encounters, details are customized around your travel style.",
+        title: "Uu Dai Dinh Ky Theo Mua",
+        text: "Lien tuc cap nhat cac chuong trinh khuyen mai tour bien, tour di san va tour gia dinh theo tung thang.",
     },
 ];
 
 export default function SignatureExperiencesSection() {
     return (
-        <section className="py-24" data-home-section>
+        <section className="py-24" id="service-highlights" data-home-section>
             <div className="container px-4">
                 <div className="lux-shadow-3d rounded-[30px] border border-neutral-200/80 bg-white p-6 md:p-10">
                     <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                        Signature Approach
+                        Dich Vu Cung Cap
                     </p>
                     <h2 className="mt-3 max-w-4xl font-heading text-4xl text-neutral-900 md:text-6xl">
-                        The Craft Behind A High-End Journey
+                        Giai phap tour tron goi cho tung nhu cau
                     </h2>
                     <p className="mt-4 max-w-3xl text-sm leading-relaxed text-neutral-600 md:text-base">
-                        Premium travel is not only about luxury inventory. It is
-                        about choreography: the right moment, the right
-                        sequence, and the right local context. Our team designs
-                        each journey around these principles, delivering
-                        comfort, identity, and depth from start to finish.
+                        Chung toi khong chi ban tour. STOUR TRAVEL cung cap he
+                        thong dich vu tu tu van, dat tour, van hanh den cham soc
+                        sau chuyen di. Muc tieu la giup ban dat tour nhanh, di
+                        dung nhu ke hoach va an tam trong moi hanh trinh.
                     </p>
 
                     <div className="mt-8 grid gap-5 md:grid-cols-2">

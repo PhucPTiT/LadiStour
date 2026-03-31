@@ -1,0 +1,11 @@
+{
+    "header": {
+        "language": "Ngon ngu",
+        "bookNow": "Dat lich ngay",
+        "bookConsultationNow": "Dat lich tu van ngay",
+        "switchLanguageTo": "Chuyen ngon ngu sang {locale}"
+    },
+    "quickSearch": {
+        "searchNow": "Tim tour ngay"
+    }
+}

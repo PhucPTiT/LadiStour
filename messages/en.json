@@ -1,0 +1,11 @@
+{
+    "header": {
+        "language": "Language",
+        "bookNow": "Book now",
+        "bookConsultationNow": "Book consultation now",
+        "switchLanguageTo": "Switch language to {locale}"
+    },
+    "quickSearch": {
+        "searchNow": "Search tours now"
+    }
+}

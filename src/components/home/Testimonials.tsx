@@ -14,19 +14,19 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const testimonials = [
     {
-        name: "Amelia Carter",
+        name: "Pham Minh Anh",
         rating: 5,
-        quote: "Every detail felt deeply personal. The Halong segment and our private guide in Hanoi were exceptional.",
+        quote: "Gia dinh minh dat tour Ha Noi - Ha Long va rat hai long. Lich trinh vua suc, huong dan vien tan tam va xe dua don dung gio.",
     },
     {
-        name: "Daniel Ng",
+        name: "Tran Quoc Bao",
         rating: 5,
-        quote: "Our Laos and Thailand itinerary was elegant, balanced, and never rushed. Truly premium execution.",
+        quote: "Cong ty tu van rat nhanh, bao gia ro rang, khong phat sinh bat ngo. Chuyen di Thai Lan cua team minh rat tron ven.",
     },
     {
-        name: "Giulia Romano",
+        name: "Le Khanh Linh",
         rating: 5,
-        quote: "Beautiful hotels, seamless transfers, and warm local encounters. It felt effortless from start to finish.",
+        quote: "Minh dat tour couple va duoc ho tro toi uu lich bay, resort, lich tham quan. Cam giac duoc cham soc rat ky.",
     },
 ];
 
@@ -48,15 +48,16 @@ export default function Testimonials() {
     return (
         <section
             className="bg-[radial-gradient(circle_at_20%_10%,#f3eee4_0%,#f8f7f4_40%,#f5f5f4_100%)] py-24"
+            id="testimonials"
             data-home-section
         >
             <div className="container px-4">
                 <div className="mb-10 text-center">
                     <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                        Testimonials
+                        Danh Gia Tour & Cong Ty
                     </p>
                     <h2 className="mt-2 font-heading text-3xl text-neutral-900 md:text-5xl">
-                        Loved by Global Travelers
+                        Khach hang noi gi ve STOUR TRAVEL
                     </h2>
                 </div>
 

@@ -10,17 +10,17 @@ type TrendingToursProps = {
 export default function TrendingTours({ tours }: TrendingToursProps) {
     return (
         <section
-            id="trending-tours"
+            id="featured-tours"
             className="container px-4 py-24"
             data-home-section
         >
             <div className="mb-10 flex items-end justify-between gap-4">
                 <div>
                     <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                        Trending Tours
+                        Tour Noi Bat
                     </p>
                     <h2 className="mt-2 font-heading text-3xl text-neutral-900 md:text-5xl">
-                        Journeys Travelers Love
+                        Cac tour noi bat cua cong ty
                     </h2>
                 </div>
             </div>
