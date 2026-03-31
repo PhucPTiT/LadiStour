@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 
 const userSchema = z.object({
@@ -80,7 +86,10 @@ export default function AdminUsersPage() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="passwordHash">Password hash</Label>
-                        <Input id="passwordHash" {...register("passwordHash")} />
+                        <Input
+                            id="passwordHash"
+                            {...register("passwordHash")}
+                        />
                         {errors.passwordHash ? (
                             <p className="text-xs text-red-600">
                                 {errors.passwordHash.message}
@@ -110,9 +119,15 @@ export default function AdminUsersPage() {
                                         <SelectValue placeholder="Select role" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="admin">Admin</SelectItem>
-                                        <SelectItem value="editor">Editor</SelectItem>
-                                        <SelectItem value="viewer">Viewer</SelectItem>
+                                        <SelectItem value="admin">
+                                            Admin
+                                        </SelectItem>
+                                        <SelectItem value="editor">
+                                            Editor
+                                        </SelectItem>
+                                        <SelectItem value="viewer">
+                                            Viewer
+                                        </SelectItem>
                                     </SelectContent>
                                 </Select>
                             )}

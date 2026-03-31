@@ -22,7 +22,7 @@ const settingsSchema = z.object({
         z.object({
             platform: z.string().min(1, "Platform is required"),
             url: z.string().min(1, "URL is required"),
-        })
+        }),
     ),
     contentHTMLPageAbout: z.object({
         vi: z.string().min(1, "Vietnamese content is required"),
@@ -103,10 +103,7 @@ export default function AdminSettingsPage() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phoneNumber">Phone number</Label>
-                        <Input
-                            id="phoneNumber"
-                            {...register("phoneNumber")}
-                        />
+                        <Input id="phoneNumber" {...register("phoneNumber")} />
                         {errors.phoneNumber ? (
                             <p className="text-xs text-red-600">
                                 {errors.phoneNumber.message}
@@ -115,7 +112,11 @@ export default function AdminSettingsPage() {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="address">Address</Label>
-                        <Textarea id="address" rows={3} {...register("address")} />
+                        <Textarea
+                            id="address"
+                            rows={3}
+                            {...register("address")}
+                        />
                         {errors.address ? (
                             <p className="text-xs text-red-600">
                                 {errors.address.message}
@@ -132,7 +133,11 @@ export default function AdminSettingsPage() {
                 <CardContent className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                         <Label htmlFor="intro-vi">Intro (vi)</Label>
-                        <Textarea id="intro-vi" rows={4} {...register("intro.vi")} />
+                        <Textarea
+                            id="intro-vi"
+                            rows={4}
+                            {...register("intro.vi")}
+                        />
                         {errors.intro?.vi ? (
                             <p className="text-xs text-red-600">
                                 {errors.intro.vi.message}
@@ -141,7 +146,11 @@ export default function AdminSettingsPage() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="intro-en">Intro (en)</Label>
-                        <Textarea id="intro-en" rows={4} {...register("intro.en")} />
+                        <Textarea
+                            id="intro-en"
+                            rows={4}
+                            {...register("intro.en")}
+                        />
                         {errors.intro?.en ? (
                             <p className="text-xs text-red-600">
                                 {errors.intro.en.message}
@@ -185,12 +194,16 @@ export default function AdminSettingsPage() {
                                 <div className="space-y-2">
                                     <Label>Platform</Label>
                                     <Input
-                                        {...register(`social.${index}.platform`)}
+                                        {...register(
+                                            `social.${index}.platform`,
+                                        )}
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <Label>URL</Label>
-                                    <Input {...register(`social.${index}.url`)} />
+                                    <Input
+                                        {...register(`social.${index}.url`)}
+                                    />
                                 </div>
                             </div>
                         </div>

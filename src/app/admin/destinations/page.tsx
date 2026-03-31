@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -143,7 +149,9 @@ export default function AdminDestinationsPage() {
                         <Input id="banner" {...register("banner")} />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                        <Label htmlFor="shortDescription">Short description</Label>
+                        <Label htmlFor="shortDescription">
+                            Short description
+                        </Label>
                         <Textarea
                             id="shortDescription"
                             rows={3}
@@ -152,7 +160,11 @@ export default function AdminDestinationsPage() {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="description">Description</Label>
-                        <Textarea id="description" rows={5} {...register("description")} />
+                        <Textarea
+                            id="description"
+                            rows={5}
+                            {...register("description")}
+                        />
                         {errors.description ? (
                             <p className="text-xs text-red-600">
                                 {errors.description.message}
@@ -169,7 +181,10 @@ export default function AdminDestinationsPage() {
                 <CardContent className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                         <Label htmlFor="location-country">Country</Label>
-                        <Input id="location-country" {...register("location.country")} />
+                        <Input
+                            id="location-country"
+                            {...register("location.country")}
+                        />
                         {errors.location?.country ? (
                             <p className="text-xs text-red-600">
                                 {errors.location.country.message}
@@ -178,7 +193,10 @@ export default function AdminDestinationsPage() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="location-city">City</Label>
-                        <Input id="location-city" {...register("location.city")} />
+                        <Input
+                            id="location-city"
+                            {...register("location.city")}
+                        />
                         {errors.location?.city ? (
                             <p className="text-xs text-red-600">
                                 {errors.location.city.message}
@@ -283,7 +301,10 @@ export default function AdminDestinationsPage() {
                         <Label htmlFor="seo-keywords">
                             SEO keywords (comma separated)
                         </Label>
-                        <Input id="seo-keywords" {...register("seo.keywords")} />
+                        <Input
+                            id="seo-keywords"
+                            {...register("seo.keywords")}
+                        />
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="seo-description">SEO description</Label>

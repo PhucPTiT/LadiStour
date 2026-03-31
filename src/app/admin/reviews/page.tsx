@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -90,7 +96,9 @@ export default function AdminReviewsPage() {
                                         <SelectValue placeholder="Select type" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="tour">Tour</SelectItem>
+                                        <SelectItem value="tour">
+                                            Tour
+                                        </SelectItem>
                                         <SelectItem value="company">
                                             Company
                                         </SelectItem>
@@ -157,7 +165,11 @@ export default function AdminReviewsPage() {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="comment">Comment</Label>
-                        <Textarea id="comment" rows={4} {...register("comment")} />
+                        <Textarea
+                            id="comment"
+                            rows={4}
+                            {...register("comment")}
+                        />
                         {errors.comment ? (
                             <p className="text-xs text-red-600">
                                 {errors.comment.message}

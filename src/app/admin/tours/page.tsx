@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -32,7 +38,7 @@ const tourSchema = z.object({
             day: z.number().min(1),
             title: z.string().min(1, "Day title is required"),
             content: z.string().min(1, "Day content is required"),
-        })
+        }),
     ),
     tags: z.string().optional(),
     isFeatured: z.boolean(),
@@ -137,7 +143,10 @@ export default function AdminToursPage() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="destinationId">Destination ID</Label>
-                        <Input id="destinationId" {...register("destinationId")} />
+                        <Input
+                            id="destinationId"
+                            {...register("destinationId")}
+                        />
                         {errors.destinationId ? (
                             <p className="text-xs text-red-600">
                                 {errors.destinationId.message}
@@ -172,7 +181,9 @@ export default function AdminToursPage() {
                             id="durationDays"
                             type="number"
                             min={1}
-                            {...register("durationDays", { valueAsNumber: true })}
+                            {...register("durationDays", {
+                                valueAsNumber: true,
+                            })}
                         />
                     </div>
                     <div className="space-y-2">
@@ -226,7 +237,11 @@ export default function AdminToursPage() {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="description">Description</Label>
-                        <Textarea id="description" rows={5} {...register("description")} />
+                        <Textarea
+                            id="description"
+                            rows={5}
+                            {...register("description")}
+                        />
                         {errors.description ? (
                             <p className="text-xs text-red-600">
                                 {errors.description.message}
@@ -251,7 +266,9 @@ export default function AdminToursPage() {
                                         <SelectValue placeholder="Select status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="draft">Draft</SelectItem>
+                                        <SelectItem value="draft">
+                                            Draft
+                                        </SelectItem>
                                         <SelectItem value="published">
                                             Published
                                         </SelectItem>
@@ -293,7 +310,11 @@ export default function AdminToursPage() {
                         type="button"
                         variant="outline"
                         onClick={() =>
-                            append({ day: fields.length + 1, title: "", content: "" })
+                            append({
+                                day: fields.length + 1,
+                                title: "",
+                                content: "",
+                            })
                         }
                     >
                         Add day
@@ -332,14 +353,18 @@ export default function AdminToursPage() {
                                 <div className="space-y-2 md:col-span-2">
                                     <Label>Title</Label>
                                     <Input
-                                        {...register(`itinerary.${index}.title`)}
+                                        {...register(
+                                            `itinerary.${index}.title`,
+                                        )}
                                     />
                                 </div>
                                 <div className="space-y-2 md:col-span-3">
                                     <Label>Content</Label>
                                     <Textarea
                                         rows={3}
-                                        {...register(`itinerary.${index}.content`)}
+                                        {...register(
+                                            `itinerary.${index}.content`,
+                                        )}
                                     />
                                 </div>
                             </div>

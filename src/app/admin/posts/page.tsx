@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -151,7 +157,11 @@ export default function AdminPostsPage() {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="excerpt">Excerpt</Label>
-                        <Textarea id="excerpt" rows={3} {...register("excerpt")} />
+                        <Textarea
+                            id="excerpt"
+                            rows={3}
+                            {...register("excerpt")}
+                        />
                         {errors.excerpt ? (
                             <p className="text-xs text-red-600">
                                 {errors.excerpt.message}
@@ -189,7 +199,9 @@ export default function AdminPostsPage() {
                                         <SelectValue placeholder="Select status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="draft">Draft</SelectItem>
+                                        <SelectItem value="draft">
+                                            Draft
+                                        </SelectItem>
                                         <SelectItem value="published">
                                             Published
                                         </SelectItem>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,7 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { setAdminAuth } from "@/components/admin/auth";
+import { login } from "@/service/auth/AuthService";
+import { toast } from "sonner";
+import { ADMIN_AUTH_EVENT } from "@/components/admin/auth";
 
 const loginSchema = z.object({
     username: z.string().min(1, "Username is required"),
@@ -19,6 +22,7 @@ type LoginValues = z.infer<typeof loginSchema>;
 
 export default function AdminLoginPage() {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -31,10 +35,28 @@ export default function AdminLoginPage() {
         },
     });
 
-    const onSubmit = (values: LoginValues) => {
-        console.log("ADMIN_LOGIN", values);
-        setAdminAuth(true);
-        router.replace("/admin");
+    const onSubmit = async (values: LoginValues) => {
+        setIsLoading(true);
+        try {
+            const response = await login(values.username, values.password);
+
+            toast.success(`Welcome back, ${response.fullName}!`);
+
+            if (typeof window !== "undefined") {
+                window.dispatchEvent(new Event(ADMIN_AUTH_EVENT));
+            }
+
+            router.replace("/admin");
+        } catch (error) {
+            console.error("Login error:", error);
+            const errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "Login failed. Please try again.";
+            toast.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -48,7 +70,7 @@ export default function AdminLoginPage() {
                         Admin Login
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-6">
                     <form
                         className="space-y-4"
                         onSubmit={handleSubmit(onSubmit)}
@@ -58,6 +80,7 @@ export default function AdminLoginPage() {
                             <Input
                                 id="username"
                                 placeholder="admin"
+                                disabled={isLoading}
                                 {...register("username")}
                             />
                             {errors.username ? (
@@ -72,6 +95,7 @@ export default function AdminLoginPage() {
                                 id="password"
                                 type="password"
                                 placeholder="••••••••"
+                                disabled={isLoading}
                                 {...register("password")}
                             />
                             {errors.password ? (
@@ -80,8 +104,12 @@ export default function AdminLoginPage() {
                                 </p>
                             ) : null}
                         </div>
-                        <Button type="submit" className="w-full">
-                            Sign in
+                        <Button
+                            type="submit"
+                            className="w-full"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Signing in..." : "Sign in"}
                         </Button>
                     </form>
                 </CardContent>

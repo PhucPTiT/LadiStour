@@ -1,25 +1,46 @@
-export const ADMIN_AUTH_KEY = "stour_admin_auth";
+import { getCookie, clearCookie } from "@/config/base-service";
+
 export const ADMIN_AUTH_EVENT = "admin-auth-change";
 
+/**
+ * Get admin authentication status by checking for valid token
+ */
 export function getAdminAuth(): boolean {
     if (typeof window === "undefined") {
         return false;
     }
 
-    return window.localStorage.getItem(ADMIN_AUTH_KEY) === "true";
+    const token = getCookie("token");
+    const isAuthed = !!token;
+
+    if (process.env.NODE_ENV === "development") {
+        console.log("[getAdminAuth] token:", token ? "exists" : "null", "isAuthed:", isAuthed);
+    }
+
+    return isAuthed;
 }
 
-export function setAdminAuth(value: boolean) {
+/**
+ * Clear admin authentication (remove token)
+ * This is typically called on logout
+ */
+export function clearAdminAuth(): void {
     if (typeof window === "undefined") {
         return;
     }
 
-    if (value) {
-        window.localStorage.setItem(ADMIN_AUTH_KEY, "true");
-        window.dispatchEvent(new Event(ADMIN_AUTH_EVENT));
-        return;
-    }
-
-    window.localStorage.removeItem(ADMIN_AUTH_KEY);
+    clearCookie("token");
     window.dispatchEvent(new Event(ADMIN_AUTH_EVENT));
 }
+
+/**
+ * Get the authentication token from cookies
+ */
+export function getAuthToken(): string | undefined {
+    if (typeof window === "undefined") {
+        return undefined;
+    }
+
+    return getCookie("token");
+}
+
