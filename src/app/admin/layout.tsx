@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="dark"
-                    enableSystem="false"
+                    enableSystem={false}
                     disableTransitionOnChange
                 >
                     {isLoading ? (

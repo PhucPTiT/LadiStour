@@ -5,8 +5,6 @@ import { Loader2, Trash2, Pencil, Plus } from "lucide-react";
 import {
     getAllCategories,
     deleteCategory,
-    createCategory,
-    updateCategory,
 } from "@/service/category/CategoryService";
 import { Category, CategoryList } from "@/service/category/type";
 import { Button } from "@/components/ui/button";
