@@ -64,11 +64,6 @@ const data = {
             icon: <TagIcon />,
         },
         {
-            title: "Users",
-            url: "/admin/users",
-            icon: <UsersIcon />,
-        },
-        {
             title: "Settings",
             url: "/admin/settings",
             icon: <Settings2Icon />,

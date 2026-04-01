@@ -1,192 +1,252 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
+import { Loader2, Trash2, Pencil, Plus } from "lucide-react";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+    getAllCategories,
+    deleteCategory,
+    createCategory,
+    updateCategory,
+} from "@/service/category/CategoryService";
+import { Category, CategoryList } from "@/service/category/type";
+import { Button } from "@/components/ui/button";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
+import { CategoryForm } from "@/components/admin/category/CategoryForm";
 
-const categorySchema = z.object({
-    _id: z.string().optional(),
-    locale: z.enum(["vi", "en"]),
-    translationGroupId: z.string().optional(),
-    originId: z.string().optional(),
-    isDefaultLocale: z.boolean(),
-    name: z.string().min(1, "Name is required"),
-    slug: z.string().min(1, "Slug is required"),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-});
+export default function CategoryPage() {
+    const [categories, setCategories] = useState<CategoryList>([]);
+    const [loading, setLoading] = useState(true);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState<Category | null>(
+        null,
+    );
+    const [deleteId, setDeleteId] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
-type CategoryValues = z.infer<typeof categorySchema>;
-
-const defaultValues: CategoryValues = {
-    _id: "",
-    locale: "vi",
-    translationGroupId: "",
-    originId: "",
-    isDefaultLocale: true,
-    name: "",
-    slug: "",
-    createdAt: "",
-    updatedAt: "",
-};
-
-export default function AdminCategoriesPage() {
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<CategoryValues>({
-        resolver: zodResolver(categorySchema),
-        defaultValues,
-    });
-
-    const onSubmit = (values: CategoryValues) => {
-        console.log("CATEGORIES", values);
+    const loadCategories = async () => {
+        try {
+            setLoading(true);
+            const data = await getAllCategories();
+            setCategories(data);
+        } catch (error) {
+            toast.error("Failed to load categories");
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const handleDelete = async () => {
+        if (!deleteId) return;
+
+        try {
+            setIsDeleting(true);
+            await deleteCategory(deleteId);
+            setCategories(categories.filter((cat) => cat.id !== deleteId));
+            toast.success("Category deleted successfully");
+            setDeleteId(null);
+        } catch (error) {
+            toast.error("Failed to delete category");
+            console.error(error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
+    const handleFormSubmit = async (success: boolean) => {
+        if (success) {
+            setIsFormOpen(false);
+            setEditingCategory(null);
+            loadCategories();
+        }
+    };
+
+    const handleEdit = (category: Category) => {
+        setEditingCategory(category);
+        setIsFormOpen(true);
+    };
+
+    const handleCloseForm = () => {
+        setIsFormOpen(false);
+        setEditingCategory(null);
+    };
+
+    // Sort categories by creation date (newest first)
+    const sortedCategories = [...categories].sort((a, b) => {
+        return (
+            new Date(b.createdAt).getTime() -
+            new Date(a.createdAt).getTime()
+        );
+    });
+
     return (
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    Categories
-                </p>
-                <h2 className="text-2xl font-semibold text-neutral-900">
-                    Create or edit categories
-                </h2>
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight">
+                        Categories
+                    </h1>
+                    <p className="text-gray-500 mt-1">
+                        Manage your tour categories
+                    </p>
+                </div>
+                <Button onClick={() => setIsFormOpen(true)} className="gap-2">
+                    <Plus className="w-4 h-4" />
+                    Add Category
+                </Button>
             </div>
 
-            <Card className="border-neutral-200">
+            <Card>
                 <CardHeader>
-                    <CardTitle>Category details</CardTitle>
+                    <CardTitle>Category List</CardTitle>
                 </CardHeader>
-                <CardContent className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                        <Label htmlFor="_id">ID</Label>
-                        <Input id="_id" {...register("_id")} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" {...register("name")} />
-                        {errors.name ? (
-                            <p className="text-xs text-red-600">
-                                {errors.name.message}
-                            </p>
-                        ) : null}
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="slug">Slug</Label>
-                        <Input id="slug" {...register("slug")} />
-                        {errors.slug ? (
-                            <p className="text-xs text-red-600">
-                                {errors.slug.message}
-                            </p>
-                        ) : null}
-                    </div>
-                </CardContent>
-            </Card>
-
-            <Card className="border-neutral-200">
-                <CardHeader>
-                    <CardTitle>Localization</CardTitle>
-                </CardHeader>
-                <CardContent className="grid gap-4 md:grid-cols-3">
-                    <div className="space-y-2">
-                        <Label>Locale</Label>
-                        <Controller
-                            control={control}
-                            name="locale"
-                            render={({ field }) => (
-                                <Select
-                                    value={field.value}
-                                    onValueChange={field.onChange}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select locale" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="vi">vi</SelectItem>
-                                        <SelectItem value="en">en</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            )}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="translationGroupId">
-                            Translation group ID
-                        </Label>
-                        <Input
-                            id="translationGroupId"
-                            {...register("translationGroupId")}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="originId">Origin ID</Label>
-                        <Input id="originId" {...register("originId")} />
-                    </div>
-                    <div className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2 md:col-span-3">
-                        <div>
-                            <p className="text-sm font-medium text-neutral-800">
-                                Default locale
-                            </p>
-                            <p className="text-xs text-neutral-500">
-                                Mark as the primary translation.
-                            </p>
+                <CardContent>
+                    {loading ? (
+                        <div className="flex items-center justify-center py-8">
+                            <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                         </div>
-                        <Controller
-                            control={control}
-                            name="isDefaultLocale"
-                            render={({ field }) => (
-                                <Switch
-                                    checked={field.value}
-                                    onCheckedChange={field.onChange}
-                                />
+                    ) : categories.length === 0 ? (
+                        <div className="text-center py-8 text-gray-500">
+                            No categories found. Create your first category!
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Name</TableHead>
+                                        <TableHead>Language</TableHead>
+                                        <TableHead>Created</TableHead>
+                                        <TableHead className="text-right">
+                                            Actions
+                                        </TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {sortedCategories.map((category) => (
+                                        <TableRow key={category.id}>
+                                            <TableCell className="font-medium">
+                                                {category.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Badge
+                                                    variant={
+                                                        category.locale ===
+                                                        "vi"
+                                                            ? "default"
+                                                            : "secondary"
+                                                    }
+                                                >
+                                                    {category.locale.toUpperCase()}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="text-sm">
+                                                {new Date(
+                                                    category.createdAt,
+                                                ).toLocaleDateString()}
+                                            </TableCell>
+                                            <TableCell className="text-right space-x-2">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() =>
+                                                        handleEdit(category)
+                                                    }
+                                                    className="gap-2"
+                                                >
+                                                    <Pencil className="w-4 h-4" />
+                                                    Edit
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() =>
+                                                        setDeleteId(
+                                                            category.id,
+                                                        )
+                                                    }
+                                                    className="gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
+
+            {/* Category Form Modal */}
+            {isFormOpen && (
+                <CategoryForm
+                    category={editingCategory}
+                    onSuccess={handleFormSubmit}
+                    onClose={handleCloseForm}
+                    excludeSlugField={true} // Added a prop to exclude slug field
+                />
+            )}
+
+            {/* Delete Confirmation Dialog */}
+            <AlertDialog
+                open={!!deleteId}
+                onOpenChange={(open) => !open && setDeleteId(null)}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Category</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to delete this category? This
+                            action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="flex gap-3 justify-end">
+                        <AlertDialogCancel disabled={isDeleting}>
+                            Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={handleDelete}
+                            disabled={isDeleting}
+                            className="bg-red-600 hover:bg-red-700"
+                        >
+                            {isDeleting ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                    Deleting...
+                                </>
+                            ) : (
+                                "Delete"
                             )}
-                        />
+                        </AlertDialogAction>
                     </div>
-                </CardContent>
-            </Card>
-
-            <Card className="border-neutral-200">
-                <CardHeader>
-                    <CardTitle>Timestamps</CardTitle>
-                </CardHeader>
-                <CardContent className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                        <Label htmlFor="createdAt">Created at</Label>
-                        <Input
-                            id="createdAt"
-                            type="datetime-local"
-                            {...register("createdAt")}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="updatedAt">Updated at</Label>
-                        <Input
-                            id="updatedAt"
-                            type="datetime-local"
-                            {...register("updatedAt")}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
-
-            <div className="flex justify-end">
-                <Button type="submit">Save category</Button>
-            </div>
-        </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
     );
 }

@@ -9,8 +9,6 @@ export async function getAllDestinations(): Promise<DestinationListResponse> {
     try {
         const response = await API.get<DestinationListResponse>(DESTINATIONS.GET_ALL);
 
-        console.log(response);
-
         const validatedData = validateSchema(
             response,
             DestinationListResponseSchema,

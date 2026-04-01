@@ -3,21 +3,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const sections = [
-    { href: "/admin/posts", title: "Posts", description: "Create news and blog content." },
-    { href: "/admin/reviews", title: "Reviews", description: "Approve and edit reviews." },
-    { href: "/admin/tours", title: "Tours", description: "Manage tour catalog entries." },
+    {
+        href: "/admin/posts",
+        title: "Posts",
+        description: "Create news and blog content.",
+    },
+    {
+        href: "/admin/reviews",
+        title: "Reviews",
+        description: "Approve and edit reviews.",
+    },
+    {
+        href: "/admin/tours",
+        title: "Tours",
+        description: "Manage tour catalog entries.",
+    },
     {
         href: "/admin/destinations",
         title: "Destinations",
         description: "Update destinations and highlights.",
     },
-    { href: "/admin/settings", title: "Settings", description: "Global contact and about data." },
+    {
+        href: "/admin/settings",
+        title: "Settings",
+        description: "Global contact and about data.",
+    },
     {
         href: "/admin/categories",
         title: "Categories",
         description: "Maintain blog and tour categories.",
     },
-    { href: "/admin/users", title: "Users", description: "Manage admin accounts." },
 ];
 
 export default function AdminDashboardPage() {

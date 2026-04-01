@@ -9,12 +9,12 @@ export const AUTH = {
 export const CATEGORIES = {
     CREATE: "/categories",
     CREATE_TRANSLATION: "/categories/:id/translations",
-    UPDATE: "/categories/:id",
-    DELETE: "/categories/:id",
+    UPDATE: "/categories",
+    DELETE: "/categories",
     GET_BY_ID: "/categories/:id",
     GET_BY_SLUG: "/categories/slug/:slug",
     GET_TRANSLATIONS: "/categories/translations/:translationGroupId",
-    GET_ALL: "/categories",
+    GET_ALL: "/categories/all",
 };
 
 // DESTINATIONS ENDPOINTS
@@ -37,6 +37,8 @@ export const DESTINATIONS = {
 export const TOURS = {
     CREATE: "/tours",
     CREATE_TRANSLATION: "/tours/:id/translations",
+    CREATE_MULTI_LANGUAGE: "/tours/multi-language",
+    UPDATE_MULTI_LANGUAGE: "/tours/multi-language",
     UPDATE: "/tours/:id",
     PUBLISH: "/tours/:id/publish",
     ARCHIVE: "/tours/:id/archive",
@@ -71,6 +73,7 @@ export const REVIEWS = {
     APPROVE: "/reviews/:id/approve",
     REJECT: "/reviews/:id/reject",
     DELETE: "/reviews/:id",
+    GET_ALL: "/reviews",
     GET_BY_ID: "/reviews/:id",
     GET_BY_TOUR_ID: "/reviews/tour/:tourId",
     GET_APPROVED_BY_TOUR_ID: "/reviews/tour/:tourId/approved",
