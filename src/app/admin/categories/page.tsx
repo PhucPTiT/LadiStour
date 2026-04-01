@@ -97,8 +97,7 @@ export default function CategoryPage() {
     // Sort categories by creation date (newest first)
     const sortedCategories = [...categories].sort((a, b) => {
         return (
-            new Date(b.createdAt).getTime() -
-            new Date(a.createdAt).getTime()
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
     });
 
@@ -154,8 +153,7 @@ export default function CategoryPage() {
                                             <TableCell>
                                                 <Badge
                                                     variant={
-                                                        category.locale ===
-                                                        "vi"
+                                                        category.locale === "vi"
                                                             ? "default"
                                                             : "secondary"
                                                     }
@@ -184,9 +182,7 @@ export default function CategoryPage() {
                                                     variant="ghost"
                                                     size="sm"
                                                     onClick={() =>
-                                                        setDeleteId(
-                                                            category.id,
-                                                        )
+                                                        setDeleteId(category.id)
                                                     }
                                                     className="gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                                                 >
@@ -209,7 +205,6 @@ export default function CategoryPage() {
                     category={editingCategory}
                     onSuccess={handleFormSubmit}
                     onClose={handleCloseForm}
-                    excludeSlugField={true} // Added a prop to exclude slug field
                 />
             )}
 
