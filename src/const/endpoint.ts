@@ -21,8 +21,10 @@ export const CATEGORIES = {
 export const DESTINATIONS = {
     CREATE: "/destinations",
     CREATE_TRANSLATION: "/destinations/:id/translations",
+    CREATE_MULTI_LANGUAGE: "/destinations/multi-language",
+    UPDATE_MULTI_LANGUAGE: "/destinations/multi-language",
     UPDATE: "/destinations/:id",
-    DELETE: "/destinations/:id",
+    DELETE: "/destinations",
     GET_BY_SLUG: "/destinations/slug/:slug",
     GET_TRANSLATIONS: "/destinations/translations/:translationGroupId",
     GET_ALL: "/destinations",

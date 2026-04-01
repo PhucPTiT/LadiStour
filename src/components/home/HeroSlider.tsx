@@ -88,7 +88,7 @@ export default function HeroSlider() {
                                     alt={`Luxury destination showcase: ${slide.title}`}
                                     fill
                                     priority={index === 0}
-                                    sizes="100vw"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 95vw, 100vw"
                                     className="object-cover"
                                 />
                                 <div className="absolute inset-0 bg-linear-to-r from-black/55 via-black/35 to-black/10" />

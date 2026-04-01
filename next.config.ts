@@ -10,7 +10,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "http",
+        hostname: "103.89.94.201",
+        port: "9000",
+        pathname: "/**",
+      },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "20mb", // hoặc "50mb"
+    },
   },
 };
 
