@@ -59,11 +59,13 @@ export const TOURS = {
 export const POSTS = {
     CREATE: "/posts",
     CREATE_TRANSLATION: "/posts/translations/:originId",
-    UPDATE: "/posts/:id",
+    UPDATE: "/posts",
     PUBLISH: "/posts/:id/publish",
-    DELETE: "/posts/:id",
+    DELETE: "/posts",
     GET_BY_SLUG: "/posts/slug/:slug",
     GET_TRANSLATIONS: "/posts/translations/:groupId",
+    GET_ALL: "/posts/all",
+    GET_DETAIL: "/posts/detail",
 };
 
 // REVIEWS ENDPOINTS

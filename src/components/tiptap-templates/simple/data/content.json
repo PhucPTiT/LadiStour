@@ -1,477 +1,238 @@
 {
-  "type": "doc",
-  "content": [
-    {
-      "type": "heading",
-      "attrs": {
-        "textAlign": null,
-        "level": 1
-      },
-      "content": [
+    "type": "doc",
+    "content": [
         {
-          "type": "text",
-          "text": "Getting started"
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": null
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Welcome to the "
-        },
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "italic"
+            "type": "heading",
+            "attrs": {
+                "textAlign": null,
+                "level": 1
             },
-            {
-              "type": "highlight",
-              "attrs": {
-                "color": "var(--tt-color-highlight-yellow)"
-              }
-            }
-          ],
-          "text": "Simple Editor"
-        },
-        {
-          "type": "text",
-          "text": " template! This template integrates "
-        },
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "bold"
-            }
-          ],
-          "text": "open source"
-        },
-        {
-          "type": "text",
-          "text": " UI components and Tiptap extensions licensed under "
-        },
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "bold"
-            }
-          ],
-          "text": "MIT"
-        },
-        {
-          "type": "text",
-          "text": "."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": null
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Integrate it by following the "
-        },
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "link",
-              "attrs": {
-                "href": "https://tiptap.dev/docs/ui-components/templates/simple-editor",
-                "target": "_blank",
-                "rel": "noopener noreferrer nofollow",
-                "class": null
-              }
-            }
-          ],
-          "text": "Tiptap UI Components docs"
-        },
-        {
-          "type": "text",
-          "text": " or using our CLI tool."
-        }
-      ]
-    },
-    {
-      "type": "codeBlock",
-      "attrs": {
-        "language": null
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "npx @tiptap/cli init"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "attrs": {
-        "textAlign": null,
-        "level": 2
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Features"
-        }
-      ]
-    },
-    {
-      "type": "blockquote",
-      "content": [
-        {
-          "type": "paragraph",
-          "attrs": {
-            "textAlign": null
-          },
-          "content": [
-            {
-              "type": "text",
-              "marks": [
+            "content": [
                 {
-                  "type": "italic"
+                    "type": "text",
+                    "text": "Mẫu bài viết du lịch: Hướng dẫn sử dụng Editor"
                 }
-              ],
-              "text": "A fully responsive rich text editor with built-in support for common formatting and layout tools. Type markdown "
+            ]
+        },
+        {
+            "type": "paragraph",
+            "attrs": {
+                "textAlign": null
             },
-            {
-              "type": "text",
-              "marks": [
+            "content": [
                 {
-                  "type": "code"
-                }
-              ],
-              "text": "**"
-            },
-            {
-              "type": "text",
-              "marks": [
+                    "type": "text",
+                    "text": "Đây là mẫu bài viết để bạn thử các tính năng cơ bản như "
+                },
                 {
-                  "type": "italic"
-                }
-              ],
-              "text": " or use keyboard shortcuts "
-            },
-            {
-              "type": "text",
-              "marks": [
+                    "type": "text",
+                    "marks": [
+                        {
+                            "type": "bold"
+                        }
+                    ],
+                    "text": "in đậm"
+                },
                 {
-                  "type": "code"
-                }
-              ],
-              "text": "⌘+B"
-            },
-            {
-              "type": "text",
-              "text": " for "
-            },
-            {
-              "type": "text",
-              "marks": [
+                    "type": "text",
+                    "text": ", "
+                },
                 {
-                  "type": "strike"
+                    "type": "text",
+                    "marks": [
+                        {
+                            "type": "italic"
+                        }
+                    ],
+                    "text": "in nghiêng"
+                },
+                {
+                    "type": "text",
+                    "text": ", highlight, danh sách và chèn ảnh."
                 }
-              ],
-              "text": "most"
-            },
-            {
-              "type": "text",
-              "text": " all common markdown marks. 🪄"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "left"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Add images, customize alignment, and apply "
+            ]
         },
         {
-          "type": "text",
-          "marks": [
-            {
-              "type": "highlight",
-              "attrs": {
-                "color": "var(--tt-color-highlight-blue)"
-              }
+            "type": "image",
+            "attrs": {
+                "src": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80",
+                "alt": "travel-banner",
+                "title": "Ảnh du lịch"
             }
-          ],
-          "text": "advanced formatting"
         },
         {
-          "type": "text",
-          "text": " to make your writing more engaging and professional."
-        }
-      ]
-    },
-    {
-      "type": "image",
-      "attrs": {
-        "src": "/images/tiptap-ui-placeholder-image.jpg",
-        "alt": "placeholder-image",
-        "title": "placeholder-image"
-      }
-    },
-    {
-      "type": "bulletList",
-      "content": [
-        {
-          "type": "listItem",
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": "left"
-              },
-              "content": [
+            "type": "heading",
+            "attrs": {
+                "textAlign": null,
+                "level": 2
+            },
+            "content": [
                 {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
-                  ],
-                  "text": "Superscript"
-                },
-                {
-                  "type": "text",
-                  "text": " (x"
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "superscript"
-                    }
-                  ],
-                  "text": "2"
-                },
-                {
-                  "type": "text",
-                  "text": ") and "
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
-                  ],
-                  "text": "Subscript"
-                },
-                {
-                  "type": "text",
-                  "text": " (H"
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "subscript"
-                    }
-                  ],
-                  "text": "2"
-                },
-                {
-                  "type": "text",
-                  "text": "O) for precision."
+                    "type": "text",
+                    "text": "1. Viết tiêu đề & mô tả"
                 }
-              ]
-            }
-          ]
+            ]
         },
         {
-          "type": "listItem",
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": "left"
-              },
-              "content": [
+            "type": "paragraph",
+            "attrs": {
+                "textAlign": null
+            },
+            "content": [
                 {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
-                  ],
-                  "text": "Typographic conversion"
+                    "type": "text",
+                    "text": "Bạn có thể viết một đoạn mô tả ngắn về chuyến đi. Ví dụ: "
                 },
                 {
-                  "type": "text",
-                  "text": ": automatically convert to "
+                    "type": "text",
+                    "marks": [
+                        {
+                            "type": "highlight",
+                            "attrs": {
+                                "color": "var(--tt-color-highlight-yellow)"
+                            }
+                        }
+                    ],
+                    "text": "Hà Nội 2 ngày 1 đêm"
                 },
                 {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "code"
-                    }
-                  ],
-                  "text": "->"
-                },
-                {
-                  "type": "text",
-                  "text": " an arrow "
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
-                  ],
-                  "text": "→"
-                },
-                {
-                  "type": "text",
-                  "text": "."
+                    "type": "text",
+                    "text": " dành cho người thích khám phá ẩm thực và phố cổ."
                 }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "left"
-      },
-      "content": [
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "italic"
-            }
-          ],
-          "text": "→ "
+            ]
         },
         {
-          "type": "text",
-          "marks": [
-            {
-              "type": "link",
-              "attrs": {
-                "href": "https://tiptap.dev/docs/ui-components/templates/simple-editor#features",
-                "target": "_blank",
-                "rel": "noopener noreferrer nofollow",
-                "class": null
-              }
-            }
-          ],
-          "text": "Learn more"
-        }
-      ]
-    },
-    {
-      "type": "horizontalRule"
-    },
-    {
-      "type": "heading",
-      "attrs": {
-        "textAlign": "left",
-        "level": 2
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Make it your own"
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "left"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Switch between light and dark modes, and tailor the editor's appearance with customizable CSS to match your style."
-        }
-      ]
-    },
-    {
-      "type": "taskList",
-      "content": [
-        {
-          "type": "taskItem",
-          "attrs": {
-            "checked": true
-          },
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": "left"
-              },
-              "content": [
+            "type": "heading",
+            "attrs": {
+                "textAlign": null,
+                "level": 2
+            },
+            "content": [
                 {
-                  "type": "text",
-                  "text": "Test template"
+                    "type": "text",
+                    "text": "2. Tạo danh sách lịch trình"
                 }
-              ]
-            }
-          ]
+            ]
         },
         {
-          "type": "taskItem",
-          "attrs": {
-            "checked": false
-          },
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": "left"
-              },
-              "content": [
+            "type": "bulletList",
+            "content": [
                 {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "link",
-                      "attrs": {
-                        "href": "https://tiptap.dev/docs/ui-components/templates/simple-editor",
-                        "target": "_blank",
-                        "rel": "noopener noreferrer nofollow",
-                        "class": null
-                      }
-                    }
-                  ],
-                  "text": "Integrate the free template"
+                    "type": "listItem",
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "attrs": {
+                                "textAlign": null
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Sáng: Check-in Hồ Gươm"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "listItem",
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "attrs": {
+                                "textAlign": null
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Trưa: Ăn bún chả + cà phê trứng"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "listItem",
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "attrs": {
+                                "textAlign": null
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Tối: Dạo phố cổ và chợ đêm"
+                                }
+                            ]
+                        }
+                    ]
                 }
-              ]
-            }
-          ]
+            ]
+        },
+        {
+            "type": "blockquote",
+            "content": [
+                {
+                    "type": "paragraph",
+                    "attrs": {
+                        "textAlign": null
+                    },
+                    "content": [
+                        {
+                            "type": "text",
+                            "marks": [
+                                {
+                                    "type": "italic"
+                                }
+                            ],
+                            "text": "Tip: Bạn có thể dùng blockquote để highlight mẹo du lịch hoặc kinh nghiệm cá nhân."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "paragraph",
+            "attrs": {
+                "textAlign": null
+            },
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Bạn cũng có thể chèn link tham khảo tại đây: "
+                },
+                {
+                    "type": "text",
+                    "marks": [
+                        {
+                            "type": "link",
+                            "attrs": {
+                                "href": "https://unsplash.com",
+                                "target": "_blank",
+                                "rel": "noopener noreferrer nofollow",
+                                "class": null
+                            }
+                        }
+                    ],
+                    "text": "Unsplash"
+                }
+            ]
+        },
+        {
+            "type": "horizontalRule"
+        },
+        {
+            "type": "paragraph",
+            "attrs": {
+                "textAlign": null
+            },
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Hoàn tất! Bạn có thể tiếp tục viết thêm nội dung, chèn ảnh, hoặc định dạng đoạn văn tuỳ ý."
+                }
+            ]
         }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "left"
-      }
-    }
-  ]
+    ]
 }

@@ -12,6 +12,7 @@ import {
   type Editor,
   type NodeWithPos,
 } from "@tiptap/react"
+import { uploadFileAction } from "@/app/actions/upload-image"
 
 export const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
@@ -374,17 +375,35 @@ export const handleImageUpload = async (
     )
   }
 
-  // For demo/testing: Simulate upload progress. In production, replace the following code
-  // with your own upload implementation.
-  for (let progress = 0; progress <= 100; progress += 10) {
-    if (abortSignal?.aborted) {
-      throw new Error("Upload cancelled")
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    onProgress?.({ progress })
-  }
+  try {
+    // Create FormData and upload via server action
+    const formData = new FormData()
+    formData.append("file", file)
 
-  return "/images/tiptap-ui-placeholder-image.jpg"
+    const result = await uploadFileAction(formData)
+
+    if (!result?.success || !result.fileName) {
+      throw new Error("Upload failed")
+    }
+
+    // Get the base Minio URL from environment
+    const baseMinioUrl =
+      process.env.NEXT_PUBLIC_BASE_URL_MINIO?.replace(/\/$/, "") ?? ""
+
+    const imageUrl = baseMinioUrl
+      ? `${baseMinioUrl}/${result.fileName}`
+      : result.fileName
+
+    // Report upload complete
+    onProgress?.({ progress: 100 })
+
+    return imageUrl
+  } catch (error) {
+    console.error("Upload image error:", error)
+    throw error instanceof Error
+      ? error
+      : new Error("Failed to upload image")
+  }
 }
 
 type ProtocolOptions = {

@@ -185,7 +185,12 @@ const MobileToolbarContent = ({
     </>
 );
 
-export function SimpleEditor() {
+type SimpleEditorProps = {
+    value?: string;
+    onChange?: (html: string) => void;
+};
+
+export function SimpleEditor({ value, onChange }: SimpleEditorProps) {
     const isMobile = useIsBreakpoint();
     const { height } = useWindowSize();
     const [mobileView, setMobileView] = useState<
@@ -230,7 +235,10 @@ export function SimpleEditor() {
                 onError: (error) => console.error("Upload failed:", error),
             }),
         ],
-        content,
+        content: value ?? content,
+        onUpdate({ editor: currentEditor }) {
+            onChange?.(currentEditor.getHTML());
+        },
     });
 
     const rect = useCursorVisibility({
@@ -244,8 +252,19 @@ export function SimpleEditor() {
         }
     }, [isMobile, mobileView]);
 
+    useEffect(() => {
+        if (!editor || value === undefined) return;
+
+        const currentHtml = editor.getHTML();
+        if (currentHtml !== value) {
+            editor.commands.setContent(value, {
+                emitUpdate: false,
+            });
+        }
+    }, [editor, value]);
+
     return (
-        <div className="simple-editor-wrapper">
+        <div className="simple-editor-wrapper h-full">
             <EditorContext.Provider value={{ editor }}>
                 <Toolbar
                     ref={toolbarRef}
@@ -286,3 +305,68 @@ export function SimpleEditor() {
         </div>
     );
 }
+
+export const contentTemplate = `
+<h1>Mẫu bài viết du lịch: Hướng dẫn sử dụng Editor</h1>
+
+<p>
+  Đây là mẫu bài viết để bạn thử các tính năng cơ bản như
+  <strong>in đậm</strong>, <em>in nghiêng</em>, highlight, danh sách và chèn ảnh.
+</p>
+
+<img
+  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80"
+  alt="travel-banner"
+  title="Ảnh du lịch"
+/>
+
+<h2>1. Viết tiêu đề &amp; mô tả</h2>
+
+<p>
+  Bạn có thể viết một đoạn mô tả ngắn về chuyến đi. Ví dụ:
+  <mark style="background-color: var(--tt-color-highlight-yellow);">
+    Hà Nội 2 ngày 1 đêm
+  </mark>
+  dành cho người thích khám phá ẩm thực và phố cổ.
+</p>
+
+<h2>2. Tạo danh sách lịch trình</h2>
+
+<ul>
+  <li>
+    <p>Sáng: Check-in Hồ Gươm</p>
+  </li>
+  <li>
+    <p>Trưa: Ăn bún chả + cà phê trứng</p>
+  </li>
+  <li>
+    <p>Tối: Dạo phố cổ và chợ đêm</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>
+    <em>
+      Tip: Bạn có thể dùng blockquote để highlight mẹo du lịch hoặc kinh nghiệm cá nhân.
+    </em>
+  </p>
+</blockquote>
+
+<p>
+  Bạn cũng có thể chèn link tham khảo tại đây:
+  <a
+    href="https://unsplash.com"
+    target="_blank"
+    rel="noopener noreferrer nofollow"
+  >
+    Unsplash
+  </a>
+</p>
+
+<hr />
+
+<p>
+  Hoàn tất! Bạn có thể tiếp tục viết thêm nội dung, chèn ảnh, hoặc định dạng đoạn văn tuỳ ý.
+</p>
+
+`;
