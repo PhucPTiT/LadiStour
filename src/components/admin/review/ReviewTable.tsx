@@ -46,8 +46,8 @@ export function ReviewTable({ reviews, onEdit, onDelete }: ReviewTableProps) {
     return (
         <>
             <Table className="table-fixed w-full">
-                <TableHeader className="bg-primary/20">
-                    <TableRow>
+                <TableHeader>
+                    <TableRow className="bg-primary/20">
                         <TableHead className="w-[12%]">Tác Giả</TableHead>
                         <TableHead className="w-[8%] text-center">
                             Locale
@@ -114,7 +114,7 @@ export function ReviewTable({ reviews, onEdit, onDelete }: ReviewTableProps) {
                 onOpenChange={() => setConfirmDelete(null)}
             >
                 <AlertDialogContent>
-                    <AlertDialogTitle>Xác Nhận Xóa</AlertDialogTitle>
+                    <AlertDialogTitle>Xóa Đánh Giá</AlertDialogTitle>
                     <AlertDialogDescription>
                         Bạn có chắc chắn muốn xóa review của tác giả &quot;
                         <strong>{reviewTarget?.authorName}</strong>&quot;? Hành
@@ -129,7 +129,7 @@ export function ReviewTable({ reviews, onEdit, onDelete }: ReviewTableProps) {
                             disabled={isDeleting}
                             className="bg-red-600 hover:bg-red-700 min-w-30"
                         >
-                            {isDeleting ? "Đang xóa..." : "Xóa Review"}
+                            {isDeleting ? "Đang xóa..." : "Xóa Đánh Giá"}
                         </AlertDialogAction>
                     </div>
                 </AlertDialogContent>

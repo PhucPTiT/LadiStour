@@ -27,11 +27,20 @@ import { uploadFileAction } from "@/app/actions/upload-image";
 import { Review } from "@/service/reviews/type";
 import { createReview, updateReview } from "@/service/reviews/ReviewService";
 
+const MAX_AUTHOR_NAME = 100;
+const MAX_COMMENT = 500;
+
 const reviewFormSchema = z.object({
     locale: z.enum(["vi", "en"]),
     rating: z.number().min(0).max(5),
-    comment: z.string().min(1, "Comment is required"),
-    authorName: z.string().min(1, "Author name is required"),
+    comment: z
+        .string()
+        .min(1, "Comment is required")
+        .max(MAX_COMMENT, `Tối đa ${MAX_COMMENT} ký tự`),
+    authorName: z
+        .string()
+        .min(1, "Author name is required")
+        .max(MAX_AUTHOR_NAME, `Tối đa ${MAX_AUTHOR_NAME} ký tự`),
     authorAvatar: z.string(),
 });
 
@@ -51,6 +60,18 @@ const defaultValues: ReviewFormValues = {
     authorName: "",
     authorAvatar: "",
 };
+
+function CharCount({ current, max }: { current: number; max: number }) {
+    return (
+        <p
+            className={`text-xs text-right tabular-nums ${
+                current >= max ? "text-destructive" : "text-muted-foreground"
+            }`}
+        >
+            {current}/{max}
+        </p>
+    );
+}
 
 export default function ReviewModal({
     open,
@@ -79,6 +100,8 @@ export default function ReviewModal({
     });
 
     const authorAvatar = watch("authorAvatar");
+    const commentValue = watch("comment");
+    const authorNameValue = watch("authorName");
     const [pendingFile, setPendingFile] = useState<File | null>(null);
 
     useEffect(() => {
@@ -216,7 +239,7 @@ export default function ReviewModal({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-160">
+            <DialogContent className="sm:max-w-160 flex flex-col max-h-[90vh]">
                 <DialogHeader>
                     <DialogTitle>
                         {isEditing ? "Chỉnh sửa review" : "Thêm mới review"}
@@ -227,7 +250,7 @@ export default function ReviewModal({
                 </DialogHeader>
 
                 <form
-                    className="space-y-4"
+                    className="space-y-4 overflow-y-auto flex-1 pr-1"
                     onSubmit={(event) => {
                         event.preventDefault();
                         void handleFormSubmit();
@@ -235,7 +258,7 @@ export default function ReviewModal({
                 >
                     <div className="grid gap-4 md:grid-cols-4">
                         <div className="space-y-2">
-                            <Label>Locale {requiredMark}</Label>
+                            <Label>Chọn ngôn ngữ {requiredMark}</Label>
                             <Controller
                                 control={control}
                                 name="locale"
@@ -262,7 +285,7 @@ export default function ReviewModal({
 
                         <div className="space-y-2">
                             <Label htmlFor="rating">
-                                Rating {requiredMark}
+                                Đánh giá sao {requiredMark}
                             </Label>
                             <Input
                                 id="rating"
@@ -278,25 +301,37 @@ export default function ReviewModal({
                                 </p>
                             ) : null}
                         </div>
+
                         <div className="space-y-2 col-span-2">
                             <Label htmlFor="authorName">
                                 Tên tác giả {requiredMark}
                             </Label>
                             <Input
                                 id="authorName"
+                                maxLength={MAX_AUTHOR_NAME}
                                 {...register("authorName")}
                             />
-                            {errors.authorName ? (
-                                <p className="text-xs text-destructive">
-                                    {errors.authorName.message}
-                                </p>
-                            ) : null}
+                            <div className="flex items-start justify-between gap-2">
+                                {errors.authorName ? (
+                                    <p className="text-xs text-destructive">
+                                        {errors.authorName.message}
+                                    </p>
+                                ) : (
+                                    <span />
+                                )}
+                                <CharCount
+                                    current={authorNameValue?.length ?? 0}
+                                    max={MAX_AUTHOR_NAME}
+                                />
+                            </div>
                         </div>
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                            <Label>Avatar {requiredMark}</Label>
+                            <Label>
+                                Ảnh đại diện người dùng {requiredMark}
+                            </Label>
                             <UploadImage
                                 key={`avatar-${authorAvatar || "empty"}`}
                                 maxImages={1}
@@ -319,25 +354,39 @@ export default function ReviewModal({
                         <Textarea
                             id="comment"
                             rows={5}
+                            maxLength={MAX_COMMENT}
+                            className="w-full"
                             {...register("comment")}
                         />
-                        {errors.comment ? (
-                            <p className="text-xs text-destructive">
-                                {errors.comment.message}
-                            </p>
-                        ) : null}
+                        <div className="flex items-start justify-between gap-2">
+                            {errors.comment ? (
+                                <p className="text-xs text-destructive">
+                                    {errors.comment.message}
+                                </p>
+                            ) : (
+                                <span />
+                            )}
+                            <CharCount
+                                current={commentValue?.length ?? 0}
+                                max={MAX_COMMENT}
+                            />
+                        </div>
                     </div>
-
-                    <DialogFooter>
-                        <Button type="submit" disabled={isSubmitting}>
-                            {isSubmitting
-                                ? "Đang lưu..."
-                                : isEditing
-                                  ? "Cập nhật review"
-                                  : "Tạo review"}
-                        </Button>
-                    </DialogFooter>
                 </form>
+
+                <DialogFooter className="border-t pt-4">
+                    <Button
+                        type="button"
+                        disabled={isSubmitting}
+                        onClick={() => void handleFormSubmit()}
+                    >
+                        {isSubmitting
+                            ? "Đang lưu..."
+                            : isEditing
+                              ? "Cập nhật review"
+                              : "Tạo review"}
+                    </Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

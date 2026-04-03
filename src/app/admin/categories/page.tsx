@@ -46,7 +46,7 @@ export default function CategoryPage() {
             const data = await getAllCategories();
             setCategories(data);
         } catch (error) {
-            toast.error("Failed to load categories");
+            toast.error("Không thể tải danh mục");
             console.error(error);
         } finally {
             setLoading(false);
@@ -64,10 +64,10 @@ export default function CategoryPage() {
             setIsDeleting(true);
             await deleteCategory(deleteId);
             setCategories(categories.filter((cat) => cat.id !== deleteId));
-            toast.success("Category deleted successfully");
+            toast.success("Danh mục đã được xóa thành công");
             setDeleteId(null);
         } catch (error) {
-            toast.error("Failed to delete category");
+            toast.error("Không thể xóa danh mục");
             console.error(error);
         } finally {
             setIsDeleting(false);
@@ -104,21 +104,21 @@ export default function CategoryPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">
-                        Categories
+                        Danh Mục
                     </h1>
                     <p className="text-gray-500 mt-1">
-                        Manage your tour categories
+                        Quản lý danh mục tour của bạn
                     </p>
                 </div>
                 <Button onClick={() => setIsFormOpen(true)} className="gap-2">
                     <Plus className="w-4 h-4" />
-                    Add Category
+                    Thêm Danh Mục
                 </Button>
             </div>
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Category List</CardTitle>
+                    <CardTitle>Danh Sách Danh Mục</CardTitle>
                 </CardHeader>
                 <CardContent>
                     {loading ? (
@@ -126,19 +126,20 @@ export default function CategoryPage() {
                             <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                         </div>
                     ) : categories.length === 0 ? (
-                        <div className="text-center py-8 text-gray-500">
-                            No categories found. Create your first category!
+                        <div className="text-center py-8">
+                            Không tìm thấy danh mục nào. Hãy tạo danh mục đầu
+                            tiên của bạn!
                         </div>
                     ) : (
                         <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Name</TableHead>
-                                        <TableHead>Language</TableHead>
-                                        <TableHead>Created</TableHead>
+                                    <TableRow className="bg-primary/20">
+                                        <TableHead>Tên</TableHead>
+                                        <TableHead>Ngôn Ngữ</TableHead>
+                                        <TableHead>Tạo</TableHead>
                                         <TableHead className="text-right">
-                                            Actions
+                                            Hành Động
                                         </TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -174,7 +175,7 @@ export default function CategoryPage() {
                                                     className="gap-2"
                                                 >
                                                     <Pencil className="w-4 h-4" />
-                                                    Edit
+                                                    Chỉnh Sửa
                                                 </Button>
                                                 <Button
                                                     variant="ghost"
@@ -185,7 +186,7 @@ export default function CategoryPage() {
                                                     className="gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
-                                                    Delete
+                                                    Xóa
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
@@ -213,15 +214,15 @@ export default function CategoryPage() {
             >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Category</AlertDialogTitle>
+                        <AlertDialogTitle>Xóa Danh Mục</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete this category? This
-                            action cannot be undone.
+                            Bạn có chắc chắn muốn xóa danh mục này? Hành động
+                            này không thể hoàn tác.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <div className="flex gap-3 justify-end">
                         <AlertDialogCancel disabled={isDeleting}>
-                            Cancel
+                            Hủy
                         </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
@@ -231,10 +232,10 @@ export default function CategoryPage() {
                             {isDeleting ? (
                                 <>
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                    Deleting...
+                                    Đang xóa...
                                 </>
                             ) : (
-                                "Delete"
+                                "Xóa"
                             )}
                         </AlertDialogAction>
                     </div>

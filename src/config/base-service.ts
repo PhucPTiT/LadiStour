@@ -151,12 +151,12 @@ export default class FetchApi {
         response: Response,
     ): Promise<void> {
         if (!response.ok) {
-            if (response.status === 401) {
-                await this.delAuthorizationToken();
-                if (this.isClient && window.location.pathname !== "/admin/login") {
-                    window.location.replace("/admin/login");
-                }
-            }
+            // if (response.status === 401) {
+            //     await this.delAuthorizationToken();
+            //     if (this.isClient && window.location.pathname !== "/admin/login") {
+            //         window.location.replace("/admin/login");
+            //     }
+            // }
 
             const contentType = response.headers.get("Content-Type");
 

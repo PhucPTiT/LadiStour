@@ -9,6 +9,8 @@ import { Post } from "@/service/post/type";
 import { Category } from "@/service/category/type";
 import { toast } from "sonner";
 import PostModal from "@/components/admin/post/PostModal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 export default function PostPage() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -106,17 +108,36 @@ export default function PostPage() {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button onClick={handleAdd}>Thêm Bài Viết</Button>
+                    <Button onClick={handleAdd}>
+                        <Plus className="w-4 h-4" />
+                        Thêm Bài Viết
+                    </Button>
                 </div>
             </div>
 
-            <PostTable
-                posts={posts}
-                categories={categories}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onPublishChange={handlePublishChange}
-            />
+            <Card>
+                <CardHeader>
+                    <CardTitle>Danh sách bài viết</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {posts.length === 0 ? (
+                        <div className="text-center py-8">
+                            Không tìm thấy bài viết nào. Hãy tạo bài viết đầu
+                            tiên của bạn!
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <PostTable
+                                posts={posts}
+                                categories={categories}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                                onPublishChange={handlePublishChange}
+                            />
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
 
             <PostModal
                 open={isModalOpen}

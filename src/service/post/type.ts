@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const seoSchema = z.object({
-    description: z.string(),
+    description: z.string().nullable().optional(),
     keywords: z.array(z.string()),
-    title: z.string(),
+    title: z.string().nullable().optional(),
 });
 
 export const postSchema = z.object({

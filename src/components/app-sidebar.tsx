@@ -23,7 +23,6 @@ import {
     Settings2Icon,
     StarIcon,
     TagIcon,
-    UsersIcon,
 } from "lucide-react";
 
 const data = {
@@ -39,14 +38,9 @@ const data = {
             icon: <LayoutDashboardIcon />,
         },
         {
-            title: "Posts",
-            url: "/admin/posts",
-            icon: <FileTextIcon />,
-        },
-        {
-            title: "Reviews",
-            url: "/admin/reviews",
-            icon: <StarIcon />,
+            title: "Điểm đến",
+            url: "/admin/destinations",
+            icon: <MapPinIcon />,
         },
         {
             title: "Tours",
@@ -54,14 +48,19 @@ const data = {
             icon: <FolderIcon />,
         },
         {
-            title: "Destinations",
-            url: "/admin/destinations",
-            icon: <MapPinIcon />,
-        },
-        {
-            title: "Categories",
+            title: "Thể loại bài viết",
             url: "/admin/categories",
             icon: <TagIcon />,
+        },
+        {
+            title: "Bài viết",
+            url: "/admin/posts",
+            icon: <FileTextIcon />,
+        },
+        {
+            title: "Đánh giá",
+            url: "/admin/reviews",
+            icon: <StarIcon />,
         },
         {
             title: "Settings",

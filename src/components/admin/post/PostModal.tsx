@@ -31,7 +31,6 @@ import {
 import { uploadFileAction } from "@/app/actions/upload-image";
 import { createPost, updatePost } from "@/service/post/PostService";
 import { Post } from "@/service/post/type";
-import content from "@/components/tiptap-templates/simple/data/content.json";
 
 const postFormSchema = z.object({
     locale: z.enum(["vi", "en"]),
@@ -39,7 +38,7 @@ const postFormSchema = z.object({
     thumbnail: z.string().min(1, "Thumbnail là bắt buộc"),
     excerpt: z.string().min(1, "Mô tả ngắn là bắt buộc"),
     contentHtml: z.string().min(1, "Nội dung là bắt buộc"),
-    categoryId: z.string().min(1, "Danh mục là bắt buộc"),
+    categoryId: z.string().optional().nullable(),
     tags: z.array(z.string()),
     seo: z.object({
         title: z.string().min(1, "SEO Title là bắt buộc"),
@@ -138,8 +137,8 @@ export default function PostModal({
             categoryId: post.categoryId,
             tags: post.tags || [],
             seo: {
-                title: post.seo.title,
-                description: post.seo.description,
+                title: post.seo.title ?? "",
+                description: post.seo.description ?? "",
                 keywords: post.seo.keywords || [],
             },
         });
@@ -395,10 +394,14 @@ export default function PostModal({
                                         control={control}
                                         render={({ field }) => (
                                             <Select
+                                                // open={true}
                                                 value={field.value}
                                                 onValueChange={field.onChange}
                                             >
-                                                <SelectTrigger id="locale">
+                                                <SelectTrigger
+                                                    id="locale"
+                                                    className="w-full"
+                                                >
                                                     <SelectValue />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -497,17 +500,20 @@ export default function PostModal({
                                         htmlFor="category"
                                         className="text-sm font-semibold"
                                     >
-                                        Danh Mục {requiredMark}
+                                        Danh Mục
                                     </Label>
                                     <Controller
                                         name="categoryId"
                                         control={control}
                                         render={({ field }) => (
                                             <Select
-                                                value={field.value}
+                                                value={field.value || ""}
                                                 onValueChange={field.onChange}
                                             >
-                                                <SelectTrigger id="category">
+                                                <SelectTrigger
+                                                    id="category"
+                                                    className="w-full"
+                                                >
                                                     <SelectValue placeholder="Chọn danh mục" />
                                                 </SelectTrigger>
                                                 <SelectContent>

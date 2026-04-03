@@ -20,8 +20,8 @@ export const DestinationResponseSchema = z.object({
     }),
 
     seo: z.object({
-        title: z.string(),
-        description: z.string(),
+        title: z.string().nullable().optional(),
+        description: z.string().nullable().optional(),
         keywords: z.array(z.string()),
     }),
 

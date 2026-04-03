@@ -27,16 +27,16 @@ import {
 } from "@/service/destinations/DestinationService";
 
 const localizedSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    shortDescription: z.string().min(1, "Short description is required"),
-    description: z.string().min(1, "Description is required"),
+    name: z.string().min(1, "Tên là bắt buộc"),
+    shortDescription: z.string().min(1, "Mô tả ngắn là bắt buộc"),
+    description: z.string().min(1, "Mô tả là bắt buộc"),
     location: z.object({
-        country: z.string().min(1, "Country is required"),
-        city: z.string().min(1, "City is required"),
+        country: z.string().min(1, "Quốc gia là bắt buộc"),
+        city: z.string().min(1, "Thành phố là bắt buộc"),
     }),
     seo: z.object({
-        title: z.string().min(1, "SEO title is required"),
-        description: z.string().min(1, "SEO description is required"),
+        title: z.string().optional(),
+        description: z.string().optional(),
         keywords: z.array(z.string()).catch([]),
     }),
 });
@@ -44,8 +44,8 @@ const localizedSchema = z.object({
 const destinationFormSchema = z.object({
     vi: localizedSchema,
     en: localizedSchema,
-    thumbnail: z.string().min(1, "Thumbnail is required"),
-    banner: z.string().min(1, "Banner is required"),
+    thumbnail: z.string().min(1, "Ảnh thumbnail là bắt buộc"),
+    banner: z.string().min(1, "Ảnh banner là bắt buộc"),
     isFeatured: z.boolean(),
 });
 
@@ -71,13 +71,58 @@ const defaultValues: DestinationFormValues = {
     isFeatured: false,
 };
 
-const splitComma = (value: string) =>
-    value
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
-
 const joinComma = (value?: string[]) => (value ? value.join(", ") : "");
+
+/**
+ * Input từ khóa SEO — dùng local state để giữ nguyên raw text khi gõ
+ * (kể cả dấu cách), chỉ convert sang string[] khi blur hoặc khi value
+ * từ bên ngoài thay đổi.
+ */
+function KeywordsInput({
+    value,
+    onChange,
+    id,
+    placeholder,
+}: {
+    value: string[];
+    onChange: (keywords: string[]) => void;
+    id?: string;
+    placeholder?: string;
+}) {
+    const [raw, setRaw] = useState(() => joinComma(value));
+
+    // Đồng bộ khi form reset hoặc load dữ liệu từ API
+    useEffect(() => {
+        setRaw(joinComma(value));
+    }, [value]);
+
+    const handleChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setRaw(e.target.value);
+        },
+        [],
+    );
+
+    const handleBlur = useCallback(() => {
+        const keywords = raw
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean);
+        onChange(keywords);
+        // Chuẩn hoá lại hiển thị sau blur
+        setRaw(joinComma(keywords));
+    }, [raw, onChange]);
+
+    return (
+        <Input
+            id={id}
+            placeholder={placeholder}
+            value={raw}
+            onChange={handleChange}
+            onBlur={handleBlur}
+        />
+    );
+}
 
 type DestinationModalProps = {
     open: boolean;
@@ -122,7 +167,6 @@ export default function DestinationModal({
     });
     const [viTranslationId, setViTranslationId] = useState<string | null>(null);
 
-    // Load translations data when opening in edit mode
     useEffect(() => {
         if (!open) return;
 
@@ -135,7 +179,6 @@ export default function DestinationModal({
             try {
                 const translations = await getTranslations(translationGroupId);
 
-                // Map array of translations to form structure
                 const viTranslation = translations.find(
                     (t) => t.locale === "vi",
                 );
@@ -156,7 +199,13 @@ export default function DestinationModal({
                                       viTranslation.shortDescription,
                                   description: viTranslation.description,
                                   location: viTranslation.location,
-                                  seo: viTranslation.seo,
+                                  seo: {
+                                      title: viTranslation.seo?.title ?? "",
+                                      description:
+                                          viTranslation.seo?.description ?? "",
+                                      keywords:
+                                          viTranslation.seo?.keywords ?? [],
+                                  },
                               }
                             : defaultValues.vi,
                         en: enTranslation
@@ -166,7 +215,13 @@ export default function DestinationModal({
                                       enTranslation.shortDescription,
                                   description: enTranslation.description,
                                   location: enTranslation.location,
-                                  seo: enTranslation.seo,
+                                  seo: {
+                                      title: enTranslation.seo?.title ?? "",
+                                      description:
+                                          enTranslation.seo?.description ?? "",
+                                      keywords:
+                                          enTranslation.seo?.keywords ?? [],
+                                  },
                               }
                             : defaultValues.en,
                         thumbnail: viTranslation?.thumbnail || "",
@@ -282,20 +337,14 @@ export default function DestinationModal({
 
     const handleThumbnailError = useCallback(
         (message: string) => {
-            setError("thumbnail", {
-                type: "manual",
-                message,
-            });
+            setError("thumbnail", { type: "manual", message });
         },
         [setError],
     );
 
     const handleBannerError = useCallback(
         (message: string) => {
-            setError("banner", {
-                type: "manual",
-                message,
-            });
+            setError("banner", { type: "manual", message });
         },
         [setError],
     );
@@ -352,14 +401,10 @@ export default function DestinationModal({
 
     const handleFormSubmit = useCallback(async () => {
         const thumbnailUploaded = await uploadPendingField("thumbnail");
-        if (!thumbnailUploaded) {
-            return;
-        }
+        if (!thumbnailUploaded) return;
 
         const bannerUploaded = await uploadPendingField("banner");
-        if (!bannerUploaded) {
-            return;
-        }
+        if (!bannerUploaded) return;
 
         await handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit, uploadPendingField]);
@@ -398,7 +443,7 @@ export default function DestinationModal({
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-name">
-                                        Name {requiredMark}
+                                        Tên {requiredMark}
                                     </Label>
                                     <Input
                                         id="vi-name"
@@ -413,7 +458,7 @@ export default function DestinationModal({
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-shortDescription">
-                                        Short description {requiredMark}
+                                        Mô tả ngắn {requiredMark}
                                     </Label>
                                     <Textarea
                                         id="vi-shortDescription"
@@ -429,7 +474,7 @@ export default function DestinationModal({
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-description">
-                                        Description {requiredMark}
+                                        Mô tả {requiredMark}
                                     </Label>
                                     <Textarea
                                         id="vi-description"
@@ -446,7 +491,7 @@ export default function DestinationModal({
                                 <div className="grid gap-3 md:grid-cols-2">
                                     <div className="space-y-2">
                                         <Label htmlFor="vi-location-country">
-                                            Country {requiredMark}
+                                            Quốc gia {requiredMark}
                                         </Label>
                                         <Input
                                             id="vi-location-country"
@@ -463,7 +508,7 @@ export default function DestinationModal({
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="vi-location-city">
-                                            City {requiredMark}
+                                            Thành phố {requiredMark}
                                         </Label>
                                         <Input
                                             id="vi-location-city"
@@ -482,56 +527,45 @@ export default function DestinationModal({
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-seo-title">
-                                        SEO title {requiredMark}
+                                        SEO title
                                     </Label>
                                     <Input
                                         id="vi-seo-title"
                                         {...register("vi.seo.title")}
                                     />
-                                    {errors.vi?.seo?.title ? (
-                                        <p className="text-xs text-destructive">
-                                            {errors.vi.seo.title.message}
-                                        </p>
-                                    ) : null}
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-seo-description">
-                                        SEO description {requiredMark}
+                                        SEO description
                                     </Label>
                                     <Textarea
                                         id="vi-seo-description"
                                         rows={3}
                                         {...register("vi.seo.description")}
                                     />
-                                    {errors.vi?.seo?.description ? (
-                                        <p className="text-xs text-destructive">
-                                            {errors.vi.seo.description.message}
-                                        </p>
-                                    ) : null}
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="vi-seo-keywords">
-                                        SEO keywords (comma separated)
+                                        SEO từ khóa
                                     </Label>
                                     <Controller
                                         control={control}
                                         name="vi.seo.keywords"
                                         render={({ field }) => (
-                                            <Input
+                                            <KeywordsInput
                                                 id="vi-seo-keywords"
-                                                value={joinComma(field.value)}
-                                                onChange={(event) =>
-                                                    field.onChange(
-                                                        splitComma(
-                                                            event.target.value,
-                                                        ),
-                                                    )
-                                                }
+                                                placeholder="Ví dụ: du lịch, tour du lịch, điểm đến tuyệt đẹp"
+                                                value={field.value}
+                                                onChange={field.onChange}
                                             />
                                         )}
                                     />
+                                    <p className="text-xs text-muted-foreground">
+                                        Nhập các từ khóa cách nhau bởi dấu phẩy
+                                        (,). Mỗi từ khóa có thể chứa dấu cách.
+                                    </p>
                                 </div>
                             </div>
 
@@ -631,62 +665,51 @@ export default function DestinationModal({
 
                                 <div className="space-y-2">
                                     <Label htmlFor="en-seo-title">
-                                        SEO title {requiredMark}
+                                        SEO title
                                     </Label>
                                     <Input
                                         id="en-seo-title"
                                         {...register("en.seo.title")}
                                     />
-                                    {errors.en?.seo?.title ? (
-                                        <p className="text-xs text-destructive">
-                                            {errors.en.seo.title.message}
-                                        </p>
-                                    ) : null}
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="en-seo-description">
-                                        SEO description {requiredMark}
+                                        SEO description
                                     </Label>
                                     <Textarea
                                         id="en-seo-description"
                                         rows={3}
                                         {...register("en.seo.description")}
                                     />
-                                    {errors.en?.seo?.description ? (
-                                        <p className="text-xs text-destructive">
-                                            {errors.en.seo.description.message}
-                                        </p>
-                                    ) : null}
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="en-seo-keywords">
-                                        SEO keywords (comma separated)
+                                        SEO keywords
                                     </Label>
                                     <Controller
                                         control={control}
                                         name="en.seo.keywords"
                                         render={({ field }) => (
-                                            <Input
+                                            <KeywordsInput
                                                 id="en-seo-keywords"
-                                                value={joinComma(field.value)}
-                                                onChange={(event) =>
-                                                    field.onChange(
-                                                        splitComma(
-                                                            event.target.value,
-                                                        ),
-                                                    )
-                                                }
+                                                placeholder="Example: travel, tour packages, beautiful destination"
+                                                value={field.value}
+                                                onChange={field.onChange}
                                             />
                                         )}
                                     />
+                                    <p className="text-xs text-muted-foreground">
+                                        Enter keywords separated by commas (,).
+                                        Each keyword can contain spaces.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="mt-6 grid gap-4 rounded-xl border border-border/70 p-4 md:grid-cols-2">
-                            <div className="flex w-full md:col-span-2 ">
+                            <div className="flex w-full md:col-span-2">
                                 <div className="space-y-2 flex-1">
                                     <Label htmlFor="thumbnail">
                                         Thumbnail {requiredMark}

@@ -7,9 +7,9 @@ export const TourItinerarySchema = z.object({
 });
 
 export const TourSeoSchema = z.object({
-    title: z.string(),
-    description: z.string(),
-    keywords: z.array(z.string()),
+    title: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+    keywords: z.array(z.string()).catch([]),
 });
 
 export const TourSchema = z.object({
@@ -21,11 +21,12 @@ export const TourSchema = z.object({
     title: z.string(),
     slug: z.string(),
 
-    destinationId: z.string(),
+    destinationId: z.string().nullable().optional(),
 
     images: z.array(z.string()),
 
     durationDays: z.number(),
+    durationNights: z.number().optional(),
     maxPeople: z.number(),
 
     price: z.number(),

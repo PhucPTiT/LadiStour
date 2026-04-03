@@ -9,6 +9,8 @@ import { getAllDestinations } from "@/service/destinations/DestinationService";
 import { Tour } from "@/service/tour/type";
 import { DestinationResponse } from "@/service/destinations/type";
 import { toast } from "sonner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 export default function AdminToursPage() {
     const [tours, setTours] = useState<Tour[]>([]);
@@ -29,9 +31,7 @@ export default function AdminToursPage() {
             setTours(data);
         } catch (err) {
             console.error("Error fetching tours:", err);
-            setError(
-                err instanceof Error ? err.message : "Failed to load tours",
-            );
+            setError(err instanceof Error ? err.message : "Lỗi khi tải tour");
         } finally {
             setLoading(false);
         }
@@ -84,10 +84,10 @@ export default function AdminToursPage() {
         try {
             await deleteTour(id);
             setTours(tours.filter((t) => t.id !== id));
-            toast.success("Tour deleted successfully.");
+            toast.success("Xóa tour thành công.");
         } catch (err) {
             console.error("Failed to delete tour:", err);
-            toast.error("Failed to delete tour. Please try again.");
+            toast.error("Lỗi khi xóa tour. Vui lòng thử lại.");
         }
     };
 
@@ -95,8 +95,8 @@ export default function AdminToursPage() {
         void fetchTours();
     };
 
-    if (loading) return <div className="p-4">Loading...</div>;
-    if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
+    if (loading) return <div className="p-4">Đang tải...</div>;
+    if (error) return <div className="p-4 text-red-600">Lỗi {error}</div>;
 
     return (
         <div className="space-y-6">
@@ -109,15 +109,32 @@ export default function AdminToursPage() {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button onClick={handleAdd}>Thêm Tour</Button>
+                    <Button onClick={handleAdd}>
+                        <Plus className="w-4 h-4" />
+                        Thêm Tour
+                    </Button>
                 </div>
             </div>
 
-            <TourTable
-                tours={tours}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-            />
+            <Card>
+                <CardHeader>
+                    <CardTitle>Danh sách tour</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {tours.length === 0 ? (
+                        <div className="text-center py-8 ">
+                            Không tìm thấy tour nào. Hãy tạo tour đầu tiên của
+                            bạn!
+                        </div>
+                    ) : (
+                        <TourTable
+                            tours={tours}
+                            onEdit={handleEdit}
+                            onDelete={handleDelete}
+                        />
+                    )}
+                </CardContent>
+            </Card>
 
             <TourModal
                 open={isModalOpen}

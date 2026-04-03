@@ -60,11 +60,11 @@ export function TourTable({ tours, onEdit, onDelete }: TourTableProps) {
     const getStatusLabel = (status: string) => {
         switch (status) {
             case "published":
-                return "Đã Công Bố";
+                return "Đang bán";
             case "draft":
                 return "Bản Nháp";
             case "archived":
-                return "Lưu Trữ";
+                return "Đã ngừng bán";
             default:
                 return status;
         }
@@ -73,8 +73,8 @@ export function TourTable({ tours, onEdit, onDelete }: TourTableProps) {
     return (
         <>
             <Table className="table-fixed w-full">
-                <TableHeader className="bg-primary/20">
-                    <TableRow>
+                <TableHeader>
+                    <TableRow className="bg-primary/20">
                         <TableHead className="w-[20%]">Tiêu Đề</TableHead>
                         <TableHead className="w-[15%]">Slug</TableHead>
                         <TableHead className="w-[12%] text-center">
@@ -160,7 +160,7 @@ export function TourTable({ tours, onEdit, onDelete }: TourTableProps) {
                 onOpenChange={() => setConfirmDelete(null)}
             >
                 <AlertDialogContent>
-                    <AlertDialogTitle>Xác Nhận Xóa</AlertDialogTitle>
+                    <AlertDialogTitle>Xóa Điểm Tìm Kiếm</AlertDialogTitle>
                     <AlertDialogDescription>
                         Bạn có chắc chắn muốn xóa tour &quot;
                         <strong>{tourTitle}</strong>&quot;? Hành động này sẽ xóa

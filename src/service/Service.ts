@@ -17,9 +17,17 @@ export function validateSchema<T>(
 
     if (!result.success) {
         console.error(`Invalid ${name} structure:`, result.error);
-        throw new Error(
-            `Invalid ${name} structure: ${result.error.message}`
-        );
+
+        // Tạo error message chi tiết từ validation errors
+        const details = result.error.issues
+            .map((err) => {
+                const path = err.path.join(".");
+                return `${path || "root"}: ${err.message}`;
+            })
+            .join("; ");
+
+        const errorMessage = `Invalid ${name} structure: ${details}`;
+        throw new Error(errorMessage);
     }
 
     return result.data;

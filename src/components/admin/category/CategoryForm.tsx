@@ -104,18 +104,18 @@ export function CategoryForm({
             <DialogContent className="sm:max-w-106.25">
                 <DialogHeader>
                     <DialogTitle>
-                        {category ? "Edit Category" : "Create New Category"}
+                        {category ? "Cập nhật Danh mục" : "Tạo Danh mục Mới"}
                     </DialogTitle>
                     <DialogDescription>
                         {category
-                            ? "Update the category details below"
-                            : "Add a new category to your system"}
+                            ? "Cập nhật thông tin danh mục bên dưới"
+                            : "Thêm một danh mục mới vào hệ thống"}
                     </DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
-                        <Label htmlFor="name">Category Name</Label>
+                        <Label htmlFor="name">Tên Danh mục</Label>
                         <Input
                             id="name"
                             placeholder="e.g., Beach Tours, Mountain Trekking"
@@ -127,7 +127,7 @@ export function CategoryForm({
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="locale">Language</Label>
+                        <Label htmlFor="locale">Ngôn ngữ</Label>
                         <Select
                             value={formData.locale}
                             onValueChange={(value) =>
@@ -150,8 +150,8 @@ export function CategoryForm({
                         </Select>
                         <p className="text-xs text-gray-500">
                             {category
-                                ? "Language cannot be changed for existing categories"
-                                : "Select the language for this category"}
+                                ? "Ngôn ngữ không thể được thay đổi cho các danh mục đã tồn tại"
+                                : "Chọn ngôn ngữ cho danh mục này"}
                         </p>
                     </div>
 
@@ -161,17 +161,24 @@ export function CategoryForm({
                             variant="outline"
                             onClick={onClose}
                             disabled={isLoading}
+                            className="min-w-30"
                         >
-                            Cancel
+                            Hủy
                         </Button>
-                        <Button type="submit" disabled={isLoading}>
+                        <Button
+                            type="submit"
+                            disabled={isLoading}
+                            className="min-w-30"
+                        >
                             {isLoading ? (
                                 <>
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                    {category ? "Updating..." : "Creating..."}
+                                    {category
+                                        ? "Đang cập nhật..."
+                                        : "Đang tạo..."}
                                 </>
                             ) : (
-                                <>{category ? "Update" : "Create"} Category</>
+                                <>{category ? "Cập nhật" : "Tạo"} Danh mục</>
                             )}
                         </Button>
                     </DialogFooter>

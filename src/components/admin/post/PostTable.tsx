@@ -125,8 +125,8 @@ export function PostTable({
     return (
         <>
             <Table className="table-fixed w-full">
-                <TableHeader className="bg-primary/20">
-                    <TableRow>
+                <TableHeader>
+                    <TableRow className="bg-primary/20">
                         <TableHead className="w-[18%]">Tiêu Đề</TableHead>
                         <TableHead className="w-[12%]">Danh Mục</TableHead>
                         <TableHead className="w-[10%] text-center">
@@ -220,7 +220,7 @@ export function PostTable({
                 onOpenChange={() => setConfirmDelete(null)}
             >
                 <AlertDialogContent>
-                    <AlertDialogTitle>Xác Nhận Xóa</AlertDialogTitle>
+                    <AlertDialogTitle>Xóa Bài Viết</AlertDialogTitle>
                     <AlertDialogDescription>
                         Bạn có chắc chắn muốn xóa bài viết &quot;
                         <strong>{postTitle}</strong>&quot;? Hành động này sẽ xóa

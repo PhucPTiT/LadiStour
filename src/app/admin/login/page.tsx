@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { login } from "@/service/auth/AuthService";
 import { toast } from "sonner";
 import { ADMIN_AUTH_EVENT } from "@/components/admin/auth";
+import { StarfieldBackground } from "@/components/ui/starfield";
 
 const loginSchema = z.object({
     username: z.string().min(1, "Username is required"),
@@ -60,27 +61,45 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="mx-auto flex min-h-[calc(100vh-48px)] w-full max-w-lg items-center justify-center">
-            <Card className="w-full border-neutral-200 shadow-[0_24px_40px_rgba(15,23,42,0.08)]">
-                <CardHeader className="space-y-2 border-b border-neutral-100">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+        <div className="relative mx-auto flex min-h-[calc(100vh-48px)] w-full items-center justify-center overflow-hidden px-4">
+            {/* Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <StarfieldBackground />
+            </div>
+
+            {/* Login Card */}
+            <Card className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border bg-slate-700 shadow-[0_30px_80px_rgba(0,0,0,0.15)] backdrop-blur-xl">
+                <CardHeader className="space-y-2 border-b border-black/5 px-8 py-6">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] ">
                         STOUR CMS
                     </p>
-                    <CardTitle className="text-2xl text-neutral-900">
+
+                    <CardTitle className="text-2xl font-bold tracking-tight ">
                         Admin Login
                     </CardTitle>
+
+                    <p className="text-sm text-neutral-500">
+                        Sign in to manage your dashboard
+                    </p>
                 </CardHeader>
-                <CardContent className="space-y-4 pt-6">
+
+                <CardContent className="space-y-6 px-8 ">
                     <form
-                        className="space-y-4"
+                        className="space-y-5"
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <div className="space-y-2">
-                            <Label htmlFor="username">Username</Label>
+                            <Label
+                                className="text-sm font-medium "
+                                htmlFor="username"
+                            >
+                                Username
+                            </Label>
                             <Input
                                 id="username"
                                 placeholder="admin"
                                 disabled={isLoading}
+                                className="h-11 rounded-xlpx-4 text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-neutral-900"
                                 {...register("username")}
                             />
                             {errors.username ? (
@@ -89,13 +108,20 @@ export default function AdminLoginPage() {
                                 </p>
                             ) : null}
                         </div>
+
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label
+                                className="text-sm font-medium "
+                                htmlFor="password"
+                            >
+                                Password
+                            </Label>
                             <Input
                                 id="password"
                                 type="password"
                                 placeholder="••••••••"
                                 disabled={isLoading}
+                                className="h-11 rounded-xl px-4 text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-neutral-900"
                                 {...register("password")}
                             />
                             {errors.password ? (
@@ -104,14 +130,20 @@ export default function AdminLoginPage() {
                                 </p>
                             ) : null}
                         </div>
+
                         <Button
                             type="submit"
-                            className="w-full"
                             disabled={isLoading}
+                            className="h-11 w-full rounded-xl  text-sm font-semibold shadow-md transition active:scale-[0.98]"
                         >
                             {isLoading ? "Signing in..." : "Sign in"}
                         </Button>
                     </form>
+
+                    <div className="text-center text-xs text-neutral-500">
+                        © {new Date().getFullYear()} STOUR CMS. All rights
+                        reserved.
+                    </div>
                 </CardContent>
             </Card>
         </div>

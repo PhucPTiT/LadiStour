@@ -10,6 +10,8 @@ import {
 } from "@/service/destinations/DestinationService";
 import { DestinationResponse } from "@/service/destinations/type";
 import { toast } from "sonner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 export default function AdminDestinationsPage() {
     const [destinations, setDestinations] = useState<DestinationResponse[]>([]);
@@ -28,9 +30,7 @@ export default function AdminDestinationsPage() {
         } catch (err) {
             console.error("Error fetching destinations:", err);
             setError(
-                err instanceof Error
-                    ? err.message
-                    : "Failed to load destinations",
+                err instanceof Error ? err.message : "Lỗi khi tải điểm đến",
             );
         } finally {
             setLoading(false);
@@ -65,12 +65,12 @@ export default function AdminDestinationsPage() {
             toast.success("Destination deleted successfully.");
         } catch (err) {
             console.error("Failed to delete destination:", err);
-            toast.error("Failed to delete destination. Please try again.");
+            toast.error("Lỗi khi xóa điểm đến. Vui lòng thử lại.");
         }
     };
 
-    if (loading) return <div className="p-4">Loading...</div>;
-    if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
+    if (loading) return <div className="p-4">Đang tải...</div>;
+    if (error) return <div className="p-4 text-red-600">Lỗi {error}</div>;
 
     return (
         <div className="space-y-6">
@@ -85,15 +85,34 @@ export default function AdminDestinationsPage() {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button onClick={handleAdd}>Thêm Điểm Đến</Button>
+                    <Button onClick={handleAdd}>
+                        <Plus className="w-4 h-4" />
+                        Thêm Điểm Đến
+                    </Button>
                 </div>
             </div>
 
-            <DestinationTable
-                destinations={destinations}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-            />
+            <Card>
+                <CardHeader>
+                    <CardTitle>Danh Sách Điểm Đến</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {destinations.length === 0 ? (
+                        <div className="text-center py-8 ">
+                            Không tìm thấy điểm đến nào. Hãy tạo điểm đến đầu
+                            tiên của bạn!
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <DestinationTable
+                                destinations={destinations}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                            />
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
 
             <DestinationModal
                 open={isModalOpen}

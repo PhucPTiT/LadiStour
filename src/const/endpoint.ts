@@ -42,7 +42,7 @@ export const TOURS = {
     UPDATE: "/tours/:id",
     PUBLISH: "/tours/:id/publish",
     ARCHIVE: "/tours/:id/archive",
-    DELETE: "/tours/:id",
+    DELETE: "/tours",
     GET_BY_SLUG: "/tours/slug/:slug",
     GET_TRANSLATIONS: "/tours/translations/:translationGroupId",
     GET_ALL: "/tours",
@@ -87,8 +87,7 @@ export const REVIEWS = {
 // SETTINGS ENDPOINTS
 export const SETTINGS = {
     CREATE: "/settings",
-    UPDATE: "/settings/:id",
-    GET_BY_ID: "/settings/:id",
-    GET_DEFAULT: "/settings/default",
-    DELETE: "/settings/:id",
+    UPDATE: "/settings",
+    GET: "/settings",
+    RESET: "/settings/reset",
 };

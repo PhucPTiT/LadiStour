@@ -51,10 +51,9 @@ export function DestinationTable({
     return (
         <>
             <Table className="table-fixed w-full">
-                <TableHeader className="bg-primary/20">
-                    <TableRow>
+                <TableHeader>
+                    <TableRow className="bg-primary/20">
                         <TableHead className="w-[25%]">Tên Điểm Đến</TableHead>
-                        <TableHead className="w-[20%]">Slug</TableHead>
                         <TableHead className="w-[25%]">Vị Trí</TableHead>
                         <TableHead className="w-[10%] text-center">
                             Nổi Bật
@@ -73,16 +72,12 @@ export function DestinationTable({
                             </TableCell>
 
                             <TableCell className="truncate">
-                                {destination.slug}
-                            </TableCell>
-
-                            <TableCell className="truncate">
                                 {destination.location.city},{" "}
                                 {destination.location.country}
                             </TableCell>
 
                             <TableCell className="text-center">
-                                {destination.featured ? "Yes" : "No"}
+                                {destination.featured ? "Có" : "Không"}
                             </TableCell>
 
                             <TableCell className="text-center">
@@ -118,7 +113,7 @@ export function DestinationTable({
                 onOpenChange={() => setConfirmDelete(null)}
             >
                 <AlertDialogContent>
-                    <AlertDialogTitle>Xác Nhận Xóa</AlertDialogTitle>
+                    <AlertDialogTitle>Xóa Điểm Đến</AlertDialogTitle>
                     <AlertDialogDescription>
                         Bạn có chắc chắn muốn xóa điểm đến &quot;
                         <strong>{destinationName}</strong>&quot;? Hành động này
