@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { routing } from "@/i18n/routing";
+import { Suspense } from "react";
 
 const beVietnamPro = Be_Vietnam_Pro({
     subsets: ["latin", "latin-ext"],
@@ -57,9 +58,13 @@ export default async function LocaleLayout({
             <body>
                 <NextIntlClientProvider messages={messages}>
                     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
-                        <Header />
-                        <main>{children}</main>
-                        <Footer />
+                        <Suspense fallback={null}>
+                            <Header />
+                        </Suspense>
+                        {/* <main>{children}</main> */}
+                        <Suspense fallback={null}>
+                            <Footer />
+                        </Suspense>
                     </div>
                 </NextIntlClientProvider>
             </body>

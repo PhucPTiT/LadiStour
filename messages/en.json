@@ -3,7 +3,21 @@
         "language": "Language",
         "bookNow": "Book now",
         "bookConsultationNow": "Book consultation now",
-        "switchLanguageTo": "Switch language to {locale}"
+        "switchLanguageTo": "Switch language to {locale}",
+        "contactAndSupport": "Contact and support",
+        "destinations": "Destinations",
+        "services": "Services",
+        "aboutUs": "About Us",
+        "reviews": "Reviews",
+        "blog": "Blog",
+        "tours": "Tours",
+        "featuredDestinations": "Featured Destinations",
+        "featuredTours": "Featured Tours",
+        "quickAccess": "Quick Access",
+        "quickSearchTour": "Quick Search Tour",
+        "featuredDestinationsLabel": "Featured Destinations",
+        "trendingTours": "Trending Tours",
+        "travelKnowledge": "Travel Knowledge"
     },
     "quickSearch": {
         "searchNow": "Search tours now"

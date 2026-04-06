@@ -18,6 +18,7 @@ import {
     resetSettings,
     updateSettings,
 } from "@/service/settings/SettingService";
+import { invalidateSettingsCache } from "@/app/actions/invalidateCacheSettings";
 
 const socialSchema = z.object({
     platform: z.string().optional(),
@@ -164,6 +165,7 @@ export default function SettingsPage() {
             try {
                 if (hasExistingSettings) {
                     await updateSettings(payload);
+                    await invalidateSettingsCache();
                     toast.success("Cập nhật settings thành công.");
                 } else {
                     await postSettings(payload);

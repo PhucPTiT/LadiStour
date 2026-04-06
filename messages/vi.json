@@ -1,11 +1,25 @@
 {
     "header": {
-        "language": "Ngon ngu",
-        "bookNow": "Dat lich ngay",
-        "bookConsultationNow": "Dat lich tu van ngay",
-        "switchLanguageTo": "Chuyen ngon ngu sang {locale}"
+        "language": "Ngôn ngữ",
+        "bookNow": "Đặt lịch ngay",
+        "bookConsultationNow": "Đặt lịch tư vấn ngay",
+        "switchLanguageTo": "Chuyển ngôn ngữ sang {locale}",
+        "contactAndSupport": "Liên hệ và hỗ trợ",
+        "destinations": "Điểm đến",
+        "services": "Dịch vụ",
+        "aboutUs": "Về chúng tôi",
+        "reviews": "Đánh giá",
+        "blog": "Blog",
+        "tours": "Tour du lịch",
+        "featuredDestinations": "Điểm đến nổi bật",
+        "featuredTours": "Các tour nổi bật",
+        "quickAccess": "Truy cập nhanh",
+        "quickSearchTour": "Tìm tour nhanh",
+        "featuredDestinationsLabel": "Điểm đến nổi bật",
+        "trendingTours": "Tour nổi bật",
+        "travelKnowledge": "Kiến thức du lịch"
     },
     "quickSearch": {
-        "searchNow": "Tim tour ngay"
+        "searchNow": "Tìm tour ngay"
     }
 }

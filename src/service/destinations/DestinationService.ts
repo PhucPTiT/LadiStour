@@ -1,7 +1,8 @@
 import HttpService from "@/config/http-service ";
-import { DestinationListResponse, DestinationListResponseSchema, GetTranslationsResponse } from "./type";
+import { DestinationListResponse, DestinationListResponseSchema, DestinationResponse, DestinationResponseSchema, GetTranslationsResponse } from "./type";
 import { DESTINATIONS } from "@/const/endpoint";
 import { validateSchema } from "../Service";
+import z from "zod";
 
 const API = HttpService.getInstance();
 
@@ -65,3 +66,22 @@ export async function updateMultiLanguageDestinations(id: string, data: unknown)
         throw error;
     }
 }
+
+export async function getDestinationFeatures(locale: string): Promise<DestinationResponse[]> {
+    try {
+        const response = await API.get<DestinationResponse[]>(
+            DESTINATIONS.GET_FEATURED + `?locale=${locale}`
+        );
+        const validatedData = validateSchema(
+            response,
+            z.array(DestinationResponseSchema),
+            "DestinationService.GetDestinationFeatures"
+        );
+        return validatedData;
+    } catch (error) {
+        console.error(`Failed to fetch destination features for locale ${locale}:`, error);
+        throw error;
+    }
+}
+
+

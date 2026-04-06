@@ -144,7 +144,9 @@ function CommaInput({
 
 function SeoCharCount({ current, max }: { current: number; max: number }) {
     return (
-        <p className={`text-xs text-right tabular-nums ${current > max ? "text-destructive" : "text-muted-foreground"}`}>
+        <p
+            className={`text-xs text-right tabular-nums ${current > max ? "text-destructive" : "text-muted-foreground"}`}
+        >
             {current}/{max}
         </p>
     );
@@ -196,6 +198,7 @@ const convertTourPayload = (values: TourFormValues) => ({
             keywords: values.en.seo.keywords ?? [],
         },
     },
+    status: values.status,
     destinationId: values.destinationId,
     images: values.images,
     featured: values.featured,
@@ -276,10 +279,15 @@ export default function TourModal({
             }
 
             try {
-                const translations = await getTourTranslations(translationGroupId);
+                const translations =
+                    await getTourTranslations(translationGroupId);
 
-                const viTranslation = translations.find((t) => t.locale === "vi");
-                const enTranslation = translations.find((t) => t.locale === "en");
+                const viTranslation = translations.find(
+                    (t) => t.locale === "vi",
+                );
+                const enTranslation = translations.find(
+                    (t) => t.locale === "en",
+                );
 
                 if (viTranslation || enTranslation) {
                     if (viTranslation) setViTranslationId(viTranslation.id);
@@ -296,8 +304,10 @@ export default function TourModal({
                                   itinerary: viTranslation.itinerary,
                                   seo: {
                                       title: viTranslation.seo?.title ?? "",
-                                      description: viTranslation.seo?.description ?? "",
-                                      keywords: viTranslation.seo?.keywords ?? [],
+                                      description:
+                                          viTranslation.seo?.description ?? "",
+                                      keywords:
+                                          viTranslation.seo?.keywords ?? [],
                                   },
                               }
                             : defaultValues.vi,
@@ -312,8 +322,10 @@ export default function TourModal({
                                   itinerary: enTranslation.itinerary,
                                   seo: {
                                       title: enTranslation.seo?.title ?? "",
-                                      description: enTranslation.seo?.description ?? "",
-                                      keywords: enTranslation.seo?.keywords ?? [],
+                                      description:
+                                          enTranslation.seo?.description ?? "",
+                                      keywords:
+                                          enTranslation.seo?.keywords ?? [],
                                   },
                               }
                             : defaultValues.en,
@@ -429,7 +441,10 @@ export default function TourModal({
             }
 
             const allImages = [...watch("images"), ...uploadedUrls];
-            setValue("images", allImages, { shouldDirty: true, shouldValidate: true });
+            setValue("images", allImages, {
+                shouldDirty: true,
+                shouldValidate: true,
+            });
             clearErrors("images");
             setPendingFiles([]);
             return true;
@@ -502,7 +517,10 @@ export default function TourModal({
                         void handleFormSubmit();
                     }}
                 >
-                    <div ref={scrollRef} className="flex-1 overflow-y-auto pr-1 mb-1 [overflow-anchor:none]">
+                    <div
+                        ref={scrollRef}
+                        className="flex-1 overflow-y-auto pr-1 mb-1 [overflow-anchor:none]"
+                    >
                         {/* General Information */}
                         <div className="space-y-4 rounded-xl border border-border/70 p-4 mb-4">
                             <div className="grid gap-4 md:grid-cols-4">
@@ -522,14 +540,16 @@ export default function TourModal({
                                                     <SelectValue placeholder="Select a destination" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {destinations.map((dest) => (
-                                                        <SelectItem
-                                                            key={dest.id}
-                                                            value={dest.id}
-                                                        >
-                                                            {dest.name}
-                                                        </SelectItem>
-                                                    ))}
+                                                    {destinations.map(
+                                                        (dest) => (
+                                                            <SelectItem
+                                                                key={dest.id}
+                                                                value={dest.id}
+                                                            >
+                                                                {dest.name}
+                                                            </SelectItem>
+                                                        ),
+                                                    )}
                                                 </SelectContent>
                                             </Select>
                                         )}
@@ -654,7 +674,9 @@ export default function TourModal({
 
                             <div className="flex items-center justify-between rounded-lg border border-border/70 px-3 py-2">
                                 <div>
-                                    <p className="text-sm font-medium">Nổi bật</p>
+                                    <p className="text-sm font-medium">
+                                        Nổi bật
+                                    </p>
                                     <p className="text-xs text-muted-foreground">
                                         Bật nếu tour này là tour nổi bật.
                                     </p>
@@ -679,15 +701,22 @@ export default function TourModal({
                             {/* Vietnamese */}
                             <div className="space-y-4 rounded-xl border border-border/70 p-4">
                                 <div className="space-y-1">
-                                    <p className="text-sm font-semibold">Tiếng Việt</p>
+                                    <p className="text-sm font-semibold">
+                                        Tiếng Việt
+                                    </p>
                                     <p className="text-xs text-muted-foreground">
                                         Nội dung hiển thị mặc định.
                                     </p>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-title">Tiêu đề {requiredMark}</Label>
-                                    <Input id="vi-title" {...register("vi.title")} />
+                                    <Label htmlFor="vi-title">
+                                        Tiêu đề {requiredMark}
+                                    </Label>
+                                    <Input
+                                        id="vi-title"
+                                        {...register("vi.title")}
+                                    />
                                     {errors.vi?.title ? (
                                         <p className="text-xs text-destructive">
                                             {errors.vi.title.message}
@@ -696,8 +725,14 @@ export default function TourModal({
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-description">Mô tả {requiredMark}</Label>
-                                    <Textarea id="vi-description" rows={5} {...register("vi.description")} />
+                                    <Label htmlFor="vi-description">
+                                        Mô tả {requiredMark}
+                                    </Label>
+                                    <Textarea
+                                        id="vi-description"
+                                        rows={5}
+                                        {...register("vi.description")}
+                                    />
                                     {errors.vi?.description ? (
                                         <p className="text-xs text-destructive">
                                             {errors.vi.description.message}
@@ -707,8 +742,13 @@ export default function TourModal({
 
                                 <div className="grid gap-4 md:grid-cols-3">
                                     <div className="space-y-2">
-                                        <Label htmlFor="vi-currency">Tiền tệ {requiredMark}</Label>
-                                        <Input id="vi-currency" {...register("vi.currency")} />
+                                        <Label htmlFor="vi-currency">
+                                            Tiền tệ {requiredMark}
+                                        </Label>
+                                        <Input
+                                            id="vi-currency"
+                                            {...register("vi.currency")}
+                                        />
                                         {errors.vi?.currency ? (
                                             <p className="text-xs text-destructive">
                                                 {errors.vi.currency.message}
@@ -716,9 +756,18 @@ export default function TourModal({
                                         ) : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="vi-price">Giá {requiredMark}</Label>
-                                        <Input id="vi-price" type="number" min="0" step="0.01"
-                                            {...register("vi.price", { valueAsNumber: true })} />
+                                        <Label htmlFor="vi-price">
+                                            Giá {requiredMark}
+                                        </Label>
+                                        <Input
+                                            id="vi-price"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            {...register("vi.price", {
+                                                valueAsNumber: true,
+                                            })}
+                                        />
                                         {errors.vi?.price ? (
                                             <p className="text-xs text-destructive">
                                                 {errors.vi.price.message}
@@ -726,14 +775,25 @@ export default function TourModal({
                                         ) : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="vi-salePrice">Giá Khuyến Mãi (Tùy chọn)</Label>
-                                        <Input id="vi-salePrice" type="number" min="0" step="0.01"
-                                            {...register("vi.salePrice", { valueAsNumber: true })} />
+                                        <Label htmlFor="vi-salePrice">
+                                            Giá Khuyến Mãi (Tùy chọn)
+                                        </Label>
+                                        <Input
+                                            id="vi-salePrice"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            {...register("vi.salePrice", {
+                                                valueAsNumber: true,
+                                            })}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-tags">Tags (comma separated)</Label>
+                                    <Label htmlFor="vi-tags">
+                                        Tags (comma separated)
+                                    </Label>
                                     <Controller
                                         control={control}
                                         name="vi.tags"
@@ -748,73 +808,158 @@ export default function TourModal({
                                 </div>
 
                                 <div className="space-y-2">
-                                    <p className="text-sm font-medium">Lịch trình {requiredMark}</p>
+                                    <p className="text-sm font-medium">
+                                        Lịch trình {requiredMark}
+                                    </p>
                                     <div className="space-y-3">
-                                        {viItineraryFields.map((field, index) => (
-                                            <div key={field.id} className="space-y-2 p-3 border rounded">
-                                                <div className="grid gap-2 grid-cols-3">
-                                                    <div>
-                                                        <Label>Ngày</Label>
-                                                        <Input type="number" min="1" readOnly
-                                                            {...register(`vi.itinerary.${index}.day`, { valueAsNumber: true })} />
+                                        {viItineraryFields.map(
+                                            (field, index) => (
+                                                <div
+                                                    key={field.id}
+                                                    className="space-y-2 p-3 border rounded"
+                                                >
+                                                    <div className="grid gap-2 grid-cols-3">
+                                                        <div>
+                                                            <Label>Ngày</Label>
+                                                            <Input
+                                                                type="number"
+                                                                min="1"
+                                                                readOnly
+                                                                {...register(
+                                                                    `vi.itinerary.${index}.day`,
+                                                                    {
+                                                                        valueAsNumber: true,
+                                                                    },
+                                                                )}
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-2">
+                                                            <Label>
+                                                                Tiêu đề
+                                                            </Label>
+                                                            <Input
+                                                                {...register(
+                                                                    `vi.itinerary.${index}.title`,
+                                                                )}
+                                                            />
+                                                            {errors.vi
+                                                                ?.itinerary?.[
+                                                                index
+                                                            ]?.title ? (
+                                                                <p className="text-xs text-destructive">
+                                                                    {
+                                                                        errors
+                                                                            .vi
+                                                                            .itinerary[
+                                                                            index
+                                                                        ].title
+                                                                            .message
+                                                                    }
+                                                                </p>
+                                                            ) : null}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-span-2">
-                                                        <Label>Tiêu đề</Label>
-                                                        <Input {...register(`vi.itinerary.${index}.title`)} />
-                                                        {errors.vi?.itinerary?.[index]?.title ? (
+                                                    <div>
+                                                        <Label>Nội dung</Label>
+                                                        <Textarea
+                                                            rows={2}
+                                                            {...register(
+                                                                `vi.itinerary.${index}.content`,
+                                                            )}
+                                                        />
+                                                        {errors.vi?.itinerary?.[
+                                                            index
+                                                        ]?.content ? (
                                                             <p className="text-xs text-destructive">
-                                                                {errors.vi.itinerary[index].title.message}
+                                                                {
+                                                                    errors.vi
+                                                                        .itinerary[
+                                                                        index
+                                                                    ].content
+                                                                        .message
+                                                                }
                                                             </p>
                                                         ) : null}
                                                     </div>
+                                                    {viItineraryFields.length >
+                                                        1 && (
+                                                        <Button
+                                                            type="button"
+                                                            size="sm"
+                                                            variant="destructive"
+                                                            onClick={() => {
+                                                                removeViItinerary(
+                                                                    index,
+                                                                );
+                                                                removeEnItinerary(
+                                                                    index,
+                                                                );
+                                                                setValue(
+                                                                    "durationDays",
+                                                                    viItineraryFields.length -
+                                                                        1,
+                                                                    {
+                                                                        shouldDirty: true,
+                                                                        shouldValidate: true,
+                                                                    },
+                                                                );
+                                                            }}
+                                                        >
+                                                            Xóa
+                                                        </Button>
+                                                    )}
                                                 </div>
-                                                <div>
-                                                    <Label>Nội dung</Label>
-                                                    <Textarea rows={2} {...register(`vi.itinerary.${index}.content`)} />
-                                                    {errors.vi?.itinerary?.[index]?.content ? (
-                                                        <p className="text-xs text-destructive">
-                                                            {errors.vi.itinerary[index].content.message}
-                                                        </p>
-                                                    ) : null}
-                                                </div>
-                                                {viItineraryFields.length > 1 && (
-                                                    <Button type="button" size="sm" variant="destructive"
-                                                        onClick={() => {
-                                                            removeViItinerary(index);
-                                                            removeEnItinerary(index);
-                                                            setValue("durationDays", viItineraryFields.length - 1, {
-                                                                shouldDirty: true,
-                                                                shouldValidate: true,
-                                                            });
-                                                        }}>
-                                                        Xóa
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        ))}
-                                        <Button type="button" size="sm" variant="outline"
+                                            ),
+                                        )}
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            variant="outline"
                                             onClick={() => {
-                                                const newDay = Math.max(...viItinerary.map((i) => i.day)) + 1;
-                                                const savedScroll = scrollRef.current?.scrollTop ?? 0;
-                                                appendViItinerary({ day: newDay, title: "", content: "" });
-                                                appendEnItinerary({ day: newDay, title: "", content: "" });
-                                                setValue("durationDays", viItinerary.length + 1, {
-                                                    shouldDirty: true,
-                                                    shouldValidate: true,
+                                                const newDay =
+                                                    Math.max(
+                                                        ...viItinerary.map(
+                                                            (i) => i.day,
+                                                        ),
+                                                    ) + 1;
+                                                const savedScroll =
+                                                    scrollRef.current
+                                                        ?.scrollTop ?? 0;
+                                                appendViItinerary({
+                                                    day: newDay,
+                                                    title: "",
+                                                    content: "",
                                                 });
+                                                appendEnItinerary({
+                                                    day: newDay,
+                                                    title: "",
+                                                    content: "",
+                                                });
+                                                setValue(
+                                                    "durationDays",
+                                                    viItinerary.length + 1,
+                                                    {
+                                                        shouldDirty: true,
+                                                        shouldValidate: true,
+                                                    },
+                                                );
                                                 requestAnimationFrame(() => {
                                                     if (scrollRef.current) {
-                                                        scrollRef.current.scrollTop = savedScroll;
+                                                        scrollRef.current.scrollTop =
+                                                            savedScroll;
                                                     }
                                                 });
-                                            }}>
+                                            }}
+                                        >
                                             Thêm ngày
                                         </Button>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-seo-title">SEO Title</Label>
+                                    <Label htmlFor="vi-seo-title">
+                                        SEO Title
+                                    </Label>
                                     <Input
                                         id="vi-seo-title"
                                         maxLength={MAX_SEO_TITLE}
@@ -822,12 +967,16 @@ export default function TourModal({
                                         {...register("vi.seo.title")}
                                     />
                                     <SeoCharCount
-                                        current={watch("vi.seo.title")?.length ?? 0}
+                                        current={
+                                            watch("vi.seo.title")?.length ?? 0
+                                        }
                                         max={MAX_SEO_TITLE}
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-seo-description">SEO Description</Label>
+                                    <Label htmlFor="vi-seo-description">
+                                        SEO Description
+                                    </Label>
                                     <Textarea
                                         id="vi-seo-description"
                                         rows={3}
@@ -836,12 +985,17 @@ export default function TourModal({
                                         {...register("vi.seo.description")}
                                     />
                                     <SeoCharCount
-                                        current={watch("vi.seo.description")?.length ?? 0}
+                                        current={
+                                            watch("vi.seo.description")
+                                                ?.length ?? 0
+                                        }
                                         max={MAX_SEO_DESCRIPTION}
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="vi-seo-keywords">SEO Keywords</Label>
+                                    <Label htmlFor="vi-seo-keywords">
+                                        SEO Keywords
+                                    </Label>
                                     <Controller
                                         control={control}
                                         name="vi.seo.keywords"
@@ -855,7 +1009,8 @@ export default function TourModal({
                                         )}
                                     />
                                     <p className="text-xs text-muted-foreground">
-                                        Nhập các từ khóa cách nhau bởi dấu phẩy (,)
+                                        Nhập các từ khóa cách nhau bởi dấu phẩy
+                                        (,)
                                     </p>
                                 </div>
                             </div>
@@ -863,15 +1018,22 @@ export default function TourModal({
                             {/* English */}
                             <div className="space-y-4 rounded-xl border border-border/70 p-4">
                                 <div className="space-y-1">
-                                    <p className="text-sm font-semibold">English</p>
+                                    <p className="text-sm font-semibold">
+                                        English
+                                    </p>
                                     <p className="text-xs text-muted-foreground">
                                         Bản dịch cho khách quốc tế.
                                     </p>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-title">Title {requiredMark}</Label>
-                                    <Input id="en-title" {...register("en.title")} />
+                                    <Label htmlFor="en-title">
+                                        Title {requiredMark}
+                                    </Label>
+                                    <Input
+                                        id="en-title"
+                                        {...register("en.title")}
+                                    />
                                     {errors.en?.title ? (
                                         <p className="text-xs text-destructive">
                                             {errors.en.title.message}
@@ -880,8 +1042,14 @@ export default function TourModal({
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-description">Description {requiredMark}</Label>
-                                    <Textarea id="en-description" rows={5} {...register("en.description")} />
+                                    <Label htmlFor="en-description">
+                                        Description {requiredMark}
+                                    </Label>
+                                    <Textarea
+                                        id="en-description"
+                                        rows={5}
+                                        {...register("en.description")}
+                                    />
                                     {errors.en?.description ? (
                                         <p className="text-xs text-destructive">
                                             {errors.en.description.message}
@@ -891,8 +1059,13 @@ export default function TourModal({
 
                                 <div className="grid gap-4 md:grid-cols-3">
                                     <div className="space-y-2">
-                                        <Label htmlFor="en-currency">Currency {requiredMark}</Label>
-                                        <Input id="en-currency" {...register("en.currency")} />
+                                        <Label htmlFor="en-currency">
+                                            Currency {requiredMark}
+                                        </Label>
+                                        <Input
+                                            id="en-currency"
+                                            {...register("en.currency")}
+                                        />
                                         {errors.en?.currency ? (
                                             <p className="text-xs text-destructive">
                                                 {errors.en.currency.message}
@@ -900,9 +1073,18 @@ export default function TourModal({
                                         ) : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="en-price">Price {requiredMark}</Label>
-                                        <Input id="en-price" type="number" min="0" step="0.01"
-                                            {...register("en.price", { valueAsNumber: true })} />
+                                        <Label htmlFor="en-price">
+                                            Price {requiredMark}
+                                        </Label>
+                                        <Input
+                                            id="en-price"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            {...register("en.price", {
+                                                valueAsNumber: true,
+                                            })}
+                                        />
                                         {errors.en?.price ? (
                                             <p className="text-xs text-destructive">
                                                 {errors.en.price.message}
@@ -910,14 +1092,25 @@ export default function TourModal({
                                         ) : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="en-salePrice">Sale Price (Optional)</Label>
-                                        <Input id="en-salePrice" type="number" min="0" step="0.01"
-                                            {...register("en.salePrice", { valueAsNumber: true })} />
+                                        <Label htmlFor="en-salePrice">
+                                            Sale Price (Optional)
+                                        </Label>
+                                        <Input
+                                            id="en-salePrice"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            {...register("en.salePrice", {
+                                                valueAsNumber: true,
+                                            })}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-tags">Tags (comma separated)</Label>
+                                    <Label htmlFor="en-tags">
+                                        Tags (comma separated)
+                                    </Label>
                                     <Controller
                                         control={control}
                                         name="en.tags"
@@ -932,73 +1125,156 @@ export default function TourModal({
                                 </div>
 
                                 <div className="space-y-2">
-                                    <p className="text-sm font-medium">Itinerary {requiredMark}</p>
+                                    <p className="text-sm font-medium">
+                                        Itinerary {requiredMark}
+                                    </p>
                                     <div className="space-y-3">
-                                        {enItineraryFields.map((field, index) => (
-                                            <div key={field.id} className="space-y-2 p-3 border rounded">
-                                                <div className="grid gap-2 grid-cols-3">
-                                                    <div>
-                                                        <Label>Day</Label>
-                                                        <Input type="number" min="1" readOnly
-                                                            {...register(`en.itinerary.${index}.day`, { valueAsNumber: true })} />
+                                        {enItineraryFields.map(
+                                            (field, index) => (
+                                                <div
+                                                    key={field.id}
+                                                    className="space-y-2 p-3 border rounded"
+                                                >
+                                                    <div className="grid gap-2 grid-cols-3">
+                                                        <div>
+                                                            <Label>Day</Label>
+                                                            <Input
+                                                                type="number"
+                                                                min="1"
+                                                                readOnly
+                                                                {...register(
+                                                                    `en.itinerary.${index}.day`,
+                                                                    {
+                                                                        valueAsNumber: true,
+                                                                    },
+                                                                )}
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-2">
+                                                            <Label>Title</Label>
+                                                            <Input
+                                                                {...register(
+                                                                    `en.itinerary.${index}.title`,
+                                                                )}
+                                                            />
+                                                            {errors.en
+                                                                ?.itinerary?.[
+                                                                index
+                                                            ]?.title ? (
+                                                                <p className="text-xs text-destructive">
+                                                                    {
+                                                                        errors
+                                                                            .en
+                                                                            .itinerary[
+                                                                            index
+                                                                        ].title
+                                                                            .message
+                                                                    }
+                                                                </p>
+                                                            ) : null}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-span-2">
-                                                        <Label>Title</Label>
-                                                        <Input {...register(`en.itinerary.${index}.title`)} />
-                                                        {errors.en?.itinerary?.[index]?.title ? (
+                                                    <div>
+                                                        <Label>Content</Label>
+                                                        <Textarea
+                                                            rows={2}
+                                                            {...register(
+                                                                `en.itinerary.${index}.content`,
+                                                            )}
+                                                        />
+                                                        {errors.en?.itinerary?.[
+                                                            index
+                                                        ]?.content ? (
                                                             <p className="text-xs text-destructive">
-                                                                {errors.en.itinerary[index].title.message}
+                                                                {
+                                                                    errors.en
+                                                                        .itinerary[
+                                                                        index
+                                                                    ].content
+                                                                        .message
+                                                                }
                                                             </p>
                                                         ) : null}
                                                     </div>
+                                                    {enItineraryFields.length >
+                                                        1 && (
+                                                        <Button
+                                                            type="button"
+                                                            size="sm"
+                                                            variant="destructive"
+                                                            onClick={() => {
+                                                                removeEnItinerary(
+                                                                    index,
+                                                                );
+                                                                removeViItinerary(
+                                                                    index,
+                                                                );
+                                                                setValue(
+                                                                    "durationDays",
+                                                                    enItineraryFields.length -
+                                                                        1,
+                                                                    {
+                                                                        shouldDirty: true,
+                                                                        shouldValidate: true,
+                                                                    },
+                                                                );
+                                                            }}
+                                                        >
+                                                            Remove
+                                                        </Button>
+                                                    )}
                                                 </div>
-                                                <div>
-                                                    <Label>Content</Label>
-                                                    <Textarea rows={2} {...register(`en.itinerary.${index}.content`)} />
-                                                    {errors.en?.itinerary?.[index]?.content ? (
-                                                        <p className="text-xs text-destructive">
-                                                            {errors.en.itinerary[index].content.message}
-                                                        </p>
-                                                    ) : null}
-                                                </div>
-                                                {enItineraryFields.length > 1 && (
-                                                    <Button type="button" size="sm" variant="destructive"
-                                                        onClick={() => {
-                                                            removeEnItinerary(index);
-                                                            removeViItinerary(index);
-                                                            setValue("durationDays", enItineraryFields.length - 1, {
-                                                                shouldDirty: true,
-                                                                shouldValidate: true,
-                                                            });
-                                                        }}>
-                                                        Remove
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        ))}
-                                        <Button type="button" size="sm" variant="outline"
+                                            ),
+                                        )}
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            variant="outline"
                                             onClick={() => {
-                                                const newDay = Math.max(...enItinerary.map((i) => i.day)) + 1;
-                                                const savedScroll = scrollRef.current?.scrollTop ?? 0;
-                                                appendEnItinerary({ day: newDay, title: "", content: "" });
-                                                appendViItinerary({ day: newDay, title: "", content: "" });
-                                                setValue("durationDays", enItinerary.length + 1, {
-                                                    shouldDirty: true,
-                                                    shouldValidate: true,
+                                                const newDay =
+                                                    Math.max(
+                                                        ...enItinerary.map(
+                                                            (i) => i.day,
+                                                        ),
+                                                    ) + 1;
+                                                const savedScroll =
+                                                    scrollRef.current
+                                                        ?.scrollTop ?? 0;
+                                                appendEnItinerary({
+                                                    day: newDay,
+                                                    title: "",
+                                                    content: "",
                                                 });
+                                                appendViItinerary({
+                                                    day: newDay,
+                                                    title: "",
+                                                    content: "",
+                                                });
+                                                setValue(
+                                                    "durationDays",
+                                                    enItinerary.length + 1,
+                                                    {
+                                                        shouldDirty: true,
+                                                        shouldValidate: true,
+                                                    },
+                                                );
                                                 requestAnimationFrame(() => {
                                                     if (scrollRef.current) {
-                                                        scrollRef.current.scrollTop = savedScroll;
+                                                        scrollRef.current.scrollTop =
+                                                            savedScroll;
                                                     }
                                                 });
-                                            }}>
+                                            }}
+                                        >
                                             Add Day
                                         </Button>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-seo-title">SEO Title</Label>
+                                    <Label htmlFor="en-seo-title">
+                                        SEO Title
+                                    </Label>
                                     <Input
                                         id="en-seo-title"
                                         maxLength={MAX_SEO_TITLE}
@@ -1006,12 +1282,16 @@ export default function TourModal({
                                         {...register("en.seo.title")}
                                     />
                                     <SeoCharCount
-                                        current={watch("en.seo.title")?.length ?? 0}
+                                        current={
+                                            watch("en.seo.title")?.length ?? 0
+                                        }
                                         max={MAX_SEO_TITLE}
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-seo-description">SEO Description</Label>
+                                    <Label htmlFor="en-seo-description">
+                                        SEO Description
+                                    </Label>
                                     <Textarea
                                         id="en-seo-description"
                                         rows={3}
@@ -1020,12 +1300,17 @@ export default function TourModal({
                                         {...register("en.seo.description")}
                                     />
                                     <SeoCharCount
-                                        current={watch("en.seo.description")?.length ?? 0}
+                                        current={
+                                            watch("en.seo.description")
+                                                ?.length ?? 0
+                                        }
                                         max={MAX_SEO_DESCRIPTION}
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="en-seo-keywords">SEO Keywords</Label>
+                                    <Label htmlFor="en-seo-keywords">
+                                        SEO Keywords
+                                    </Label>
                                     <Controller
                                         control={control}
                                         name="en.seo.keywords"

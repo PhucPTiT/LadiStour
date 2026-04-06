@@ -68,3 +68,22 @@ export async function updateMultiLanguageTours(id: string, data: unknown): Promi
         throw error;
     }
 }
+
+
+
+export async function getFeaturedPublishedTours(locale: string): Promise<TourList> {
+    try {
+        const response = await API.get<TourList>(
+            TOURS.GET_FEATURED_PUBLISHED + `?locale=${locale}`
+        );
+        const validatedData = validateSchema(
+            response,
+            TourListSchema,
+            "TourService.GetFeaturedPublishedTours"
+        );
+        return validatedData;
+    } catch (error) {
+        console.error("Failed to fetch featured published tours:", error);
+        throw error;
+    }
+}

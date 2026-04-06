@@ -13,6 +13,7 @@ import { login } from "@/service/auth/AuthService";
 import { toast } from "sonner";
 import { ADMIN_AUTH_EVENT } from "@/components/admin/auth";
 import { StarfieldBackground } from "@/components/ui/starfield";
+import { Eye, EyeOff } from "lucide-react";
 
 const loginSchema = z.object({
     username: z.string().min(1, "Username is required"),
@@ -24,6 +25,7 @@ type LoginValues = z.infer<typeof loginSchema>;
 export default function AdminLoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -50,11 +52,10 @@ export default function AdminLoginPage() {
             router.replace("/admin");
         } catch (error) {
             console.error("Login error:", error);
-            const errorMessage =
-                error instanceof Error
-                    ? error.message
-                    : "Login failed. Please try again.";
-            toast.error(errorMessage);
+
+            toast.error(
+                "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin và thử lại.",
+            );
         } finally {
             setIsLoading(false);
         }
@@ -116,14 +117,35 @@ export default function AdminLoginPage() {
                             >
                                 Password
                             </Label>
-                            <Input
-                                id="password"
-                                type="password"
-                                placeholder="••••••••"
-                                disabled={isLoading}
-                                className="h-11 rounded-xl px-4 text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-neutral-900"
-                                {...register("password")}
-                            />
+                            <div className="relative">
+                                <Input
+                                    id="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    disabled={isLoading}
+                                    className="h-11 rounded-xl px-4 pr-11 text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-neutral-900"
+                                    {...register("password")}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-200 transition-colors"
+                                    tabIndex={-1}
+                                    aria-label={
+                                        showPassword
+                                            ? "Hide password"
+                                            : "Show password"
+                                    }
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="h-4 w-4" />
+                                    ) : (
+                                        <Eye className="h-4 w-4" />
+                                    )}
+                                </button>
+                            </div>
                             {errors.password ? (
                                 <p className="text-xs text-red-600">
                                     {errors.password.message}

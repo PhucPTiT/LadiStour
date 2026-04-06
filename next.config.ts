@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "20mb", // hoặc "50mb"
     },
   },
+  cacheComponents: true
 };
 
 export default withNextIntl(nextConfig);
