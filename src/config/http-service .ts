@@ -27,7 +27,7 @@ export default class HttpService extends FetchApi {
         return new HttpService(config, initialToken);
     }
 
-    async setBaseURL(newBaseURL: string, _endpoint?: string): Promise<void> {
+    async setBaseURL(newBaseURL: string): Promise<void> {
         this.baseURL = newBaseURL;
     }
 }

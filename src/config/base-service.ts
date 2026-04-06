@@ -37,6 +37,8 @@ export type RequestOptionsWithUrl = RequestInit & {
     url?: string;
 } & NextFetchRequestConfig & { baseURL?: string };
 
+type NextHeadersInit = HeadersInit | undefined;
+
 export function isResponseError<T>(
     error: unknown,
 ): error is ResponseErrorType<T> {
@@ -103,6 +105,72 @@ export default class FetchApi {
         return typeof window !== "undefined";
     }
 
+    private normalizeBearerToken(token?: string | null): string {
+        if (!token) return "";
+        return `Bearer ${token.replace(/[Bb]earer\s+/, "").trim()}`;
+    }
+
+    private headersToObject(headers: NextHeadersInit): Record<string, string> {
+        const result: Record<string, string> = {};
+        if (!headers) return result;
+
+        if (headers instanceof Headers) {
+            headers.forEach((value, key) => {
+                result[key] = value;
+            });
+            return result;
+        }
+
+        if (Array.isArray(headers)) {
+            for (const [key, value] of headers) {
+                result[key] = value;
+            }
+            return result;
+        }
+
+        return { ...(headers as Record<string, string>) };
+    }
+
+    private mergeHeaders(...headerSets: NextHeadersInit[]): Headers {
+        const merged = new Headers();
+        for (const headerSet of headerSets) {
+            if (!headerSet) continue;
+
+            if (headerSet instanceof Headers) {
+                headerSet.forEach((value, key) => merged.set(key, value));
+                continue;
+            }
+
+            if (Array.isArray(headerSet)) {
+                for (const [key, value] of headerSet) {
+                    merged.set(key, value);
+                }
+                continue;
+            }
+
+            for (const [key, value] of Object.entries(headerSet)) {
+                if (value !== undefined) merged.set(key, String(value));
+            }
+        }
+        return merged;
+    }
+
+    private async getAuthorizationToken(): Promise<string> {
+        const currentHeaders = this.headersToObject(this.headers);
+        const headerToken = currentHeaders.Authorization || currentHeaders.authorization;
+        if (headerToken) {
+            return this.normalizeBearerToken(headerToken);
+        }
+
+        if (this.isClient) {
+            return this.normalizeBearerToken(getCookie("token"));
+        }
+
+        // Do not read next/headers cookies here because this method can be called
+        // inside "use cache" scopes, where dynamic sources are forbidden.
+        return "";
+    }
+
     private get getCookieToken(): string {
         if (this.isClient) {
             const token = getCookie("token");
@@ -112,8 +180,8 @@ export default class FetchApi {
     }
 
     setAuthorizationToken(token: string): void {
+        token = this.normalizeBearerToken(token);
         if (!token) return;
-        token = `Bearer ${token.replace(/[Bb]earer /, "")}`;
 
         // Update headers with the token
         this.headers = {
@@ -151,12 +219,12 @@ export default class FetchApi {
         response: Response,
     ): Promise<void> {
         if (!response.ok) {
-            // if (response.status === 401) {
-            //     await this.delAuthorizationToken();
-            //     if (this.isClient && window.location.pathname !== "/admin/login") {
-            //         window.location.replace("/admin/login");
-            //     }
-            // }
+            if (response.status === 401) {
+                await this.delAuthorizationToken();
+                if (this.isClient && window.location.pathname !== "/admin/login") {
+                    window.location.replace("/admin/login");
+                }
+            }
 
             const contentType = response.headers.get("Content-Type");
 
@@ -261,31 +329,44 @@ export default class FetchApi {
     ): Promise<T> {
         try {
             const isFormData = options.body instanceof FormData;
+            const method = (options.method || "GET").toUpperCase();
+            const isGetRequest = method === "GET";
 
-            // Get token from cookie if available
-            const tokenFromCookie = this.getCookieToken;
-            const hasAuthorizationHeader = typeof this.headers === 'object' && !Array.isArray(this.headers) && 'Authorization' in this.headers;
+            const authorizationToken = await this.getAuthorizationToken();
+
+            const mergedHeaders = this.mergeHeaders(this.headers, options?.headers);
+            if (authorizationToken && !mergedHeaders.has("Authorization")) {
+                mergedHeaders.set("Authorization", authorizationToken);
+            }
+            if (!isFormData && options.body !== undefined) {
+                mergedHeaders.set("Content-Type", "application/json");
+            }
+            if (!mergedHeaders.has("Accept")) {
+                mergedHeaders.set("Accept", "application/json");
+            }
+
+            const shouldApplyDefaultRevalidate =
+                isGetRequest &&
+                options.cache !== "no-store" &&
+                options.next?.revalidate === undefined;
+
+            const nextOptions = {
+                ...options?.next,
+                ...(shouldApplyDefaultRevalidate ? { revalidate: 60 } : {}),
+            };
 
             const requestOptions: RequestOptionsWithUrl = {
                 ...options,
-                headers: {
-                    ...this.headers,
-                    ...(tokenFromCookie && !hasAuthorizationHeader ? { Authorization: tokenFromCookie } : {}),
-                    ...(options?.headers || {}),
-                    ...(isFormData ? {} : { "Content-Type": "application/json" }),
-                    Accept: "application/json",
-                },
+                method,
+                headers: mergedHeaders,
                 body: isFormData
                     ? options.body
                     : options?.body
                         ? JSON.stringify(options.body)
                         : undefined,
-                next: {
-                    ...options?.next,
-                    revalidate: 1200, // revalidate GET requests every 20 minutes
-                },
+                next: nextOptions,
                 credentials: "include",
-                cache: "default",
+                cache: options.cache ?? "no-store",
             };
 
             if (options.baseURL) await this.setBaseURL(options.baseURL);
