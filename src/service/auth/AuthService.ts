@@ -16,7 +16,6 @@ export async function login(
             password,
         });
 
-        console.log(response);
 
         const validatedData = validateSchema(
             response,

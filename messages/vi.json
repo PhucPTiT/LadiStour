@@ -21,5 +21,50 @@
     },
     "quickSearch": {
         "searchNow": "Tìm tour ngay"
+    },
+    "testimonials": {
+        "header": "Khách hàng nói gì về chúng tôi",
+        "description": "Khám phá lý do tại sao du khách yêu thích."
+    },
+    "destinationEditorial": {
+        "header": "Điểm đến nổi bật",
+        "description": "Những điểm đến đang được đặt nhiều nhất",
+        "viewAll": "Xem tất cả",
+        "text": "Mỗi tour được xây dựng theo phong cách linh hoạt: khám phá, nghỉ dưỡng hoặc kết hợp gia đình. Chúng tôi ưu tiên điểm đến có trải nghiệm rõ nét, lịch trình dễ di chuyển và đối tác địa phương uy tín để hành trình của bạn trọn vẹn từ đầu đến cuối."
+    },
+    "TrendingTours": {
+        "header": "Tour nổi bật",
+        "description": "Những tour được đặt nhiều nhất trong tháng này",
+        "viewAll": "Xem tất cả"
+    },
+    "TourCard": {
+        "days": "ngày",
+        "nights": "đêm",
+        "sale": "Giảm giá",
+        "viewDetails": "Xem chi tiết",
+        "defaultDestination": "Đang cập nhật",
+        "defaultTag": "Tour",
+        "landscape": "cảnh quan"
+    },
+    "CompanyStorySection": {
+        "intro": "Giới thiệu về chúng tôi",
+        "header": "Đội ngũ chuyên nghiệp tại Đông Nam Á",
+        "year": "Năm kinh nghiệm",
+        "support": "Hỗ trợ khách hàng 24/7",
+        "countries": "Quốc gia khai thác chính",
+        "ceoCaption": "Mỗi hành trình đều được đội ngũ vận hành và dịch vụ khách hàng của chúng tôi xem xét kỹ lưỡng trước khi xác nhận, đảm bảo tính khả thi và mang đến trải nghiệm thực tế tốt nhất có thể."
+    },
+    "ctaSection": {
+        "header": "Đặt lịch ngay",
+        "title": "Đặt lịch tư vấn ngay để giữ ưu đãi tốt nhất",
+        "description": "Điền thông tin nhu cầu trong 1 phút, đội ngũ HAPPY SMILE sẽ liên hệ trong 24h để gợi ý lộ trình, giá dự kiến và lịch khởi hành phù hợp.",
+        "bookNow": "Đặt lịch ngay",
+        "callHotline": "Gọi hotline"
+    },
+    "BlogSection": {
+        "header": "Blog du lịch",
+        "description": "Bài viết chia sẻ kinh nghiệm và mẹo du lịch",
+        "viewAll": "Xem tất cả",
+        "readMore": "Đọc thêm"
     }
 }

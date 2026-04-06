@@ -1,12 +1,13 @@
+// src/app/[locale]/layout.tsx
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
 import { routing } from "@/i18n/routing";
-import { Suspense } from "react";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import LocaleProvider from "./provider";
 
 const beVietnamPro = Be_Vietnam_Pro({
     subsets: ["latin", "latin-ext"],
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
         template: "%s | STOUR LUXE",
     },
     description:
-        "High-end tailor-made travel in Vietnam, Laos, Cambodia, and Thailand with premium stays, curated experiences, and seamless concierge service.",
+        "High-end tailor-made travel in Vietnam, Laos, Cambodia, and Thailand.",
 };
 
 export function generateStaticParams() {
@@ -48,7 +49,6 @@ export default async function LocaleLayout({
 
     setRequestLocale(locale);
 
-    const messages = await getMessages();
     return (
         <html
             lang={locale}
@@ -56,17 +56,13 @@ export default async function LocaleLayout({
             className={`${beVietnamPro.variable} ${playfairDisplay.variable} antialiased`}
         >
             <body>
-                <NextIntlClientProvider messages={messages}>
+                <LocaleProvider locale={locale}>
                     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
-                        <Suspense fallback={null}>
-                            <Header />
-                        </Suspense>
-                        {/* <main>{children}</main> */}
-                        <Suspense fallback={null}>
-                            <Footer />
-                        </Suspense>
+                        <Header />
+                        {children}
+                        <Footer />
                     </div>
-                </NextIntlClientProvider>
+                </LocaleProvider>
             </body>
         </html>
     );

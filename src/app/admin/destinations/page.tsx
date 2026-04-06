@@ -12,6 +12,7 @@ import { DestinationResponse } from "@/service/destinations/type";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus } from "lucide-react";
+import { invalidateDestinationCache } from "@/app/actions/cache/invalidateCacheDestination";
 
 export default function AdminDestinationsPage() {
     const [destinations, setDestinations] = useState<DestinationResponse[]>([]);
@@ -62,6 +63,7 @@ export default function AdminDestinationsPage() {
         try {
             await deleteDestination(id);
             setDestinations(destinations.filter((d) => d.id !== id));
+            await invalidateDestinationCache();
             toast.success("Destination deleted successfully.");
         } catch (err) {
             console.error("Failed to delete destination:", err);

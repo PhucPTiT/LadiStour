@@ -1,18 +1,32 @@
 import { MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tour } from "@/lib/data/tours";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils/formatPrice";
+
+type Tour = {
+    id: string;
+    slug: string;
+    title: string;
+    destination?: string | { id: string; name: string } | null;
+    durationDays: number;
+    durationNights?: number;
+    price: number;
+    salePrice?: number | null;
+    images: string[];
+    tags?: string[];
+};
 
 type TourCardProps = {
     tour: Tour;
     className?: string;
 };
 
-export default function TourCard({ tour, className }: TourCardProps) {
+export default async function TourCard({ tour, className }: TourCardProps) {
+    const t = await getTranslations("TourCard");
     const displayPrice = tour.salePrice ?? tour.price;
 
     return (
@@ -23,20 +37,21 @@ export default function TourCard({ tour, className }: TourCardProps) {
                 className,
             )}
         >
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-4/3 overflow-hidden">
                 <Image
                     src={tour.images[0]}
-                    alt={`${tour.title} landscape in ${tour.country}`}
+                    alt={`${tour.title} ${t("landscape")}`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-medium text-neutral-700">
-                    {tour.durationDays} days {tour.durationNights} nights
+                    {tour.durationDays} {t("days")} {tour.durationNights ?? 0}{" "}
+                    {t("nights")}
                 </span>
                 {tour.salePrice ? (
                     <span className="absolute right-4 top-4 rounded-full bg-emerald-700 px-3 py-1 text-xs font-semibold text-white">
-                        Sale
+                        {t("sale")}
                     </span>
                 ) : null}
                 <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
@@ -44,21 +59,26 @@ export default function TourCard({ tour, className }: TourCardProps) {
                         asChild
                         className="rounded-full bg-white px-4 py-2 text-sm text-neutral-900 hover:bg-white"
                     >
-                        <Link href={`/tours/${tour.slug}`}>View Details</Link>
+                        <Link href={`/tours/${tour.slug}`}>
+                            {t("viewDetails")}
+                        </Link>
                     </Button>
                 </div>
             </div>
 
             <CardContent className="space-y-3 px-5 py-5">
                 <p className="inline-flex items-center gap-1 rounded-full bg-neutral-100 px-3 py-1 text-xs text-neutral-600">
-                    <MapPin size={13} /> {tour.destination}, {tour.country}
+                    <MapPin size={13} />{" "}
+                    {typeof tour.destination === "string"
+                        ? tour.destination
+                        : (tour.destination?.name ?? t("defaultDestination"))}
                 </p>
                 <h3 className="font-heading text-xl leading-tight text-neutral-900">
                     {tour.title}
                 </h3>
                 <div className="flex items-center justify-between">
                     <p className="inline-flex items-center gap-1 text-xs font-medium tracking-wide text-neutral-500 uppercase">
-                        <Tag size={13} /> {tour.typologies[0]}
+                        <Tag size={13} /> {tour.tags?.[1] ?? t("defaultTag")}
                     </p>
                     <div className="text-right">
                         {tour.salePrice ? (

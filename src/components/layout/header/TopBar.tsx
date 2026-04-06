@@ -1,16 +1,12 @@
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import SwitchLanguage from "./SwitchLanguage";
-import { cacheTag } from "next/cache";
-import { getSettings } from "@/service/settings/SettingService";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { getCachedSettings } from "@/service/settings/SettingCacheService";
 
 async function TopBarContent({ contactText }: { contactText: string }) {
-    "use cache";
-    cacheTag("site-settings");
-
-    const settings = await getSettings();
+    const settings = await getCachedSettings();
     const phone = settings?.phoneNumber || "";
     const email = settings?.email || "";
 

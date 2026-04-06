@@ -10,7 +10,6 @@ type MegaMenuProps = {
 };
 
 export default function MegaMenu({ sections }: MegaMenuProps) {
-    console.log(sections, "sections in MegaMenu");
     return (
         <div className="absolute left-0 top-full z-40 hidden w-[720px] rounded-3xl border border-black/5 bg-white/95 p-6 shadow-[0_18px_50px_rgba(17,24,39,0.14)] backdrop-blur-xl group-hover:block">
             <div className="grid grid-cols-3 gap-5">

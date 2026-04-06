@@ -49,6 +49,7 @@ export const TourSchema = z.object({
 
     defaultLocale: z.boolean(),
     featured: z.boolean(),
+
 });
 
 export const TourListSchema = z.array(TourSchema);
@@ -57,3 +58,49 @@ export type Tour = z.infer<typeof TourSchema>;
 export type TourList = z.infer<typeof TourListSchema>;
 export type TourItinerary = z.infer<typeof TourItinerarySchema>;
 export type TourSeo = z.infer<typeof TourSeoSchema>;
+
+
+
+export const TourSchemaWithDestination = z.object({
+    id: z.string(),
+    locale: z.enum(["vi", "en"]),
+    translationGroupId: z.string(),
+    originId: z.string().nullable(),
+
+    title: z.string(),
+    slug: z.string(),
+
+    destination: z.object({
+        id: z.string(),
+        name: z.string(),
+    }).nullable().optional(),
+
+    images: z.array(z.string()),
+
+    durationDays: z.number(),
+    durationNights: z.number().optional(),
+    maxPeople: z.number(),
+
+    price: z.number(),
+    salePrice: z.number().nullable().optional(),
+
+    currency: z.string(),
+
+    description: z.string(),
+
+    itinerary: z.array(TourItinerarySchema),
+
+    tags: z.array(z.string()),
+
+    status: z.enum(["draft", "published", "archived"]),
+
+    seo: TourSeoSchema,
+
+    createdAt: z.string(),
+    updatedAt: z.string(),
+
+    defaultLocale: z.boolean(),
+    featured: z.boolean(),
+});
+
+export type TourWithDestination = z.infer<typeof TourSchemaWithDestination>;

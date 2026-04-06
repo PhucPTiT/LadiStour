@@ -21,5 +21,51 @@
     },
     "quickSearch": {
         "searchNow": "Search tours now"
+    },
+
+    "testimonials": {
+        "header": "What Our Customers Say",
+        "description": "Discover why travelers love."
+    },
+    "destinationEditorial": {
+        "header": "Featured Destinations",
+        "description": "The most popular destinations",
+        "viewAll": "View All",
+        "text": "Each tour is designed with a flexible approach: exploration, relaxation, or family-friendly options. We prioritize destinations with distinct experiences, easy-to-navigate itineraries, and trusted local partners to ensure your journey is seamless from start to finish."
+    },
+    "TrendingTours": {
+        "header": "Trending Tours",
+        "description": "The most popular tours this month",
+        "viewAll": "View All"
+    },
+    "TourCard": {
+        "days": "days",
+        "nights": "nights",
+        "sale": "Sale",
+        "viewDetails": "View Details",
+        "defaultDestination": "Updating",
+        "defaultTag": "Tour",
+        "landscape": "landscape"
+    },
+    "CompanyStorySection": {
+        "intro": "Introducing us",
+        "header": "Professional team in Southeast Asia",
+        "year": "Years of experience",
+        "support": "24/7 customer support",
+        "countries": "Main countries exploited",
+        "ceoCaption": "Each itinerary is carefully reviewed by our operations team and customer service before confirmation, ensuring feasibility and providing the best possible real-world experience."
+    },
+    "ctaSection": {
+        "header": "Booking Now",
+        "title": "Book consultation now to get the best deals",
+        "description": "Fill in your requirements in 1 minute, our HAPPY SMILE team will contact you within 24 hours to suggest itineraries, estimated prices and suitable departure dates.",
+        "bookNow": "Book now",
+        "callHotline": "Call hotline"
+    },
+    "BlogSection": {
+        "header": "Travel Blog",
+        "description": "Latest travel tips and insights",
+        "viewAll": "View All",
+        "readMore": "Read More"
     }
 }

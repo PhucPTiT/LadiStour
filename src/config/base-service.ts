@@ -345,6 +345,8 @@ export default class FetchApi {
                 mergedHeaders.set("Accept", "application/json");
             }
 
+
+
             const shouldApplyDefaultRevalidate =
                 isGetRequest &&
                 options.cache !== "no-store" &&
@@ -366,7 +368,6 @@ export default class FetchApi {
                         : undefined,
                 next: nextOptions,
                 credentials: "include",
-                cache: options.cache ?? "no-store",
             };
 
             if (options.baseURL) await this.setBaseURL(options.baseURL);

@@ -1,13 +1,12 @@
-"use client";
-
 import TourCard from "@/components/tours/TourCard";
-import { Tour } from "@/lib/data/tours";
+import { getCachedToursFeatured } from "@/service/tour/TourCacheService";
+import { getLocale, getTranslations } from "next-intl/server";
 
-type TrendingToursProps = {
-    tours: Tour[];
-};
+export default async function TrendingTours() {
+    const locale = (await getLocale()) as "vi" | "en";
+    const tours = await getCachedToursFeatured(locale);
+    const t = await getTranslations("TrendingTours");
 
-export default function TrendingTours({ tours }: TrendingToursProps) {
     return (
         <section
             id="featured-tours"
@@ -17,10 +16,10 @@ export default function TrendingTours({ tours }: TrendingToursProps) {
             <div className="mb-10 flex items-end justify-between gap-4">
                 <div>
                     <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                        Tour Noi Bat
+                        {t("header")}
                     </p>
                     <h2 className="mt-2 font-heading text-3xl text-neutral-900 md:text-5xl">
-                        Cac tour noi bat cua cong ty
+                        {t("description")}
                     </h2>
                 </div>
             </div>

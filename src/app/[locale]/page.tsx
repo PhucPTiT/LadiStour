@@ -9,8 +9,7 @@ import QuickSearch from "@/components/home/QuickSearch";
 import SignatureExperiencesSection from "@/components/home/SignatureExperiencesSection";
 import Testimonials from "@/components/home/Testimonials";
 import TrendingTours from "@/components/home/TrendingTours";
-import { blogPosts } from "@/lib/data/blog";
-import { tours } from "@/lib/data/tours";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: "Du Lich Dong Nam A Cao Cap",
@@ -21,16 +20,30 @@ export const metadata: Metadata = {
 export default function HomePage() {
     return (
         <>
-            <HomeGsapEffects />
+            <Suspense fallback="Loading GSAP effects...">
+                <HomeGsapEffects />
+            </Suspense>
             <HeroSlider />
             <QuickSearch />
-            <DestinationEditorial />
-            <SignatureExperiencesSection />
-            <TrendingTours tours={tours.slice(0, 6)} />
-            <CompanyStorySection />
-            <CtaSection />
+            <Suspense fallback="Loading destinations...">
+                <DestinationEditorial />
+            </Suspense>
+            <Suspense fallback="Loading signature experiences...">
+                <SignatureExperiencesSection />
+            </Suspense>
+            <Suspense fallback="Loading trending tours...">
+                <TrendingTours />
+            </Suspense>
+            <Suspense fallback="Loading company story...">
+                <CompanyStorySection />
+            </Suspense>
+            <Suspense fallback="Loading call-to-action...">
+                <CtaSection />
+            </Suspense>
             <Testimonials />
-            <BlogSection posts={blogPosts.slice(0, 3)} />
+            <Suspense fallback="Loading blog posts...">
+                <BlogSection />
+            </Suspense>
         </>
     );
 }

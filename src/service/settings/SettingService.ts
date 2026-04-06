@@ -18,7 +18,6 @@ export async function postSettings(data: unknown): Promise<void> {
 
 export async function updateSettings(data: unknown): Promise<void> {
     try {
-        console.log(API)
         await API.put(SETTINGS.UPDATE, data);
     } catch (error) {
         console.error("Failed to update review:", error);

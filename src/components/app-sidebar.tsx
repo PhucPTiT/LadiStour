@@ -17,6 +17,7 @@ import {
 import {
     FileTextIcon,
     FolderIcon,
+    HouseIcon,
     LayoutDashboardIcon,
     MapPinIcon,
     PlaneIcon,
@@ -61,6 +62,11 @@ const data = {
             title: "Đánh giá",
             url: "/admin/reviews",
             icon: <StarIcon />,
+        },
+        {
+            title: "Home Sections",
+            url: "/admin/home-sections/service-highlight",
+            icon: <HouseIcon />,
         },
         {
             title: "Settings",

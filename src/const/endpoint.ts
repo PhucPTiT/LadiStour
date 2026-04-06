@@ -66,6 +66,7 @@ export const POSTS = {
     GET_TRANSLATIONS: "/posts/translations/:groupId",
     GET_ALL: "/posts/all",
     GET_DETAIL: "/posts/detail",
+    GET_PUBLISHED: "/posts/published",
 };
 
 // REVIEWS ENDPOINTS
@@ -91,3 +92,12 @@ export const SETTINGS = {
     GET: "/settings",
     RESET: "/settings/reset",
 };
+
+
+//HOME SECTION ENDPOINTS
+export const HOME = {
+    GET_HERO: "/home-hero-section",
+    UPDATE_HERO: "/home-hero-section",
+    GET_SERVICES_HIGHLIGHT: "/service-highlights-section",
+    UPDATE_SERVICES_HIGHLIGHT: "/service-highlights-section",
+}

@@ -18,7 +18,7 @@ import {
     resetSettings,
     updateSettings,
 } from "@/service/settings/SettingService";
-import { invalidateSettingsCache } from "@/app/actions/invalidateCacheSettings";
+import { invalidateSettingsCache } from "@/app/actions/cache/invalidateCacheSettings";
 
 const socialSchema = z.object({
     platform: z.string().optional(),
@@ -169,6 +169,7 @@ export default function SettingsPage() {
                     toast.success("Cập nhật settings thành công.");
                 } else {
                     await postSettings(payload);
+                    await invalidateSettingsCache();
                     toast.success("Tạo settings thành công.");
                     setHasExistingSettings(true);
                 }
@@ -213,6 +214,7 @@ export default function SettingsPage() {
             await resetSettings();
             toast.success("Đã reset settings về mặc định.");
             await loadSettings();
+            await invalidateSettingsCache();
         } catch (error) {
             console.error("Failed to reset settings:", error);
             toast.error("Reset settings thất bại. Vui lòng thử lại.");

@@ -25,6 +25,7 @@ import {
     getTranslations,
     updateMultiLanguageDestinations,
 } from "@/service/destinations/DestinationService";
+import { invalidateDestinationCache } from "@/app/actions/cache/invalidateCacheDestination";
 
 const localizedSchema = z.object({
     name: z.string().min(1, "Tên là bắt buộc"),
@@ -386,6 +387,7 @@ export default function DestinationModal({
                 );
 
                 onOpenChange(false);
+                await invalidateDestinationCache();
                 onSuccess?.();
             } catch (error) {
                 console.error("Failed to create/update destination:", error);

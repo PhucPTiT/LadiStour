@@ -28,6 +28,7 @@ export default function NavBar() {
     const pathname = usePathname();
     const router = useRouter();
 
+    const [isLoading, setIsLoading] = useState(true);
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openMobileSection, setOpenMobileSection] = useState<string | null>(
@@ -48,6 +49,7 @@ export default function NavBar() {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         const fetchNavData = async () => {
             const staticItems: NavItem[] = [
                 { label: t("destinations"), href: "/#featured-destinations" },
@@ -126,6 +128,8 @@ export default function NavBar() {
             } catch (error) {
                 console.error("Failed to fetch nav data:", error);
                 setNavItems(staticItems);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -142,7 +146,9 @@ export default function NavBar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    console.log(navItems, "navItems in NavBar");
+    if (isLoading) {
+        return <NavBarSkeleton />;
+    }
 
     return (
         <>
@@ -165,6 +171,8 @@ export default function NavBar() {
                                 alt="STOUR TRAVEL logo"
                                 className="object-contain"
                                 fill
+                                sizes="( max-width: 640px ) 120px, 160px"
+                                priority
                             />
                         </div>
                     </Link>
@@ -362,3 +370,40 @@ export default function NavBar() {
         </>
     );
 }
+
+const NavBarSkeleton = () => {
+    return (
+        <div
+            className={cn("px-4 transition-all duration-500", "bg-white py-4")}
+        >
+            <div className="container flex items-center justify-between">
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 text-neutral-900"
+                >
+                    <div className="relative aspect-video min-w-20">
+                        <div className="animate-pulse rounded bg-neutral-300" />
+                    </div>
+                </Link>
+
+                <nav className="hidden items-center gap-5 xl:gap-6 lg:flex">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                        <div key={idx} className="group relative">
+                            <div className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:text-[#ed1925]!">
+                                <div className="h-4 w-16 animate-pulse rounded bg-neutral-300" />
+                            </div>
+                        </div>
+                    ))}
+                </nav>
+
+                <div className="hidden lg:block">
+                    <div className="h-11 w-32 animate-pulse rounded-full bg-[#da2121]" />
+                </div>
+
+                <div className="inline-flex size-10 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 lg:hidden">
+                    <div className="h-5 w-5 animate-pulse rounded bg-neutral-300" />
+                </div>
+            </div>
+        </div>
+    );
+};

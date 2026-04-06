@@ -11,26 +11,14 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-
-const testimonials = [
-    {
-        name: "Pham Minh Anh",
-        rating: 5,
-        quote: "Gia dinh minh dat tour Ha Noi - Ha Long va rat hai long. Lich trinh vua suc, huong dan vien tan tam va xe dua don dung gio.",
-    },
-    {
-        name: "Tran Quoc Bao",
-        rating: 5,
-        quote: "Cong ty tu van rat nhanh, bao gia ro rang, khong phat sinh bat ngo. Chuyen di Thai Lan cua team minh rat tron ven.",
-    },
-    {
-        name: "Le Khanh Linh",
-        rating: 5,
-        quote: "Minh dat tour couple va duoc ho tro toi uu lich bay, resort, lich tham quan. Cam giac duoc cham soc rat ky.",
-    },
-];
+import { getAllReviews } from "@/service/reviews/ReviewService";
+import { ReviewList } from "@/service/reviews/type";
+import { useTranslations } from "next-intl";
 
 export default function Testimonials() {
+    const t = useTranslations("testimonials");
+
+    const [reviews, setReviews] = useState<ReviewList>([]);
     const [api, setApi] = useState<CarouselApi>();
 
     useEffect(() => {
@@ -45,6 +33,15 @@ export default function Testimonials() {
         return () => clearInterval(timer);
     }, [api]);
 
+    useEffect(() => {
+        const fetchReviews = async () => {
+            const response = await getAllReviews();
+            setReviews(response);
+        };
+
+        fetchReviews();
+    }, []);
+
     return (
         <section
             className="bg-[radial-gradient(circle_at_20%_10%,#f3eee4_0%,#f8f7f4_40%,#f5f5f4_100%)] py-24"
@@ -54,25 +51,25 @@ export default function Testimonials() {
             <div className="container px-4">
                 <div className="mb-10 text-center">
                     <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                        Danh Gia Tour & Cong Ty
+                        {t("header")}
                     </p>
                     <h2 className="mt-2 font-heading text-3xl text-neutral-900 md:text-5xl">
-                        Khach hang noi gi ve STOUR TRAVEL
+                        {t("description")}
                     </h2>
                 </div>
 
                 <Carousel setApi={setApi} opts={{ align: "start", loop: true }}>
-                    <CarouselContent>
-                        {testimonials.map((item) => (
+                    <CarouselContent className="">
+                        {reviews.map((item) => (
                             <CarouselItem
-                                key={item.name}
+                                key={item.id}
                                 className="md:basis-1/2"
                             >
                                 <Card
                                     data-home-card
-                                    className="lux-shadow-3d h-full rounded-[22px] border-neutral-200/80 bg-white py-0"
+                                    className="lux-shadow-3d h-full rounded-[22px] border-red-200/80 bg-white py-0"
                                 >
-                                    <CardContent className="p-6">
+                                    <CardContent className="p-6 border-red-200/80">
                                         <div className="mb-3 flex items-center gap-1 text-[#be8a39]">
                                             {Array.from({
                                                 length: item.rating,
@@ -85,10 +82,10 @@ export default function Testimonials() {
                                             ))}
                                         </div>
                                         <p className="text-sm leading-relaxed text-neutral-600">
-                                            &quot;{item.quote}&quot;
+                                            &quot;{item.comment}&quot;
                                         </p>
                                         <p className="mt-4 font-semibold text-neutral-900">
-                                            {item.name}
+                                            {item.authorName}
                                         </p>
                                     </CardContent>
                                 </Card>

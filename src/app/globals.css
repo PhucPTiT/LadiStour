@@ -206,7 +206,3 @@ a {
 .lux-shadow {
     box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.06);
 }
-
-.lux-shadow-3d {
-    box-shadow: 0 26px 44px rgba(15, 23, 42, 0.18), 0 10px 18px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}

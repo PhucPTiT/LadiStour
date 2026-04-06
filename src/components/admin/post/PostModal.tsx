@@ -222,7 +222,6 @@ export default function PostModal({
 
     const onSubmit = useCallback(
         async (values: PostFormValues) => {
-            console.log("values");
             try {
                 const payload = {
                     locale: values.locale,

@@ -2,13 +2,13 @@ import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { BlogPost } from "@/lib/data/blog";
+import { getCachedPostsFeaturedSections } from "@/service/post/PostServiceCacheService";
+import { getLocale, getTranslations } from "next-intl/server";
 
-type BlogSectionProps = {
-    posts: BlogPost[];
-};
-
-export default function BlogSection({ posts }: BlogSectionProps) {
+export default async function BlogSection() {
+    const posts = await getCachedPostsFeaturedSections();
+    const t = await getTranslations("BlogSection");
+    const locale = (await getLocale()) as "vi" | "en";
     return (
         <section
             className="bg-[linear-gradient(180deg,#ffffff_0%,#f8f7f4_100%)] py-24"
@@ -19,22 +19,22 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 <div className="mb-10 flex items-end justify-between gap-4">
                     <div>
                         <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-                            Kien Thuc Du Lich
+                            {t("header")}
                         </p>
                         <h2 className="mt-2 font-heading text-3xl text-neutral-900 md:text-5xl">
-                            Bai viet chia se kinh nghiem va meo di tour
+                            {t("description")}
                         </h2>
                     </div>
                     <Link
                         href="/blog"
                         className="text-sm font-semibold text-emerald-700"
                     >
-                        Xem tat ca
+                        {t("viewAll")}
                     </Link>
                 </div>
 
                 <div className="grid gap-7 md:grid-cols-3">
-                    {posts.map((post) => (
+                    {posts?.slice(0, 6).map((post) => (
                         <Card
                             key={post.id}
                             data-home-card
@@ -42,7 +42,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                         >
                             <div className="relative aspect-16/11 overflow-hidden">
                                 <Image
-                                    src={post.coverImage}
+                                    src={post.thumbnail}
                                     alt={`Article cover for ${post.title}`}
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -53,8 +53,15 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                                 <p className="inline-flex items-center gap-1 text-xs text-neutral-500">
                                     <CalendarDays size={13} />{" "}
                                     {new Date(
-                                        post.publishedAt,
-                                    ).toLocaleDateString("en-US")}
+                                        post!.publishedAt || new Date(),
+                                    ).toLocaleDateString(
+                                        locale === "vi" ? "vi-VN" : "en-US",
+                                        {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                        },
+                                    )}
                                 </p>
                                 <h3 className="mt-3 font-heading text-2xl text-neutral-900">
                                     {post.title}
@@ -66,7 +73,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                                     href={`/blog/${post.slug}`}
                                     className="mt-4 inline-flex text-sm font-semibold text-emerald-700"
                                 >
-                                    Doc bai viet
+                                    {t("readMore")}
                                 </Link>
                             </CardContent>
                         </Card>
