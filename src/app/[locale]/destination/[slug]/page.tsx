@@ -101,21 +101,7 @@ export default async function DestinationDetailPage({
 
                         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                             {tours.map((tour) => (
-                                <TourCard
-                                    key={tour.id}
-                                    tour={{
-                                        id: tour.id,
-                                        slug: tour.slug,
-                                        title: tour.title,
-                                        destination: destination.name,
-                                        durationDays: tour.durationDays,
-                                        durationNights: tour.durationNights,
-                                        price: tour.price,
-                                        salePrice: tour.salePrice,
-                                        images: tour.images,
-                                        tags: tour.tags,
-                                    }}
-                                />
+                                <TourCard key={tour.id} tour={tour} />
                             ))}
                         </div>
                     </div>
