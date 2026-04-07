@@ -16,15 +16,15 @@ type TourGalleryProps = {
 
 export default function TourGallery({ title, images }: TourGalleryProps) {
     return (
-        <div className="overflow-hidden rounded-[24px] border border-neutral-200">
+        <div className="overflow-hidden rounded-3xl border border-neutral-200">
             <Carousel
                 opts={{ align: "start", loop: true }}
                 className="tour-detail-gallery"
             >
-                <CarouselContent className="-ml-0">
+                <CarouselContent className="ml-0">
                     {images.map((image, index) => (
                         <CarouselItem key={image} className="pl-0">
-                            <div className="relative aspect-[16/9]">
+                            <div className="relative aspect-video">
                                 <Image
                                     src={image}
                                     alt={`${title} image ${index + 1}`}

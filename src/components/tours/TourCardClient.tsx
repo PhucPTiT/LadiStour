@@ -1,20 +1,20 @@
 import { MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils/formatPrice";
-import { TourWithDestination } from "@/service/tour/type";
+import { useTranslations } from "next-intl";
+import { Tour } from "@/service/tour/type";
 
 type TourCardProps = {
-    tour: TourWithDestination;
+    tour: Tour;
     className?: string;
 };
 
-export default async function TourCard({ tour, className }: TourCardProps) {
-    const t = await getTranslations("TourCard");
+export default function TourCardClient({ tour, className }: TourCardProps) {
+    const t = useTranslations("TourCard");
     const displayPrice = tour.salePrice ?? tour.price;
 
     return (
@@ -55,20 +55,11 @@ export default async function TourCard({ tour, className }: TourCardProps) {
             </div>
 
             <CardContent className="space-y-3 px-5 py-5">
-                <p className="inline-flex items-center gap-1 rounded-full bg-neutral-100 px-3 py-1 text-xs text-neutral-600">
-                    <MapPin size={13} />{" "}
-                    {typeof tour.destination === "string"
-                        ? tour.destination
-                        : (tour.destination?.name ?? t("defaultDestination"))}
-                </p>
-
                 <h3 className="font-heading text-xl leading-tight text-neutral-900">
                     {tour.title}
                 </h3>
                 <div className="flex items-center justify-between">
-                    <p className="inline-flex items-center gap-1 text-xs font-medium tracking-wide text-neutral-500 uppercase">
-                        <Tag size={13} /> {tour.tags?.[1] ?? t("defaultTag")}
-                    </p>
+                    <p className="inline-flex items-center gap-1 text-xs font-medium tracking-wide text-neutral-500 uppercase"></p>
                     <div className="text-right">
                         {tour.salePrice ? (
                             <p className="text-xs text-neutral-400 line-through">

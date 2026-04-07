@@ -15,6 +15,8 @@ import { getAllReviews } from "@/service/reviews/ReviewService";
 import { ReviewList } from "@/service/reviews/type";
 import { useTranslations } from "next-intl";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 export default function Testimonials() {
     const t = useTranslations("testimonials");
 
@@ -22,9 +24,7 @@ export default function Testimonials() {
     const [api, setApi] = useState<CarouselApi>();
 
     useEffect(() => {
-        if (!api) {
-            return;
-        }
+        if (!api) return;
 
         const timer = setInterval(() => {
             api.scrollNext();
@@ -59,7 +59,7 @@ export default function Testimonials() {
                 </div>
 
                 <Carousel setApi={setApi} opts={{ align: "start", loop: true }}>
-                    <CarouselContent className="">
+                    <CarouselContent>
                         {reviews.map((item) => (
                             <CarouselItem
                                 key={item.id}
@@ -81,17 +81,41 @@ export default function Testimonials() {
                                                 />
                                             ))}
                                         </div>
+
                                         <p className="text-sm leading-relaxed text-neutral-600">
                                             &quot;{item.comment}&quot;
                                         </p>
-                                        <p className="mt-4 font-semibold text-neutral-900">
-                                            {item.authorName}
-                                        </p>
+
+                                        <div className="mt-5 flex items-center gap-3">
+                                            <Avatar className="h-10 w-10 border border-neutral-200">
+                                                <AvatarImage
+                                                    src={
+                                                        item.authorAvatar ?? ""
+                                                    }
+                                                    alt={item.authorName}
+                                                />
+                                                <AvatarFallback>
+                                                    {item.authorName
+                                                        ?.split(" ")
+                                                        .slice(0, 2)
+                                                        .map((w) => w[0])
+                                                        .join("")
+                                                        .toUpperCase()}
+                                                </AvatarFallback>
+                                            </Avatar>
+
+                                            <div>
+                                                <p className="font-semibold text-neutral-900">
+                                                    {item.authorName}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </CardContent>
                                 </Card>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
+
                     <CarouselPrevious className="left-2 top-[45%]" />
                     <CarouselNext className="right-2 top-[45%]" />
                 </Carousel>

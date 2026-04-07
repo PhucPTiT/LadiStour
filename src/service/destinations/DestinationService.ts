@@ -6,9 +6,9 @@ import z from "zod";
 
 const API = HttpService.getInstance();
 
-export async function getAllDestinations(): Promise<DestinationListResponse> {
+export async function getAllDestinations(locale?: string): Promise<DestinationListResponse> {
     try {
-        const response = await API.get<DestinationListResponse>(DESTINATIONS.GET_ALL);
+        const response = await API.get<DestinationListResponse>(DESTINATIONS.GET_ALL, { locale });
 
         const validatedData = validateSchema(
             response,

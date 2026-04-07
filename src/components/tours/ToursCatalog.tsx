@@ -91,9 +91,9 @@ export default function ToursCatalog({
                 </div>
 
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                    {filteredTours.map((tour) => (
+                    {/* {filteredTours.map((tour) => (
                         <TourCard key={tour.id} tour={tour} />
-                    ))}
+                    ))} */}
                     {!filteredTours.length ? (
                         <p className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 text-sm text-neutral-600 sm:col-span-2 xl:col-span-3">
                             No tour matches your current filters.

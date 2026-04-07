@@ -1,17 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import BookingStickyForm from "@/components/tours/BookingStickyForm";
 import TourGallery from "@/components/tours/TourGallery";
 import TourTabs from "@/components/tours/TourTabs";
-import { Tour } from "@/lib/data/tours";
 import { formatPrice } from "@/lib/utils/formatPrice";
+import { Tour } from "@/service/tour/type";
 
 type TourDetailContentProps = {
     tour: Tour;
 };
 
 export default function TourDetailContent({ tour }: TourDetailContentProps) {
+    const t = useTranslations("TourDetailPage");
+    const country =
+        tour.seo?.keywords?.[1] ||
+        tour.seo?.keywords?.[0] ||
+        t("defaultDestination");
+
     return (
         <div className="container px-4 py-12">
             <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
@@ -23,10 +30,10 @@ export default function TourDetailContent({ tour }: TourDetailContentProps) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.45 }}
-                        className="rounded-[24px] border border-neutral-200 bg-white p-6"
+                        className="rounded-3xl border border-neutral-200 bg-white p-6"
                     >
                         <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
-                            {tour.country}
+                            {country}
                         </p>
                         <h1 className="mt-2 font-heading text-4xl text-neutral-900">
                             {tour.title}
@@ -36,15 +43,16 @@ export default function TourDetailContent({ tour }: TourDetailContentProps) {
                         </p>
                         <div className="mt-6 rounded-2xl bg-neutral-50 p-4">
                             <p className="text-xs text-neutral-500">
-                                Starting from
+                                {t("startingFrom")}
                             </p>
                             {tour.salePrice ? (
                                 <p className="text-sm text-neutral-400 line-through">
-                                    {formatPrice(tour.price)}
+                                    {formatPrice(tour.price)} {tour.currency}
                                 </p>
                             ) : null}
                             <p className="text-3xl font-semibold text-emerald-700">
-                                {formatPrice(tour.salePrice ?? tour.price)}
+                                {formatPrice(tour.salePrice ?? tour.price)}{" "}
+                                {tour.currency}
                             </p>
                         </div>
                     </motion.section>
@@ -63,15 +71,13 @@ export default function TourDetailContent({ tour }: TourDetailContentProps) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.45, delay: 0.12 }}
-                        className="rounded-[24px] border border-dashed border-neutral-300 bg-neutral-50 p-10 text-center"
+                        className="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-10 text-center"
                     >
                         <h2 className="font-heading text-3xl text-neutral-900">
-                            Map
+                            {t("mapSection")}
                         </h2>
                         <p className="mt-2 text-sm text-neutral-600">
-                            Interactive map placeholder. In production, connect
-                            this section to a map provider and route
-                            coordinates.
+                            {t("mapPlaceholder")}
                         </p>
                     </motion.section>
                 </div>

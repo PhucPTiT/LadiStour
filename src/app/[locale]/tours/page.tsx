@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import ToursCatalog from "@/components/tours/ToursCatalog";
-import { tours } from "@/lib/data/tours";
+import { getLocale, getTranslations } from "next-intl/server";
+import ToursCatalogClient from "@/components/tours/ToursCatalogClient";
+import { getCachedAllTours } from "@/service/tour/TourCacheService";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-    title: "Tours",
-    description:
-        "Browse luxury tours by destination, typology, duration, and budget across Vietnam, Laos, Cambodia, and Thailand.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations("ToursPage");
+    return {
+        title: t("title"),
+        description: t("description"),
+    };
+}
 
 type ToursPageProps = {
     searchParams: Promise<{
@@ -17,10 +21,16 @@ type ToursPageProps = {
 
 export default async function ToursPage({ searchParams }: ToursPageProps) {
     const params = await searchParams;
+    const locale = (await getLocale()) as "vi" | "en";
+    const tours = await getCachedAllTours(locale);
+
+    if (!tours) {
+        notFound();
+    }
 
     return (
-        <ToursCatalog
-            initialTours={tours}
+        <ToursCatalogClient
+            tours={tours}
             initialFilters={{
                 country: params.country ?? "",
                 typology: params.typology ?? "",

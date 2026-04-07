@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Tour } from "@/lib/data/tours";
+import { useTranslations } from "next-intl";
+import { Tour } from "@/service/tour/type";
 import { formatPrice } from "@/lib/utils/formatPrice";
 
 type TabKey = "itinerary" | "inclusions" | "price";
@@ -11,15 +12,16 @@ type TourTabsProps = {
 };
 
 export default function TourTabs({ tour }: TourTabsProps) {
+    const t = useTranslations("TourTabs");
     const [tab, setTab] = useState<TabKey>("itinerary");
 
     return (
-        <section className="rounded-[24px] border border-neutral-200 bg-white p-6">
+        <section className="rounded-3xl border border-neutral-200 bg-white p-6">
             <div className="mb-5 flex flex-wrap gap-2">
                 {[
-                    { key: "itinerary", label: "Itinerary" },
-                    { key: "inclusions", label: "Inclusions / Exclusions" },
-                    { key: "price", label: "Price" },
+                    { key: "itinerary", label: t("itinerary") },
+                    { key: "inclusions", label: t("details") },
+                    { key: "price", label: t("pricing") },
                 ].map((item) => (
                     <button
                         key={item.key}
@@ -44,12 +46,12 @@ export default function TourTabs({ tour }: TourTabsProps) {
                             className="rounded-2xl bg-neutral-50 p-4"
                         >
                             <p className="text-xs font-semibold tracking-[0.16em] text-emerald-700 uppercase">
-                                Day {entry.day}
+                                {t("day")} {entry.day}
                             </p>
                             <h3 className="mt-1 text-lg font-semibold text-neutral-900">
                                 {entry.title}
                             </h3>
-                            <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+                            <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-neutral-600">
                                 {entry.content}
                             </p>
                         </article>
@@ -58,44 +60,93 @@ export default function TourTabs({ tour }: TourTabsProps) {
             ) : null}
 
             {tab === "inclusions" ? (
-                <div className="grid gap-5 md:grid-cols-2">
+                <div className="space-y-4">
                     <div>
                         <h3 className="text-sm font-semibold tracking-[0.16em] text-neutral-500 uppercase">
-                            Inclusions
+                            {t("tourDetails")}
                         </h3>
-                        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-neutral-600">
-                            {tour.inclusions.map((item) => (
-                                <li key={item}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 className="text-sm font-semibold tracking-[0.16em] text-neutral-500 uppercase">
-                            Exclusions
-                        </h3>
-                        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-neutral-600">
-                            {tour.exclusions.map((item) => (
-                                <li key={item}>{item}</li>
-                            ))}
+                        <ul className="mt-3 space-y-2 text-sm text-neutral-600">
+                            <li className="flex justify-between">
+                                <span>{t("duration")}:</span>
+                                <span className="font-medium">
+                                    {tour.durationDays} {t("days")}
+                                    {tour.durationNights &&
+                                        ` / ${tour.durationNights} ${t("nights")}`}
+                                </span>
+                            </li>
+                            <li className="flex justify-between">
+                                <span>{t("maxGroupSize")}:</span>
+                                <span className="font-medium">
+                                    {tour.maxPeople} {t("guests")}
+                                </span>
+                            </li>
+                            <li className="flex justify-between">
+                                <span>{t("status")}:</span>
+                                <span className="font-medium capitalize">
+                                    {tour.status}
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             ) : null}
 
             {tab === "price" ? (
-                <div className="space-y-2 rounded-2xl bg-neutral-50 p-5">
-                    <p className="text-sm text-neutral-500">From</p>
-                    {tour.salePrice ? (
-                        <p className="text-sm text-neutral-400 line-through">
-                            {formatPrice(tour.price)}
-                        </p>
-                    ) : null}
-                    <p className="text-3xl font-semibold text-emerald-700">
-                        {formatPrice(tour.salePrice ?? tour.price)}
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                        Price per person based on double occupancy.
-                    </p>
+                <div className="space-y-4">
+                    <div>
+                        <h3 className="text-sm font-semibold tracking-[0.16em] text-neutral-500 uppercase">
+                            {t("pricingInformation")}
+                        </h3>
+                        <div className="mt-3 space-y-2">
+                            <div className="flex justify-between text-sm">
+                                <span className="text-neutral-600">
+                                    {t("regularPrice")}:
+                                </span>
+                                <span className="font-medium">
+                                    {formatPrice(tour.price)} {tour.currency}
+                                </span>
+                            </div>
+                            {tour.salePrice && (
+                                <>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-neutral-600">
+                                            {t("salePrice")}:
+                                        </span>
+                                        <span className="font-medium text-emerald-700">
+                                            {formatPrice(tour.salePrice)}{" "}
+                                            {tour.currency}
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-neutral-600">
+                                            {t("savings")}:
+                                        </span>
+                                        <span className="font-medium text-red-600">
+                                            {formatPrice(
+                                                tour.price - tour.salePrice,
+                                            )}{" "}
+                                            {tour.currency} (
+                                            {Math.round(
+                                                ((tour.price - tour.salePrice) /
+                                                    tour.price) *
+                                                    100,
+                                            )}
+                                            %)
+                                        </span>
+                                    </div>
+                                </>
+                            )}
+                            <div className="mt-4 rounded-lg bg-emerald-50 p-3">
+                                <p className="text-xs font-semibold text-emerald-700">
+                                    {t("pricePerPerson")}
+                                </p>
+                                <p className="text-2xl font-bold text-emerald-700">
+                                    {formatPrice(tour.salePrice ?? tour.price)}{" "}
+                                    {tour.currency}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             ) : null}
         </section>

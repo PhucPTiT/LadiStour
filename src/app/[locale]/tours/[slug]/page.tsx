@@ -1,34 +1,16 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import { getCachedTourBySlug } from "@/service/tour/TourCacheService";
 import TourDetailContent from "@/components/tours/TourDetailContent";
-import { tours } from "@/lib/data/tours";
+import { notFound } from "next/navigation";
 
 type TourDetailPageProps = {
     params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({
-    params,
-}: TourDetailPageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const tour = tours.find((item) => item.slug === slug);
-
-    if (!tour) {
-        return {
-            title: "Tour not found",
-            description: "The selected tour was not found.",
-        };
-    }
-
-    return {
-        title: `${tour.destination} Luxury Tour`,
-        description: tour.description,
-    };
-}
-
 export default async function TourDetailPage({ params }: TourDetailPageProps) {
     const { slug } = await params;
-    const tour = tours.find((item) => item.slug === slug);
+    const locale = (await getLocale()) as "vi" | "en";
+    const tour = await getCachedTourBySlug(locale, slug);
 
     if (!tour) {
         notFound();

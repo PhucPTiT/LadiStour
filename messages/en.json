@@ -67,5 +67,93 @@
         "description": "Latest travel tips and insights",
         "viewAll": "View All",
         "readMore": "Read More"
+    },
+    "BlogPage": {
+        "header": "Travel Blog",
+        "description": "Practical planning tips, seasonal guidance, and curated inspiration from our travel specialists.",
+        "readMore": "Read More",
+        "min": "min read"
+    },
+    "DestinationPage": {
+        "header": "Explore Destinations",
+        "description": "Discover the world's most captivating destinations, each offering unique experiences and unforgettable memories.",
+        "viewDetails": "View Details"
+    },
+    "DestinationDetailPage": {
+        "about": "About This Destination",
+        "tours": "Available Tours",
+        "toursDescription": "Explore our curated selection of tours to this amazing destination."
+    },
+    "ToursPage": {
+        "title": "Luxury Tours",
+        "description": "Browse luxury tours by destination, typology, duration, and budget across Southeast Asia.",
+        "header": "Explore Our Tours",
+        "sortPlaceholder": "Sort by",
+        "priceSort": "Price low to high",
+        "newestSort": "Newest",
+        "durationSort": "Duration",
+        "showFilters": "Show Filters",
+        "hideFilters": "Hide Filters",
+        "noResults": "No tour matches your current filters.",
+        "filterTitle": "Filter Tours",
+        "destination": "Destination",
+        "allCountries": "All Countries",
+        "typology": "Typology",
+        "allTypologies": "All Typologies",
+        "all": "All",
+        "featured": "Featured",
+        "durationUpTo": "Duration up to {days} days"
+    },
+    "TourDetailPage": {
+        "defaultDestination": "Destination",
+        "startingFrom": "Starting from",
+        "mapSection": "Map",
+        "mapPlaceholder": "Interactive map placeholder. In production, connect this section to a map provider and route coordinates."
+    },
+    "TourTabs": {
+        "itinerary": "Itinerary",
+        "details": "Details",
+        "pricing": "Pricing",
+        "day": "Day",
+        "tourDetails": "Tour Details",
+        "duration": "Duration",
+        "days": "Days",
+        "nights": "Nights",
+        "maxGroupSize": "Max Group Size",
+        "guests": "Guests",
+        "status": "Status",
+        "pricingInformation": "Pricing Information",
+        "regularPrice": "Regular Price",
+        "salePrice": "Sale Price",
+        "savings": "Savings",
+        "pricePerPerson": "Price per person"
+    },
+    "BookingStickyForm": {
+        "bookingInquiry": "Booking Inquiry",
+        "yourName": "Your name",
+        "emailAddress": "Email address",
+        "phoneNumber": "Phone number",
+        "numberOfGuests": "Number of guests",
+        "message": "Message",
+        "preSalesRequest": "Pre-sales Request",
+        "successMessage": "Thanks, our advisor will contact you shortly."
+    },
+    "footer": {
+        "contact": "Contact",
+        "usefulLinks": "Useful Links",
+        "allTours": "All Tours",
+        "travelJournal": "Travel Journal",
+        "aboutUs": "About Us",
+        "follow": "Follow",
+        "copyright": "Copyright 2026 STOUR LUXE. All rights reserved.",
+        "companyName": "STOUR LUXE"
+    },
+    "aboutPage": {
+        "title": "About Us",
+        "contactTitle": "Contact Us",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "followUs": "Follow Us"
     }
 }

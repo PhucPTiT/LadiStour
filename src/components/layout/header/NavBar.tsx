@@ -52,9 +52,9 @@ export default function NavBar() {
         setIsLoading(true);
         const fetchNavData = async () => {
             const staticItems: NavItem[] = [
-                { label: t("destinations"), href: "/#featured-destinations" },
+                { label: t("destinations"), href: "/destination" },
                 { label: t("services"), href: "/#service-highlights" },
-                { label: t("aboutUs"), href: "/#company-story" },
+                { label: t("aboutUs"), href: "/about" },
                 { label: t("reviews"), href: "/#testimonials" },
                 { label: t("blog"), href: "/blog" },
             ];
@@ -78,7 +78,7 @@ export default function NavBar() {
                 const destinationItems = destinations
                     .map((dest) => ({
                         label: dest.name,
-                        href: `/tours/${dest.slug}`,
+                        href: `/destination/${dest.slug}`,
                     }))
                     .slice(0, 5);
 

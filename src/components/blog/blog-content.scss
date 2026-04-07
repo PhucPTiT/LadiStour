@@ -1,0 +1,39 @@
+// Blog Content Wrapper
+
+@use "../../styles/variables";
+@use "../../styles/_keyframe-animations.scss";
+
+.blog-content {
+    width: 100%;
+    max-width: 100%;
+    font-family: inherit;
+
+    .simple-editor-content {
+        padding: 0;
+        border: none;
+        background: transparent;
+        max-width: unset;
+
+        &[contenteditable="false"] {
+            cursor: default;
+            user-select: text;
+        }
+
+        .tiptap.ProseMirror.simple-editor {
+            padding: 0;
+            border: none;
+            background: transparent;
+            max-width: unset;
+        }
+    }
+
+    padding-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        padding-bottom: 1.5rem;
+    }
+
+    .tiptap.ProseMirror {
+        background-color: var(--color-primary) !important;
+    }
+}

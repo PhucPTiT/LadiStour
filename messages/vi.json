@@ -66,5 +66,93 @@
         "description": "Bài viết chia sẻ kinh nghiệm và mẹo du lịch",
         "viewAll": "Xem tất cả",
         "readMore": "Đọc thêm"
+    },
+    "BlogPage": {
+        "header": "Blog du lịch",
+        "description": "Bài viết chia sẻ kinh nghiệm và mẹo du lịch",
+        "readMore": "Đọc thêm",
+        "min": "phút đọc"
+    },
+    "DestinationPage": {
+        "header": "Khám Phá Điểm Đến",
+        "description": "Khám phá những điểm đến hấp dẫn nhất thế giới, mỗi nơi mang đến những trải nghiệm độc đáo và những kỷ niệm không thể quên.",
+        "viewDetails": "Xem Chi Tiết"
+    },
+    "DestinationDetailPage": {
+        "about": "Về Điểm Đến Này",
+        "tours": "Các Tour Có Sẵn",
+        "toursDescription": "Khám phá bộ sưu tập tour được chọn lọc kỹ lưỡng đến điểm đến tuyệt vời này."
+    },
+    "ToursPage": {
+        "title": "Du Lịch Sang Trọng",
+        "description": "Duyệt các tour sang trọng theo điểm đến, loại hình, thời gian lưu trú và ngân sách trong Đông Nam Á.",
+        "header": "Khám Phá Các Tour Của Chúng Tôi",
+        "sortPlaceholder": "Sắp xếp theo",
+        "priceSort": "Giá từ thấp đến cao",
+        "newestSort": "Mới nhất",
+        "durationSort": "Thời gian lưu trú",
+        "showFilters": "Hiện Bộ Lọc",
+        "hideFilters": "Ẩn Bộ Lọc",
+        "noResults": "Không có tour nào phù hợp với bộ lọc của bạn.",
+        "filterTitle": "Lọc Tour",
+        "destination": "Điểm Đến",
+        "allCountries": "Tất Cả Quốc Gia",
+        "typology": "Loại Hình",
+        "allTypologies": "Tất Cả Loại Hình",
+        "all": "Tất Cả",
+        "featured": "Nổi Bật",
+        "durationUpTo": "Thời gian lưu trú tối đa {days} ngày"
+    },
+    "TourDetailPage": {
+        "defaultDestination": "Điểm Đến",
+        "startingFrom": "Giá từ",
+        "mapSection": "Bản Đồ",
+        "mapPlaceholder": "Trình giữ chỗ bản đồ tương tác. Trong phiên bản sản xuất, hãy kết nối phần này với nhà cung cấp bản đồ và tọa độ tuyến đường."
+    },
+    "TourTabs": {
+        "itinerary": "Lịch Trình",
+        "details": "Chi Tiết",
+        "pricing": "Giá Cả",
+        "day": "Ngày",
+        "tourDetails": "Chi Tiết Tour",
+        "duration": "Thời Gian",
+        "days": "Ngày",
+        "nights": "Đêm",
+        "maxGroupSize": "Kích Thước Nhóm Tối Đa",
+        "guests": "Khách",
+        "status": "Trạng Thái",
+        "pricingInformation": "Thông Tin Giá Cả",
+        "regularPrice": "Giá Thường",
+        "salePrice": "Giá Khuyến Mãi",
+        "savings": "Tiết Kiếm",
+        "pricePerPerson": "Giá mỗi người"
+    },
+    "BookingStickyForm": {
+        "bookingInquiry": "Yêu Cầu Đặt Lịch",
+        "yourName": "Tên của bạn",
+        "emailAddress": "Địa chỉ email",
+        "phoneNumber": "Số điện thoại",
+        "numberOfGuests": "Số lượng khách",
+        "message": "Lời nhắn",
+        "preSalesRequest": "Yêu Cầu Trước Bán Hàng",
+        "successMessage": "Cảm ơn,顾问của chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất."
+    },
+    "footer": {
+        "contact": "Liên hệ",
+        "usefulLinks": "Liên kết hữu ích",
+        "allTours": "Tất cả Tour",
+        "travelJournal": "Nhật ký du lịch",
+        "aboutUs": "Về chúng tôi",
+        "follow": "Theo dõi",
+        "copyright": "Bản quyền 2026 STOUR LUXE. Tất cả các quyền được bảo lưu.",
+        "companyName": "STOUR LUXE"
+    },
+    "aboutPage": {
+        "title": "Về Chúng Tôi",
+        "contactTitle": "Liên Hệ Với Chúng Tôi",
+        "email": "Email",
+        "phone": "Điện Thoại",
+        "address": "Địa Chỉ",
+        "followUs": "Theo Dõi Chúng Tôi"
     }
 }

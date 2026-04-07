@@ -2,13 +2,13 @@ import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { getCachedPostsFeaturedSections } from "@/service/post/PostServiceCacheService";
+import { getCachedPostsFeaturedSections } from "@/service/post/PostCacheService";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function BlogSection() {
-    const posts = await getCachedPostsFeaturedSections();
-    const t = await getTranslations("BlogSection");
     const locale = (await getLocale()) as "vi" | "en";
+    const posts = await getCachedPostsFeaturedSections(locale);
+    const t = await getTranslations("BlogSection");
     return (
         <section
             className="bg-[linear-gradient(180deg,#ffffff_0%,#f8f7f4_100%)] py-24"
