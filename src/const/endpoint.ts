@@ -101,3 +101,11 @@ export const HOME = {
     GET_SERVICES_HIGHLIGHT: "/service-highlights-section",
     UPDATE_SERVICES_HIGHLIGHT: "/service-highlights-section",
 }
+
+// BOOKING ENDPOINTS
+export const BOOKING = {
+    CREATE: "/bookings",
+    GET_BY_ID: "/bookings",
+    UPDATE_STATUS: "/bookings/:id/status",
+    GET_ALL: "/bookings",
+}

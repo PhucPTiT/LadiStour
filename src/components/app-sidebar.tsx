@@ -15,6 +15,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import {
+    BookOpenIcon,
     FileTextIcon,
     FolderIcon,
     HouseIcon,
@@ -62,6 +63,11 @@ const data = {
             title: "Đánh giá",
             url: "/admin/reviews",
             icon: <StarIcon />,
+        },
+        {
+            title: "Booking",
+            url: "/admin/bookings",
+            icon: <BookOpenIcon />,
         },
         {
             title: "Home Sections",

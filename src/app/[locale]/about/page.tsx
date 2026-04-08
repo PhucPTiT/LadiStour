@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { BlogContent } from "@/components/blog/blog-content";
 import { getTranslations } from "next-intl/server";
+import AboutCompanyMap from "@/components/about/AboutCompanyMap";
 
 export const metadata: Metadata = {
     title: "About",
@@ -33,6 +34,7 @@ export default async function AboutPage() {
                     <h1 className="mb-6 text-4xl font-bold leading-snug text-white md:mb-4 md:text-[1.75rem] sm:text-2xl drop-shadow-lg max-w-3xl">
                         {t("title")}
                     </h1>
+
                     {intro && (
                         <p className="text-lg leading-8 text-white/90 md:text-base drop-shadow max-w-2xl">
                             {intro}
@@ -40,12 +42,16 @@ export default async function AboutPage() {
                     )}
                 </div>
             </header>
+
             <div className="mx-auto w-full max-w-225">
                 {contentHTML && (
                     <div className="mb-16 md:mb-12">
                         <BlogContent contentHtml={contentHTML} />
                     </div>
                 )}
+            </div>
+            <div className="mx-auto w-full max-w-225 px-4">
+                <AboutCompanyMap />
             </div>
         </article>
     );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
     Activity,
+    BookOpenIcon,
     FolderTree,
     Globe2,
     Loader2,
@@ -22,6 +23,7 @@ import { getAllTour } from "@/service/tour/TourService";
 import { getAllDestinations } from "@/service/destinations/DestinationService";
 import { getAllCategories } from "@/service/category/CategoryService";
 import { getSettings } from "@/service/settings/SettingService";
+import { getAllBookings } from "@/service/booking/BookingService";
 import { toast } from "sonner";
 
 const sections = [
@@ -51,9 +53,9 @@ const sections = [
         description: "Dữ liệu liên hệ và thông tin toàn cục.",
     },
     {
-        href: "/admin/categories",
-        title: "Danh Mục",
-        description: "Duy trì danh mục blog và tour.",
+        href: "/admin/bookings",
+        title: "Booking",
+        description: "Quản lý yêu cầu đặt lịch.",
     },
 ];
 
@@ -69,6 +71,8 @@ type DashboardStats = {
     featuredTours: number;
     featuredDestinations: number;
     pendingReviews: number;
+    bookings: number;
+    pendingBookings: number;
 };
 
 type RecentItem = {
@@ -90,6 +94,8 @@ const initialStats: DashboardStats = {
     publishedPosts: 0,
     publishedTours: 0,
     featuredTours: 0,
+    bookings: 0,
+    pendingBookings: 0,
     featuredDestinations: 0,
     pendingReviews: 0,
 };
@@ -133,6 +139,7 @@ export default function AdminDashboardPage() {
                 destinationsRes,
                 categoriesRes,
                 settingsRes,
+                bookingsRes,
             ] = await Promise.allSettled([
                 getAllPost(),
                 getAllReviews(),
@@ -140,6 +147,7 @@ export default function AdminDashboardPage() {
                 getAllDestinations(),
                 getAllCategories(),
                 getSettings(),
+                getAllBookings(),
             ]);
 
             const posts = postsRes.status === "fulfilled" ? postsRes.value : [];
@@ -154,6 +162,8 @@ export default function AdminDashboardPage() {
                 categoriesRes.status === "fulfilled" ? categoriesRes.value : [];
             const settings =
                 settingsRes.status === "fulfilled" ? settingsRes.value : null;
+            const bookings =
+                bookingsRes.status === "fulfilled" ? bookingsRes.value : [];
 
             const successCount = [
                 postsRes,
@@ -162,9 +172,10 @@ export default function AdminDashboardPage() {
                 destinationsRes,
                 categoriesRes,
                 settingsRes,
+                bookingsRes,
             ].filter((item) => item.status === "fulfilled").length;
 
-            if (successCount < 6) {
+            if (successCount < 7) {
                 toast.error(
                     "Một vài dữ liệu dashboard chưa tải được. Đang hiển thị dữ liệu khả dụng.",
                 );
@@ -189,6 +200,10 @@ export default function AdminDashboardPage() {
                 ).length,
                 pendingReviews: reviews.filter((item) => !item.isApproved)
                     .length,
+                bookings: bookings.length,
+                pendingBookings: bookings.filter(
+                    (item) => item.status === "PENDING",
+                ).length,
             });
 
             const settingsChecks = [
@@ -288,6 +303,12 @@ export default function AdminDashboardPage() {
                 value: stats.categories,
                 icon: FolderTree,
                 meta: "Sức khỏe phân loại",
+            },
+            {
+                title: "Booking",
+                value: stats.bookings,
+                icon: BookOpenIcon,
+                meta: `${stats.pendingBookings} chờ xử lý`,
             },
             {
                 title: "Cài Đặt",
@@ -404,6 +425,19 @@ export default function AdminDashboardPage() {
                                 }
                             >
                                 {stats.pendingReviews}
+                            </Badge>
+                        </div>
+
+                        <div className="flex items-center justify-between rounded-md border p-3">
+                            <span className="text-sm">Booking chờ xử lý</span>
+                            <Badge
+                                variant={
+                                    stats.pendingBookings === 0
+                                        ? "default"
+                                        : "destructive"
+                                }
+                            >
+                                {stats.pendingBookings}
                             </Badge>
                         </div>
 

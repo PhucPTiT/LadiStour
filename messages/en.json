@@ -20,6 +20,13 @@
         "travelKnowledge": "Travel Knowledge"
     },
     "quickSearch": {
+        "badge": "Quick tour search",
+        "title": "Find your perfect trip in seconds",
+        "description": "Select destination, typology and duration to jump directly to the best matching tours.",
+        "duration": "Duration",
+        "duration5": "Up to 5 days",
+        "duration7": "Up to 7 days",
+        "duration10": "Up to 10 days",
         "searchNow": "Search tours now"
     },
 
@@ -108,7 +115,7 @@
         "defaultDestination": "Destination",
         "startingFrom": "Starting from",
         "mapSection": "Map",
-        "mapPlaceholder": "Interactive map placeholder. In production, connect this section to a map provider and route coordinates."
+        "mapPlaceholder": "View our location on the map to easily find directions and plan your trip."
     },
     "TourTabs": {
         "itinerary": "Itinerary",
@@ -136,7 +143,20 @@
         "numberOfGuests": "Number of guests",
         "message": "Message",
         "preSalesRequest": "Pre-sales Request",
-        "successMessage": "Thanks, our advisor will contact you shortly."
+        "sending": "Sending...",
+        "successMessage": "Thanks, our advisor will contact you shortly.",
+        "errors": {
+            "nameRequired": "Name is required",
+            "nameTooShort": "Name must be at least 2 characters",
+            "emailRequired": "Email is required",
+            "emailInvalid": "Invalid email address",
+            "phoneRequired": "Phone number is required",
+            "phoneInvalid": "Invalid phone number format",
+            "messageRequired": "Message is required",
+            "messageTooShort": "Message must be at least 10 characters",
+            "tourNameRequired": "Tour name is required",
+            "guestsMinimum": "At least 1 guest is required"
+        }
     },
     "footer": {
         "contact": "Contact",
@@ -154,6 +174,61 @@
         "email": "Email",
         "phone": "Phone",
         "address": "Address",
-        "followUs": "Follow Us"
+        "followUs": "Follow Us",
+        "companyMap": {
+            "title": "Our Office Location",
+            "subtitle": "Visit us at our head office in Hanoi",
+            "openGoogleMaps": "Open in Google Maps"
+        }
+    },
+    "BookingPage": {
+        "header": "Book Your Dream Tour",
+        "subtitle": "Fill in your details below and our team will contact you within 24 hours to customize your perfect itinerary.",
+        "form": {
+            "title": "Booking Inquiry",
+            "description": "Tell us about your travel dreams and we'll create the perfect experience for you",
+            "nameLabel": "Full Name",
+            "namePlaceholder": "Enter your full name",
+            "emailLabel": "Email Address",
+            "emailPlaceholder": "your.email@example.com",
+            "phoneLabel": "Phone Number",
+            "phonePlaceholder": "+84 9 XXXX XXXX",
+            "messageLabel": "Message",
+            "messagePlaceholder": "Tell us about your travel preferences, dates, and any special requests...",
+            "submitButton": "Send Booking Inquiry",
+            "submitting": "Sending...",
+            "successMessage": "Thank you! Your booking inquiry has been sent successfully. Our team will contact you within 24 hours."
+        },
+        "validation": {
+            "name": {
+                "minLength": "Name must be at least 2 characters",
+                "maxLength": "Name must not exceed 100 characters"
+            },
+            "email": {
+                "invalid": "Please enter a valid email address"
+            },
+            "phone": {
+                "minLength": "Phone number must be at least 9 digits",
+                "invalid": "Phone number contains invalid characters"
+            },
+            "message": {
+                "minLength": "Message must be at least 10 characters",
+                "maxLength": "Message must not exceed 1000 characters"
+            }
+        },
+        "info": {
+            "fastResponse": {
+                "title": "Fast Response",
+                "description": "Our team responds to all inquiries within 24 hours"
+            },
+            "expertTeam": {
+                "title": "Expert Team",
+                "description": "20+ years of experience in luxury travel"
+            },
+            "customizedTours": {
+                "title": "Customized Tours",
+                "description": "Every tour is tailored to your preferences"
+            }
+        }
     }
 }

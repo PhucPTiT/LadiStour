@@ -96,13 +96,13 @@ export default function NavBar() {
                 const categoryItems = tourItems;
 
                 const quickAccessItems = [
-                    { label: t("quickSearchTour"), href: "/#quick-search" },
+                    { label: t("quickSearchTour"), href: "#quick-search" },
                     {
                         label: t("featuredDestinationsLabel"),
-                        href: "/#featured-destinations",
+                        href: "#featured-destinations",
                     },
-                    { label: t("trendingTours"), href: "/#featured-tours" },
-                    { label: t("travelKnowledge"), href: "/#travel-blog" },
+                    { label: t("trendingTours"), href: "#featured-tours" },
+                    { label: t("travelKnowledge"), href: "#travel-blog" },
                 ];
 
                 const tourItem: NavItem = {
@@ -201,7 +201,7 @@ export default function NavBar() {
                             asChild
                             className="h-11 rounded-full bg-[#da2121] px-6 text-sm hover:bg-[#a87932]"
                         >
-                            <Link className="text-white!" href="/#booking-cta">
+                            <Link className="text-white!" href="/booking">
                                 {t("bookNow")}
                             </Link>
                         </Button>

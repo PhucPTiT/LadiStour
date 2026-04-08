@@ -5,19 +5,17 @@ import { useTranslations } from "next-intl";
 import BookingStickyForm from "@/components/tours/BookingStickyForm";
 import TourGallery from "@/components/tours/TourGallery";
 import TourTabs from "@/components/tours/TourTabs";
+import TourMap from "@/components/tours/TourMap";
 import { formatPrice } from "@/lib/utils/formatPrice";
-import { Tour } from "@/service/tour/type";
+import { TourWithDestination } from "@/service/tour/type";
 
 type TourDetailContentProps = {
-    tour: Tour;
+    tour: TourWithDestination;
 };
 
 export default function TourDetailContent({ tour }: TourDetailContentProps) {
     const t = useTranslations("TourDetailPage");
-    const country =
-        tour.seo?.keywords?.[1] ||
-        tour.seo?.keywords?.[0] ||
-        t("defaultDestination");
+    const country = tour.destination?.name;
 
     return (
         <div className="container px-4 py-12">
@@ -71,14 +69,17 @@ export default function TourDetailContent({ tour }: TourDetailContentProps) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.45, delay: 0.12 }}
-                        className="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-10 text-center"
+                        className="rounded-3xl border border-neutral-200 bg-white p-6 overflow-hidden"
                     >
                         <h2 className="font-heading text-3xl text-neutral-900">
                             {t("mapSection")}
                         </h2>
-                        <p className="mt-2 text-sm text-neutral-600">
+                        <p className="mt-2 text-sm text-neutral-600 mb-6">
                             {t("mapPlaceholder")}
                         </p>
+                        <TourMap
+                            locationName={tour.destination?.name || tour.title}
+                        />
                     </motion.section>
                 </div>
 

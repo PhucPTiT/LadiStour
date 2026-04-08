@@ -16,6 +16,7 @@ type ToursPageProps = {
     searchParams: Promise<{
         country?: string;
         typology?: string;
+        durationMax?: string;
     }>;
 };
 
@@ -34,6 +35,9 @@ export default async function ToursPage({ searchParams }: ToursPageProps) {
             initialFilters={{
                 country: params.country ?? "",
                 typology: params.typology ?? "",
+                durationMax: params.durationMax
+                    ? Number(params.durationMax)
+                    : undefined,
             }}
         />
     );

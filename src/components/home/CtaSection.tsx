@@ -34,7 +34,7 @@ export default async function CtaSection() {
                             asChild
                             className="h-12 rounded-full bg-[#da2121] px-6 text-white hover:bg-[#a87932]"
                         >
-                            <Link href="/tours">
+                            <Link href="/booking">
                                 {t("bookNow")} <ArrowRight size={16} />
                             </Link>
                         </Button>

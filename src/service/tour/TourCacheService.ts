@@ -3,7 +3,7 @@ import { cacheTag } from "next/cache";
 import { TOURS } from "@/const/endpoint";
 import { validateSchema } from "../Service";
 import HttpService from "@/config/http-service ";
-import { Tour, TourList, TourListSchema, TourSchema, TourSchemaWithDestination, TourWithDestination } from "./type";
+import { TourList, TourListSchema, TourSchemaWithDestination, TourWithDestination } from "./type";
 import z from "zod";
 
 async function fetchTour(token: string, locale: "vi" | "en") {
@@ -94,10 +94,11 @@ export async function getCachedAllTours(locale: "vi" | "en") {
         return await fetchAllTours(token, locale);
     } catch (error) {
         console.error("Failed to get all tours:", error);
+        throw error;
     }
 }
 
-async function fetchTourBySlug(token: string, locale: "vi" | "en", slug: string): Promise<Tour> {
+async function fetchTourBySlug(token: string, locale: "vi" | "en", slug: string): Promise<TourWithDestination> {
     "use cache";
 
     const tag = `tours-${slug}-${locale}`;
@@ -106,7 +107,7 @@ async function fetchTourBySlug(token: string, locale: "vi" | "en", slug: string)
 
     const API = HttpService.getInstance(undefined, token);
 
-    const response = await API.get<Tour>(
+    const response = await API.get<TourWithDestination>(
         `${TOURS.GET_BY_SLUG}/${slug}`,
         { locale },
         {
@@ -116,7 +117,7 @@ async function fetchTourBySlug(token: string, locale: "vi" | "en", slug: string)
 
     return validateSchema(
         response,
-        TourSchema,
+        TourSchemaWithDestination,
         "TourService.GetTourBySlug"
     );
 }
@@ -127,5 +128,6 @@ export async function getCachedTourBySlug(locale: "vi" | "en", slug: string) {
         return await fetchTourBySlug(token, locale, slug);
     } catch (error) {
         console.error("Failed to get tour by slug:", error);
+        throw error;
     }
 }

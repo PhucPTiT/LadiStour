@@ -20,6 +20,13 @@
         "travelKnowledge": "Kiến thức du lịch"
     },
     "quickSearch": {
+        "badge": "Tìm tour nhanh",
+        "title": "Tìm chuyến đi phù hợp chỉ trong vài giây",
+        "description": "Chọn điểm đến, loại hình và thời lượng để đi thẳng đến các tour phù hợp nhất.",
+        "duration": "Thời lượng",
+        "duration5": "Tối đa 5 ngày",
+        "duration7": "Tối đa 7 ngày",
+        "duration10": "Tối đa 10 ngày",
         "searchNow": "Tìm tour ngay"
     },
     "testimonials": {
@@ -107,7 +114,7 @@
         "defaultDestination": "Điểm Đến",
         "startingFrom": "Giá từ",
         "mapSection": "Bản Đồ",
-        "mapPlaceholder": "Trình giữ chỗ bản đồ tương tác. Trong phiên bản sản xuất, hãy kết nối phần này với nhà cung cấp bản đồ và tọa độ tuyến đường."
+        "mapPlaceholder": "Xem vị trí của chúng tôi trên bản đồ để dễ dàng tìm đường và lên kế hoạch cho chuyến đi."
     },
     "TourTabs": {
         "itinerary": "Lịch Trình",
@@ -134,8 +141,21 @@
         "phoneNumber": "Số điện thoại",
         "numberOfGuests": "Số lượng khách",
         "message": "Lời nhắn",
-        "preSalesRequest": "Yêu Cầu Trước Bán Hàng",
-        "successMessage": "Cảm ơn,顾问của chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất."
+        "preSalesRequest": "Yêu Cầu Đặt Trước",
+        "sending": "Đang gửi...",
+        "successMessage": "Cảm ơn, đại diện của chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.",
+        "errors": {
+            "nameRequired": "Tên là bắt buộc",
+            "nameTooShort": "Tên phải có ít nhất 2 ký tự",
+            "emailRequired": "Email là bắt buộc",
+            "emailInvalid": "Địa chỉ email không hợp lệ",
+            "phoneRequired": "Số điện thoại là bắt buộc",
+            "phoneInvalid": "Định dạng số điện thoại không hợp lệ",
+            "messageRequired": "Lời nhắn là bắt buộc",
+            "messageTooShort": "Lời nhắn phải có ít nhất 10 ký tự",
+            "tourNameRequired": "Tên tour là bắt buộc",
+            "guestsMinimum": "Cần có ít nhất 1 khách"
+        }
     },
     "footer": {
         "contact": "Liên hệ",
@@ -153,6 +173,61 @@
         "email": "Email",
         "phone": "Điện Thoại",
         "address": "Địa Chỉ",
-        "followUs": "Theo Dõi Chúng Tôi"
+        "followUs": "Theo Dõi Chúng Tôi",
+        "companyMap": {
+            "title": "Vị Trí Văn Phòng Của Chúng Tôi",
+            "subtitle": "Hãy thăm văn phòng chính của chúng tôi tại Hà Nội",
+            "openGoogleMaps": "Mở trong Google Maps"
+        }
+    },
+    "BookingPage": {
+        "header": "Đặt Lịch Tour Của Bạn",
+        "subtitle": "Điền thông tin dưới đây và đội ngũ của chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ để tùy chỉnh lộ trình hoàn hảo của bạn.",
+        "form": {
+            "title": "Yêu Cầu Đặt Lịch",
+            "description": "Hãy chia sẻ về ước mơ du lịch của bạn và chúng tôi sẽ tạo trải nghiệm hoàn hảo cho bạn",
+            "nameLabel": "Họ và Tên",
+            "namePlaceholder": "Nhập họ và tên đầy đủ của bạn",
+            "emailLabel": "Địa Chỉ Email",
+            "emailPlaceholder": "your.email@example.com",
+            "phoneLabel": "Số Điện Thoại",
+            "phonePlaceholder": "+84 9 XXXX XXXX",
+            "messageLabel": "Lời Nhắn",
+            "messagePlaceholder": "Hãy cho chúng tôi biết về sở thích du lịch, ngày dự định và các yêu cầu đặc biệt của bạn...",
+            "submitButton": "Gửi Yêu Cầu Đặt Lịch",
+            "submitting": "Đang gửi...",
+            "successMessage": "Cảm ơn! Yêu cầu đặt lịch của bạn đã được gửi thành công. Đội ngũ của chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ."
+        },
+        "validation": {
+            "name": {
+                "minLength": "Tên phải có ít nhất 2 ký tự",
+                "maxLength": "Tên không được vượt quá 100 ký tự"
+            },
+            "email": {
+                "invalid": "Vui lòng nhập địa chỉ email hợp lệ"
+            },
+            "phone": {
+                "minLength": "Số điện thoại phải có ít nhất 9 chữ số",
+                "invalid": "Số điện thoại chứa các ký tự không hợp lệ"
+            },
+            "message": {
+                "minLength": "Lời nhắn phải có ít nhất 10 ký tự",
+                "maxLength": "Lời nhắn không được vượt quá 1000 ký tự"
+            }
+        },
+        "info": {
+            "fastResponse": {
+                "title": "Phản Hồi Nhanh",
+                "description": "Đội ngũ của chúng tôi phản hồi tất cả các yêu cầu trong vòng 24 giờ"
+            },
+            "expertTeam": {
+                "title": "Đội Ngũ Chuyên Gia",
+                "description": "Hơn 20 năm kinh nghiệm trong du lịch cao cấp"
+            },
+            "customizedTours": {
+                "title": "Tour Được Tùy Chỉnh",
+                "description": "Mỗi tour được thiết kế theo sở thích của bạn"
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ type ToursCatalogClientProps = {
     initialFilters?: {
         country?: string;
         typology?: string;
+        durationMax?: number;
     };
 };
 
@@ -32,7 +33,7 @@ export default function ToursCatalogClient({
     const [filters, setFilters] = useState({
         country: initialFilters?.country ?? "",
         typology: initialFilters?.typology ?? "",
-        durationMax: 10,
+        durationMax: initialFilters?.durationMax ?? 10,
         priceMax: 2200,
     });
     const [sortBy, setSortBy] = useState<SortKey>("newest");
