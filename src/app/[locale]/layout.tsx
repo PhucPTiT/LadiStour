@@ -54,6 +54,7 @@ export default async function LocaleLayout({
             lang={locale}
             suppressHydrationWarning
             className={`${beVietnamPro.variable} ${playfairDisplay.variable} antialiased`}
+            data-scroll-behavior="smooth"
         >
             <body>
                 <LocaleProvider locale={locale}>

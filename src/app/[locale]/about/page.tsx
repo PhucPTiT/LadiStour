@@ -4,6 +4,7 @@ import { getLocale } from "next-intl/server";
 import { BlogContent } from "@/components/blog/blog-content";
 import { getTranslations } from "next-intl/server";
 import AboutCompanyMap from "@/components/about/AboutCompanyMap";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: "About",
@@ -46,12 +47,16 @@ export default async function AboutPage() {
             <div className="mx-auto w-full max-w-225">
                 {contentHTML && (
                     <div className="mb-16 md:mb-12">
-                        <BlogContent contentHtml={contentHTML} />
+                        <Suspense fallback={<div>Loading content...</div>}>
+                            <BlogContent contentHtml={contentHTML} />
+                        </Suspense>
                     </div>
                 )}
             </div>
             <div className="mx-auto w-full max-w-225 px-4">
-                <AboutCompanyMap />
+                <Suspense fallback={<div>Loading map...</div>}>
+                    <AboutCompanyMap />
+                </Suspense>
             </div>
         </article>
     );

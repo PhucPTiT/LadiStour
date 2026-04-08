@@ -1,0 +1,11 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: landing-stour
+    ports:
+      - "3008:3000"
+    env_file:
+      - .env
+    restart: unless-stopped
