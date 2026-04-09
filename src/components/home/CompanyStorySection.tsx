@@ -34,7 +34,7 @@ export default async function CompanyStorySection() {
                             className="lux-shadow rounded-2xl border-neutral-200/80 bg-white py-0"
                         >
                             <CardContent className="p-4">
-                                <p className="text-3xl font-semibold text-emerald-700">
+                                <p className="text-3xl font-semibold text-primary-happysmile">
                                     ~20
                                 </p>
                                 <p className="text-sm text-neutral-600">
@@ -47,7 +47,7 @@ export default async function CompanyStorySection() {
                             className="lux-shadow rounded-2xl border-neutral-200/80 bg-white py-0"
                         >
                             <CardContent className="p-4">
-                                <p className="text-3xl font-semibold text-emerald-700">
+                                <p className="text-3xl font-semibold text-primary-happysmile">
                                     24/7
                                 </p>
                                 <p className="text-sm text-neutral-600">
@@ -60,7 +60,7 @@ export default async function CompanyStorySection() {
                             className="lux-shadow rounded-2xl border-neutral-200/80 bg-white py-0"
                         >
                             <CardContent className="p-4">
-                                <p className="text-3xl font-semibold text-emerald-700">
+                                <p className="text-3xl font-semibold text-primary-happysmile">
                                     4
                                 </p>
                                 <p className="text-sm text-neutral-600">

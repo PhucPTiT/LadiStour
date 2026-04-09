@@ -182,7 +182,7 @@ export default function NavBar() {
                             <div key={item.label} className="group relative">
                                 <Link
                                     href={item.href}
-                                    className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:text-[#ed1925]!"
+                                    className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:text-secondary-happysmile!"
                                 >
                                     {item.label}
                                     {item.mega ? (
@@ -199,7 +199,7 @@ export default function NavBar() {
                     <div className="hidden lg:block">
                         <Button
                             asChild
-                            className="h-11 rounded-full bg-[#da2121] px-6 text-sm hover:bg-[#a87932]"
+                            className="h-11 rounded-full bg-secondary-happysmile px-6 text-sm hover:bg-primary-happysmile!"
                         >
                             <Link className="text-white!" href="/booking">
                                 {t("bookNow")}
@@ -241,7 +241,7 @@ export default function NavBar() {
                                             className={cn(
                                                 "rounded-full px-3 py-1 text-xs font-semibold",
                                                 locale === item
-                                                    ? "bg-emerald-700 text-white"
+                                                    ? "bg-primary-happysmile text-white"
                                                     : "bg-white text-neutral-600",
                                             )}
                                         >
@@ -316,7 +316,7 @@ export default function NavBar() {
                                                                                     false,
                                                                                 )
                                                                             }
-                                                                            className="text-sm text-neutral-600 hover:text-[#ed1925]! transition-colors"
+                                                                            className="text-sm text-neutral-600 hover:text-secondary-happysmile! transition-colors"
                                                                         >
                                                                             {
                                                                                 entry.label
@@ -346,14 +346,14 @@ export default function NavBar() {
                                 {settings.email && (
                                     <a
                                         href={`mailto:${settings.email}`}
-                                        className="inline-flex items-center gap-2 text-sm text-neutral-700 hover:text-[#ed1925] transition-colors"
+                                        className="inline-flex items-center gap-2 text-sm text-neutral-700 hover:text-secondary-happysmile transition-colors"
                                     >
                                         <Mail size={14} /> {settings.email}
                                     </a>
                                 )}
                                 <Button
                                     asChild
-                                    className="mt-1 h-11 rounded-full bg-emerald-700 text-white hover:bg-emerald-800"
+                                    className="mt-1 h-11 rounded-full bg-primary-happysmile text-white hover:bg-primary-happysmile/90"
                                 >
                                     <Link
                                         href="/#booking-cta"

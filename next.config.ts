@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
+        protocol: "https",
+        hostname: "minio.stour.com.vn",
+      },
+      {
         protocol: "http",
         hostname: "103.89.94.201",
         port: "9000",

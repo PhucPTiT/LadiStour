@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
     return (
-        <>
+        <div className="max-w-screen">
             <Suspense fallback="Loading GSAP effects...">
                 <HomeGsapEffects />
             </Suspense>
@@ -44,6 +44,6 @@ export default function HomePage() {
             <Suspense fallback="Loading blog posts...">
                 <BlogSection />
             </Suspense>
-        </>
+        </div>
     );
 }

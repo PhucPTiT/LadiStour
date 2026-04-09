@@ -63,7 +63,7 @@ export default function BookingForm() {
 
             {submitted && (
                 <div className="mb-6 rounded-lg bg-emerald-50 border border-emerald-200 p-4">
-                    <p className="text-emerald-700 font-medium">
+                    <p className="text-primary-happysmile font-medium">
                         {t("successMessage")}
                     </p>
                 </div>
@@ -79,7 +79,7 @@ export default function BookingForm() {
                         {...register("name")}
                         type="text"
                         placeholder={t("namePlaceholder")}
-                        className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                        className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm focus:border-primary-happysmile focus:outline-none focus:ring-1 focus:ring-primary-happysmile"
                     />
                     {errors.name && (
                         <p className="mt-1 text-sm text-red-600">
@@ -146,7 +146,7 @@ export default function BookingForm() {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-emerald-800 hover:scale-[1.02] disabled:bg-neutral-400 disabled:cursor-not-allowed disabled:scale-100"
+                    className="w-full rounded-full bg-primary-happysmile px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-primary-happysmile/90 hover:scale-[1.02] disabled:bg-neutral-400 disabled:cursor-not-allowed disabled:scale-100"
                 >
                     {isSubmitting ? t("submitting") : t("submitButton")}
                 </button>

@@ -196,7 +196,7 @@ export default function QuickSearch() {
                         <div className="flex items-end">
                             <Button
                                 asChild
-                                className="w-full rounded-xl bg-linear-to-r from-[#139444] to-[#ed1925] px-6 text-sm font-semibold text-white shadow-[0_10px_22px_rgba(15,122,92,0.35)] transition-all duration-300 hover:from-[#0f7a37] hover:to-[#c41620]"
+                                className="w-full rounded-xl bg-linear-to-r from-primary-happysmile to-secondary-happysmile px-6 text-sm font-semibold text-white shadow-[0_10px_22px_rgba(15,122,92,0.35)] transition-all duration-300 hover:from-primary-happysmile hover:to-secondary-happysmile"
                             >
                                 <Link
                                     href={`/tours${query ? `?${query}` : ""}`}

@@ -42,7 +42,7 @@ export default async function TopBar() {
     const contactText = t("contactAndSupport");
 
     return (
-        <div className="hidden border-b border-white/10 bg-[#5dc585] px-4 py-2 text-sm text-neutral-200 md:block">
+        <div className="hidden border-b border-white/10 bg-primary-happysmile px-4 py-2 text-sm text-neutral-200 md:block">
             <div className="container flex items-center justify-between gap-4">
                 <TopBarContent contactText={contactText} />
                 <Suspense fallback={null}>

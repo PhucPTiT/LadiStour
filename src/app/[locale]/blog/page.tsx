@@ -10,6 +10,8 @@ export default async function BlogPage() {
     const posts = await getCachedPostsFeaturedSections(locale);
     const t = await getTranslations("BlogPage");
 
+    console.log(posts, "***********************************");
+
     return (
         <section className="container px-4 py-12">
             <h1 className="font-heading text-5xl text-neutral-900">

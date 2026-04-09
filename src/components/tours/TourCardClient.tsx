@@ -1,4 +1,3 @@
-import { MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,7 @@ export default function TourCardClient({ tour, className }: TourCardProps) {
                         {t("sale")}
                     </span>
                 ) : null}
-                <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="absolute inset-x-4 bottom-4 translate-y-0 opacity-100 transition-all duration-300 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                     <Button
                         asChild
                         className="rounded-full bg-white px-4 py-2 text-sm text-neutral-900 hover:bg-white"

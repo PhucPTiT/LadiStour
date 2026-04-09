@@ -71,7 +71,7 @@ export default async function DestinationEditorial() {
 
                 <Button
                     asChild
-                    className="mt-8 rounded-full bg-[#da2121] px-7 py-3 text-white hover:bg-[#a87932]"
+                    className="mt-8 rounded-full bg-secondary-happysmile px-7 py-3 text-white hover:bg-primary-happysmile"
                 >
                     <Link href="/tours">{t("viewAll")}</Link>
                 </Button>

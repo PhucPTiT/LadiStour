@@ -54,7 +54,7 @@ export default async function SignatureExperiencesSection() {
                                 >
                                     <CardHeader className="pb-0">
                                         <CardTitle className="flex items-center gap-2 text-2xl text-neutral-900">
-                                            <Icon className="size-5 text-emerald-700" />
+                                            <Icon className="size-5 text-primary-happysmile" />
                                             {item.title[locale]}
                                         </CardTitle>
                                     </CardHeader>

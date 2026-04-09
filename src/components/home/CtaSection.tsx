@@ -32,7 +32,7 @@ export default async function CtaSection() {
                     <div className="mt-7 flex flex-wrap gap-3">
                         <Button
                             asChild
-                            className="h-12 rounded-full bg-[#da2121] px-6 text-white hover:bg-[#a87932]"
+                            className="h-12 rounded-full bg-secondary-happysmile px-6 text-white hover:bg-primary-happysmile"
                         >
                             <Link href="/booking">
                                 {t("bookNow")} <ArrowRight size={16} />

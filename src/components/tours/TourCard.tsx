@@ -38,11 +38,11 @@ export default async function TourCard({ tour, className }: TourCardProps) {
                     {t("nights")}
                 </span>
                 {tour.salePrice ? (
-                    <span className="absolute right-4 top-4 rounded-full bg-emerald-700 px-3 py-1 text-xs font-semibold text-white">
+                    <span className="absolute right-4 top-4 rounded-full bg-primary-happysmile px-3 py-1 text-xs font-semibold text-white">
                         {t("sale")}
                     </span>
                 ) : null}
-                <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="absolute inset-x-4 bottom-4 translate-y-0 opacity-100 transition-all duration-300 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                     <Button
                         asChild
                         className="rounded-full bg-white px-4 py-2 text-sm text-neutral-900 hover:bg-white"
@@ -75,7 +75,7 @@ export default async function TourCard({ tour, className }: TourCardProps) {
                                 {formatPrice(tour.price)} {tour.currency}
                             </p>
                         ) : null}
-                        <p className="text-lg font-semibold text-emerald-700">
+                        <p className="text-lg font-semibold text-primary-happysmile">
                             {formatPrice(displayPrice)} {tour.currency}
                         </p>
                     </div>

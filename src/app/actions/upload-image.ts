@@ -11,7 +11,8 @@ export async function uploadFileAction(formData: FormData) {
     const fileName = `${Date.now()}-${file.name}`;
 
     try {
-        await minioClient.putObject(
+        console.log(minioClient, "file.size");
+        const res = await minioClient.putObject(
             'stour',
             fileName,
             buffer,
@@ -19,9 +20,12 @@ export async function uploadFileAction(formData: FormData) {
             { 'Content-Type': file.type }
         );
 
+        console.log(res, "res");
+
         return { success: true, fileName };
     } catch (error) {
         console.error("MinIO Error:", error);
+
         return { success: false };
     }
 }
